@@ -88,32 +88,33 @@ const Header = ({ onPostPropertyClick }) => {
     }
   };
 
-  const handleCustomerPortalClick = (type) => {
-    setActiveDropdown(null);
-    setMobileMenuOpen(false);
-    
-    const typeKey = type.toLowerCase().replace(/\s+/g, '-');
-    
-    if (typeKey === "individual") {
-      navigate("/individual");
-    } else if (typeKey === "rent") {
-      navigate("/rent");
-    } else if (typeKey === "buy") {
-      navigate("/buy");
-    } else if (typeKey === "lease") {
-      navigate("/lease");
-    } else if (typeKey === "sell") {
-      navigate("/sell");
-    } else if (typeKey === "apartment") {
-      navigate("/apartment");
-    } else if (typeKey === "commercial") {
-      navigate("/commercial");
-    } else if (typeKey === "land-&-plots") {
-      navigate("/land-plots");
-    } else if (typeKey === "hostel") {
-      navigate("/hostel");
-    }
-  };
+  // Update the handleCustomerPortalClick function in Header.jsx
+const handleCustomerPortalClick = (type) => {
+  setActiveDropdown(null);
+  setMobileMenuOpen(false);
+  
+  const typeKey = type.toLowerCase().replace(/\s+/g, '-');
+  
+  if (typeKey === "individual") {
+    navigate("/individual");
+  } else if (typeKey === "rent") {
+    navigate("/rent");
+  } else if (typeKey === "buy") {
+    navigate("/buy");
+  } else if (typeKey === "lease") {
+    navigate("/lease");
+  } else if (typeKey === "sell") {
+    navigate("/sell");
+  } else if (typeKey === "apartment") {
+    navigate("/apartment");
+  } else if (typeKey === "commercial") {
+    navigate("/commercial");
+  } else if (typeKey === "land-&-plots") {
+    navigate("/land-plots");
+  } else if (typeKey === "hostel") {
+    navigate("/hostel");
+  }
+};
 
   const handleSearch = (e) => {
     e.preventDefault();

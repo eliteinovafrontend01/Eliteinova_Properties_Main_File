@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { X, ArrowLeft, ImagePlus, Video } from "lucide-react";
+import { ArrowLeft, ImagePlus, Video } from "lucide-react";
 
 const steps = [
   "Owner Details",
@@ -9,6 +9,27 @@ const steps = [
   "Document Upload",
 ];
 
+const subtitles = [
+  "Enter your personal information",
+  "Tell us about your property",
+  "Set pricing & select amenities",
+  "Upload property photos & video",
+  "Upload ownership documents",
+];
+
+// Reusable labeled field
+const Field = ({ label, required, hint, children }) => (
+  <div className="mb-3">
+    <label className="block text-xs sm:text-sm font-semibold text-[#00695C] mb-1">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    {children}
+    {hint && <p className="text-[10px] text-gray-400 mt-1">{hint}</p>}
+  </div>
+);
+
+const inputCls = "input w-full text-sm placeholder:text-gray-300 placeholder:text-xs";
+
 export default function OwnerFormModal({ isOpen, onClose }) {
   const [step, setStep] = useState(0);
 
@@ -16,234 +37,312 @@ export default function OwnerFormModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white w-full max-w-md rounded-xl shadow-lg flex flex-col max-h-[95vh] sm:max-h-[90vh]">
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
 
-        {/* Top Bar */}
-        <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 border-b shrink-0">
-          <button onClick={onClose} className="shrink-0">
-            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+        {/* ── HERO HEADER ── */}
+        <div
+          className="relative flex flex-col items-center justify-center min-h-[100px] sm:min-h-[110px] px-4 pt-4 pb-7 overflow-hidden shrink-0"
+          style={{
+            background: "linear-gradient(160deg, #00695C 0%, #00897B 45%, #26A69A 75%, #80CBC4 100%)",
+          }}
+        >
+          {/* glow blobs */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle at 15% 60%, rgba(255,255,255,0.18) 0%, transparent 45%), radial-gradient(circle at 85% 25%, rgba(255,255,255,0.12) 0%, transparent 40%)",
+            }}
+          />
+
+          {/* building silhouette bottom */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-7 bg-white"
+            style={{
+              clipPath:
+                "polygon(0 100%, 5% 40%, 10% 40%, 10% 20%, 14% 20%, 14% 40%, 20% 40%, 20% 0%, 25% 0%, 25% 40%, 30% 40%, 30% 60%, 35% 60%, 35% 30%, 40% 30%, 40% 60%, 48% 60%, 48% 45%, 52% 45%, 52% 60%, 60% 60%, 60% 35%, 65% 35%, 65% 60%, 72% 60%, 72% 40%, 76% 40%, 76% 20%, 80% 20%, 80% 40%, 85% 40%, 85% 55%, 90% 55%, 90% 40%, 95% 40%, 95% 65%, 100% 65%, 100% 100%)",
+            }}
+          />
+
+          {/* back button */}
+          <button
+            onClick={onClose}
+            className="absolute top-2.5 left-2.5 w-7 h-7 rounded-full bg-white/25 hover:bg-white/40 flex items-center justify-center z-10"
+          >
+            <ArrowLeft className="w-4 h-4 text-white" />
           </button>
-          <h2 className="font-semibold text-sm sm:text-base truncate">
-            Property Registration Form For Owner
-          </h2>
+
+          {/* close */}
+          <button
+            onClick={onClose}
+            className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/25 hover:bg-white/40 flex items-center justify-center z-10 text-white font-bold text-sm"
+          >
+            ✕
+          </button>
+
+          <div className="text-3xl mb-1 relative z-10">🏠</div>
+          <h1
+            className="text-base sm:text-lg font-extrabold text-white tracking-wide relative z-10"
+            style={{ textShadow: "0 2px 6px rgba(0,0,0,0.2)" }}
+          >
+            Property Owner Registration
+          </h1>
+          <p className="text-[11px] text-white/80 relative z-10 mt-0.5">
+            List your property with us — fast &amp; easy
+          </p>
         </div>
 
-        {/* Steps */}
-        <div className="flex items-start justify-between px-2 sm:px-4 py-2 sm:py-3 shrink-0 overflow-x-auto">
+        {/* ── STEP TITLE BAND ── */}
+        <div className="text-center px-4 py-2 bg-gradient-to-r from-green-50 to-teal-50 border-b border-green-100 shrink-0">
+          <h2 className="text-sm sm:text-base font-bold text-[#00695C]">{steps[step]}</h2>
+          <p className="text-[10px] sm:text-xs text-green-500 mt-0.5">
+            Step {step + 1} of {steps.length} — {subtitles[step]}
+          </p>
+        </div>
+
+        {/* ── STEPS BAR ── */}
+        <div className="flex items-start justify-between px-2 sm:px-3 py-2 shrink-0 border-b border-gray-100 overflow-x-auto">
           {steps.map((s, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center min-w-[60px] sm:min-w-0">
+            <div key={i} className="flex-1 flex flex-col items-center min-w-[54px]">
               <div
-                className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full text-[10px] sm:text-xs flex items-center justify-center font-bold ${
-                  i <= step
+                className={`w-6 h-6 rounded-full text-[10px] flex items-center justify-center font-bold ${
+                  i < step
+                    ? "bg-green-500 text-white"
+                    : i === step
                     ? "bg-[#00695C] text-white"
                     : "bg-gray-200 text-gray-500"
                 }`}
               >
-                {i + 1}
+                {i < step ? "✓" : i + 1}
               </div>
-              <p
-                className={`text-[9px] sm:text-[10px] mt-1 px-1 text-center ${
-                  i === step
-                    ? "text-[#00695C] font-semibold"
-                    : "text-gray-400"
-                }`}
-              >
+              <p className={`text-[9px] mt-1 text-center px-0.5 ${i === step ? "text-[#00695C] font-bold" : "text-gray-400"}`}>
                 {s}
               </p>
             </div>
           ))}
         </div>
 
-        {/* SCROLLABLE CONTENT */}
-        <div className="px-3 sm:px-4 py-2 sm:py-3 space-y-3 sm:space-y-4 overflow-y-auto flex-1">
+        {/* ── SCROLLABLE BODY ── */}
+        <div className="px-3 sm:px-4 py-3 overflow-y-auto flex-1">
 
-          {/* STEP 1 */}
+          {/* STEP 1 - Owner Details */}
           {step === 0 && (
             <>
-              <input className="input text-sm sm:text-base" placeholder="Owner Name" />
-              <input className="input text-sm sm:text-base" placeholder="Contact Number" />
-              <input className="input text-sm sm:text-base" placeholder="Email ID" />
-              <input className="input text-sm sm:text-base" placeholder="Address" />
-              <input className="input text-sm sm:text-base" placeholder="ID Proof / Aadhaar / PAN" />
+              <Field label="Owner Name" required hint="As per your government-issued ID">
+                <input className={inputCls} placeholder="Enter your full name" />
+              </Field>
+              <Field label="Contact Number" required>
+                <input className={inputCls} type="tel" placeholder="Enter your 10-digit mobile number" />
+              </Field>
+              <Field label="Email ID" required hint="We'll send listing updates to this email">
+                <input className={inputCls} type="email" placeholder="Enter your email address" />
+              </Field>
+              <Field label="Address" required>
+                <textarea
+                  className="input w-full text-sm resize-y min-h-[80px] placeholder:text-gray-300 placeholder:text-xs"
+                  placeholder={"Enter your current residential address\n(Street, Area, City, State, PIN)"}
+                />
+              </Field>
+              <Field label="ID Proof / Aadhaar / PAN" required hint="12-digit Aadhaar or 10-character PAN">
+                <input className={inputCls} placeholder="Enter Aadhaar or PAN number" />
+              </Field>
             </>
           )}
 
-          {/* STEP 2 */}
+          {/* STEP 2 - Property Details */}
           {step === 1 && (
             <>
-              <h3 className="text-[#00695C] font-semibold text-sm sm:text-base">Property Details</h3>
-
-              <input className="input text-sm sm:text-base" placeholder="Property Title / Name" />
-              <input className="input text-sm sm:text-base" placeholder="Property Type" />
-
-              <p className="text-xs sm:text-sm font-semibold text-[#00695C]">Property Type:</p>
-              {["Residential", "Commercial", "Mill / Industrial"].map(t => (
-                <label key={t} className="flex items-center gap-2 text-xs sm:text-sm">
-                  <input type="radio" name="ptype" className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {t}
-                </label>
-              ))}
-
-              <input className="input text-sm sm:text-base" placeholder="Property Address" />
-              <input className="input text-sm sm:text-base" placeholder="City" />
-
-              <p className="text-xs sm:text-sm font-semibold text-[#00695C]">Area Details:</p>
-              <div className="grid grid-cols-2 gap-2">
-                <input className="input text-sm sm:text-base" placeholder="Build-up Area (sq ft)" />
-                <input className="input text-sm sm:text-base" placeholder="Carpet Area (sq ft)" />
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b-2 border-green-50">
+                <div className="w-1 h-4 bg-[#00695C] rounded" />
+                <h3 className="text-sm font-bold text-[#00695C]">Property Details</h3>
               </div>
-
-              <p className="text-xs sm:text-sm font-semibold text-[#00695C]">Room Details:</p>
-              <div className="grid grid-cols-2 gap-2">
-                <input className="input text-sm sm:text-base" placeholder="Bedrooms" />
-                <input className="input text-sm sm:text-base" placeholder="Bathrooms" />
-              </div>
-
-              <p className="text-xs sm:text-sm font-semibold text-[#00695C]">Furnishing Status:</p>
-              {["Full Furnish", "Semi Furnish", "Unfurnished"].map(f => (
-                <label key={f} className="flex items-center gap-2 text-xs sm:text-sm">
-                  <input type="radio" name="furnish" className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {f}
-                </label>
-              ))}
-
-              <p className="text-xs sm:text-sm font-semibold text-[#00695C]">Parking Facility:</p>
-              <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm">
-                <label><input type="radio" name="parking" className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Yes</label>
-                <label><input type="radio" name="parking" className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> No</label>
-              </div>
+              <Field label="Property Title / Name" required>
+                <input className={inputCls} placeholder="e.g. Green Valley 3BHK Apartment" />
+              </Field>
+              <Field label="Property Category" required>
+                <input className={inputCls} placeholder="e.g. Apartment, Villa, Plot..." />
+              </Field>
+              <Field label="Property Type" required>
+                {["Residential", "Commercial", "Mill / Industrial"].map(t => (
+                  <label key={t} className="flex items-center gap-2 text-xs sm:text-sm mb-2">
+                    <input type="radio" name="ptype" className="accent-[#00695C] w-3.5 h-3.5" /> {t}
+                  </label>
+                ))}
+              </Field>
+              <Field label="Property Address" required>
+                <textarea
+                  className="input w-full text-sm resize-y min-h-[70px] placeholder:text-gray-300 placeholder:text-xs"
+                  placeholder={"Enter complete property address\n(Flat No., Building, Street, Locality)"}
+                />
+              </Field>
+              <Field label="City" required>
+                <input className={inputCls} placeholder="Enter city name" />
+              </Field>
+              <Field label="Area Details" required hint="Enter values in square feet">
+                <div className="grid grid-cols-2 gap-2">
+                  <input className={inputCls} type="number" placeholder="Build-up Area (sq ft)" />
+                  <input className={inputCls} type="number" placeholder="Carpet Area (sq ft)" />
+                </div>
+              </Field>
+              <Field label="Room Details">
+                <div className="grid grid-cols-2 gap-2">
+                  <input className={inputCls} type="number" placeholder="No. of Bedrooms" />
+                  <input className={inputCls} type="number" placeholder="No. of Bathrooms" />
+                </div>
+              </Field>
+              <Field label="Furnishing Status" required>
+                {["Full Furnish", "Semi Furnish", "Unfurnished"].map(f => (
+                  <label key={f} className="flex items-center gap-2 text-xs sm:text-sm mb-2">
+                    <input type="radio" name="furnish" className="accent-[#00695C] w-3.5 h-3.5" /> {f}
+                  </label>
+                ))}
+              </Field>
+              <Field label="Parking Facility">
+                <div className="flex gap-5">
+                  <label className="flex items-center gap-2 text-xs sm:text-sm">
+                    <input type="radio" name="parking" className="accent-[#00695C] w-3.5 h-3.5" /> Yes, available
+                  </label>
+                  <label className="flex items-center gap-2 text-xs sm:text-sm">
+                    <input type="radio" name="parking" className="accent-[#00695C] w-3.5 h-3.5" /> No parking
+                  </label>
+                </div>
+              </Field>
             </>
           )}
 
-          {/* STEP 3 */}
+          {/* STEP 3 - Pricing & Amenities */}
           {step === 2 && (
             <>
-              <h3 className="text-[#00695C] font-semibold text-sm sm:text-base">Pricing & Amenities</h3>
-
-              <p className="text-xs sm:text-sm font-semibold text-[#00695C]">Purpose:</p>
-              <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm">
-                <label><input type="radio" name="purpose" className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> For Sale</label>
-                <label><input type="radio" name="purpose" className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> For Rent / Lease</label>
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b-2 border-green-50">
+                <div className="w-1 h-4 bg-[#00695C] rounded" />
+                <h3 className="text-sm font-bold text-[#00695C]">Pricing & Amenities</h3>
               </div>
-
-              <input className="input text-sm sm:text-base" placeholder="Expected Price / Rent" />
-
-              <p className="text-xs sm:text-sm font-semibold text-[#00695C]">Price Type:</p>
-              <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm">
-                <label><input type="radio" name="priceType" className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Fixed</label>
-                <label><input type="radio" name="priceType" className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Negotiable</label>
-              </div>
-
-              <input className="input text-sm sm:text-base" placeholder="Maintenance Charges" />
-              <input className="input text-sm sm:text-base" type="date" />
-
-              <p className="text-xs sm:text-sm font-semibold text-[#00695C]">Amenities:</p>
-              <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                {["Lift", "Power Backup", "Security", "Water Supply", "Garden", "Gym", "Swimming Pool"].map(a => (
-                  <span key={a} className="chip text-xs sm:text-sm">{a}</span>
-                ))}
-              </div>
-
-              <input className="input text-sm sm:text-base" placeholder="Other Amenities" />
+              <Field label="Listing Purpose" required>
+                <div className="flex gap-5">
+                  <label className="flex items-center gap-2 text-xs sm:text-sm">
+                    <input type="radio" name="purpose" className="accent-[#00695C] w-3.5 h-3.5" /> For Sale
+                  </label>
+                  <label className="flex items-center gap-2 text-xs sm:text-sm">
+                    <input type="radio" name="purpose" className="accent-[#00695C] w-3.5 h-3.5" /> For Rent / Lease
+                  </label>
+                </div>
+              </Field>
+              <Field label="Expected Price / Rent (₹)" required>
+                <input className={inputCls} placeholder="e.g. 45,00,000 or 15,000/month" />
+              </Field>
+              <Field label="Price Type">
+                <div className="flex gap-5">
+                  <label className="flex items-center gap-2 text-xs sm:text-sm">
+                    <input type="radio" name="priceType" className="accent-[#00695C] w-3.5 h-3.5" /> Fixed Price
+                  </label>
+                  <label className="flex items-center gap-2 text-xs sm:text-sm">
+                    <input type="radio" name="priceType" className="accent-[#00695C] w-3.5 h-3.5" /> Negotiable
+                  </label>
+                </div>
+              </Field>
+              <Field label="Maintenance Charges (₹/month)">
+                <input className={inputCls} placeholder="Enter monthly maintenance amount" />
+              </Field>
+              <Field label="Available From" hint="Date from which the property is available">
+                <input className={inputCls} type="date" />
+              </Field>
+              <Field label="Select Amenities">
+                <div className="flex flex-wrap gap-1.5 mt-1">
+                  {["Lift", "Power Backup", "Security", "Water Supply", "Garden", "Gym", "Swimming Pool"].map(a => (
+                    <span key={a} className="chip text-xs sm:text-sm">{a}</span>
+                  ))}
+                </div>
+              </Field>
+              <Field label="Other Amenities">
+                <input className={inputCls} placeholder="e.g. Clubhouse, CCTV, Solar Panel..." />
+              </Field>
             </>
           )}
 
-          {/* STEP 4 */}
+          {/* STEP 4 - Media Upload */}
           {step === 3 && (
             <>
-              <h3 className="text-[#00695C] font-semibold text-center text-sm sm:text-base">Media Upload</h3>
-              <p className="text-[10px] sm:text-xs text-center text-gray-500">Minimum 3 images required</p>
-
-              <div className="upload-box cursor-pointer hover:bg-gray-50">
-                <input 
-                  type="file" 
-                  accept="image/*" 
-                  multiple 
-                  className="hidden" 
-                  id="property-images"
-                />
-                <label htmlFor="property-images" className="cursor-pointer flex flex-col items-center">
-                  <ImagePlus className="mx-auto mb-2 w-8 h-8 sm:w-10 sm:h-10" />
-                  <span className="text-xs sm:text-sm">Add Property Images</span>
-                  <span className="text-[10px] sm:text-xs text-gray-400 mt-1">Click to upload multiple images</span>
-                </label>
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b-2 border-green-50">
+                <div className="w-1 h-4 bg-[#00695C] rounded" />
+                <h3 className="text-sm font-bold text-[#00695C]">Media Upload</h3>
               </div>
-
-              <div className="upload-box cursor-pointer hover:bg-gray-50">
-                <input 
-                  type="file" 
-                  accept="video/mp4,video/mov" 
-                  className="hidden" 
-                  id="property-video"
-                />
-                <label htmlFor="property-video" className="cursor-pointer flex flex-col items-center">
-                  <Video className="mx-auto mb-2 w-8 h-8 sm:w-10 sm:h-10" />
-                  <span className="text-xs sm:text-sm">Upload Property Video</span>
-                  <p className="text-[10px] sm:text-xs text-gray-400">MP4, MOV supported</p>
-                </label>
-              </div>
+              <p className="text-[10px] sm:text-xs text-center text-gray-400 mb-3">📸 Minimum 3 property images required</p>
+              <Field label="Property Images" required>
+                <div className="upload-box cursor-pointer hover:bg-green-50">
+                  <input type="file" accept="image/*" multiple className="hidden" id="property-images" />
+                  <label htmlFor="property-images" className="cursor-pointer flex flex-col items-center">
+                    <ImagePlus className="mx-auto mb-2 w-8 h-8 sm:w-10 sm:h-10 text-[#00695C]" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#00695C]">Upload Property Photos</span>
+                    <span className="text-[10px] text-gray-400 mt-1">Click to select multiple images (JPG, PNG)</span>
+                  </label>
+                </div>
+              </Field>
+              <Field label="Property Video">
+                <div className="upload-box cursor-pointer hover:bg-green-50">
+                  <input type="file" accept="video/mp4,video/mov" className="hidden" id="property-video" />
+                  <label htmlFor="property-video" className="cursor-pointer flex flex-col items-center">
+                    <Video className="mx-auto mb-2 w-8 h-8 sm:w-10 sm:h-10 text-[#00695C]" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#00695C]">Upload Property Video Tour</span>
+                    <p className="text-[10px] text-gray-400">MP4 or MOV format supported</p>
+                  </label>
+                </div>
+              </Field>
             </>
           )}
 
-          {/* STEP 5 */}
+          {/* STEP 5 - Document Upload */}
           {step === 4 && (
             <>
-              <h3 className="text-[#00695C] font-semibold text-center text-sm sm:text-base">Document Upload</h3>
-              
-              <div className="upload-box cursor-pointer hover:bg-gray-50">
-                <input 
-                  type="file" 
-                  accept=".pdf,.jpg,.jpeg,.png" 
-                  className="hidden" 
-                  id="ownership-proof"
-                />
-                <label htmlFor="ownership-proof" className="cursor-pointer text-xs sm:text-sm">
-                  Upload Property Ownership Proof
-                  <span className="block text-[10px] text-gray-400 mt-1">PDF, JPG, PNG supported</span>
-                </label>
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b-2 border-green-50">
+                <div className="w-1 h-4 bg-[#00695C] rounded" />
+                <h3 className="text-sm font-bold text-[#00695C]">Document Upload</h3>
               </div>
-
-              <div className="upload-box cursor-pointer hover:bg-gray-50">
-                <input 
-                  type="file" 
-                  accept=".pdf,.jpg,.jpeg,.png" 
-                  className="hidden" 
-                  id="id-proof"
-                />
-                <label htmlFor="id-proof" className="cursor-pointer text-xs sm:text-sm">
-                  Upload ID Proof of Owner
-                  <span className="block text-[10px] text-gray-400 mt-1">PDF, JPG, PNG supported</span>
-                </label>
-              </div>
-
-              <div className="upload-box cursor-pointer hover:bg-gray-50">
-                <input 
-                  type="file" 
-                  accept=".pdf,.jpg,.jpeg,.png" 
-                  multiple 
-                  className="hidden" 
-                  id="additional-docs"
-                />
-                <label htmlFor="additional-docs" className="cursor-pointer text-xs sm:text-sm">
-                  + Add Additional Documents
-                  <span className="block text-[10px] text-gray-400 mt-1">Multiple files supported</span>
-                </label>
-              </div>
+              <Field label="Property Ownership Proof" required>
+                <div className="upload-box cursor-pointer hover:bg-green-50">
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" id="ownership-proof" />
+                  <label htmlFor="ownership-proof" className="cursor-pointer">
+                    <div className="text-2xl mb-1">📄</div>
+                    <div className="text-xs sm:text-sm font-semibold text-[#00695C]">Upload Ownership Document</div>
+                    <span className="block text-[10px] text-gray-400 mt-1">Sale deed, registry, or title deed (PDF/JPG/PNG)</span>
+                  </label>
+                </div>
+              </Field>
+              <Field label="Owner ID Proof" required>
+                <div className="upload-box cursor-pointer hover:bg-green-50">
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" id="id-proof" />
+                  <label htmlFor="id-proof" className="cursor-pointer">
+                    <div className="text-2xl mb-1">🪪</div>
+                    <div className="text-xs sm:text-sm font-semibold text-[#00695C]">Upload ID Proof</div>
+                    <span className="block text-[10px] text-gray-400 mt-1">Aadhaar, PAN, or Passport (PDF/JPG/PNG)</span>
+                  </label>
+                </div>
+              </Field>
+              <Field label="Additional Documents">
+                <div className="upload-box cursor-pointer hover:bg-green-50">
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple className="hidden" id="additional-docs" />
+                  <label htmlFor="additional-docs" className="cursor-pointer">
+                    <div className="text-2xl mb-1">📎</div>
+                    <div className="text-xs sm:text-sm font-semibold text-[#00695C]">+ Add More Documents</div>
+                    <span className="block text-[10px] text-gray-400 mt-1">Tax receipts, NOC, floor plans (Multiple allowed)</span>
+                  </label>
+                </div>
+              </Field>
             </>
           )}
         </div>
 
-        {/* FOOTER (ALWAYS VISIBLE) */}
-        <div className="flex gap-2 sm:gap-3 p-3 sm:p-4 border-t bg-white shrink-0 rounded-b-xl">
-
+        {/* ── FOOTER ── */}
+        <div className="flex gap-2 sm:gap-3 p-3 sm:p-4 border-t bg-white shrink-0 rounded-b-2xl">
           {step > 0 && (
-            <button className="btn-outline text-sm sm:text-base px-3 sm:px-4 py-2" onClick={() => setStep(step - 1)}>
-              Back
+            <button className="btn-outline text-sm px-3 py-2" onClick={() => setStep(step - 1)}>
+              ← Back
             </button>
           )}
           <button
-            className="btn-primary ml-auto text-sm sm:text-base px-3 sm:px-4 py-2"
+            className="btn-primary ml-auto text-sm px-4 py-2"
             onClick={() => (step === 4 ? onClose() : setStep(step + 1))}
           >
-            {step === 4 ? "Submit" : "Continue"}
+            {step === 4 ? "✓ Submit Form" : "Continue →"}
           </button>
         </div>
 

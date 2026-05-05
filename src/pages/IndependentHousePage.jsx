@@ -3,11 +3,11 @@ import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark,
 import { useNavigate, useLocation } from "react-router-dom";
 import backgroundImage from "../assets/ind1.jpg"
 
-const IndividualPage = () => {
+const IndependentHousePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeButton, setActiveButton] = useState("Rent");
-  const [activeHouseType, setActiveHouseType] = useState("All");
+  const [activeHouseType, setActiveHouseType] = useState("Independent House");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [hoveredFilter, setHoveredFilter] = useState(null);
@@ -20,12 +20,12 @@ const IndividualPage = () => {
   ];
 
   const houseTypes = [
-    { name: "All", path: "/individual", component: "IndividualPage" },
-    { name: "Independent House", path: "/individual/independent-house", component: "IndependentHousePage" },
-    { name: "Independent Villa", path: "/individual/independent-villa", component: "IndependentVillaPage" },
-    { name: "Residential Apartment", path: "/individual/residential-apartment", component: "ResidentialApartmentPage" },
-    { name: "Duplex Residential Unit", path: "/individual/duplex-residential-unit", component: "DuplexResidentialUnitPage" },
-    { name: "Row House", path: "/individual/row-house", component: "RowHousePage" }
+    { name: "All", path: "/individual" },
+    { name: "Independent House", path: "/individual/independent-house" },
+    { name: "Independent Villa", path: "/individual/independent-villa" },
+    { name: "Residential Apartment", path: "/individual/residential-apartment" },
+    { name: "Duplex Residential Unit", path: "/individual/duplex-residential-unit" },
+    { name: "Row House", path: "/individual/row-house" }
   ];
 
   useEffect(() => {
@@ -33,8 +33,6 @@ const IndividualPage = () => {
     const activeType = houseTypes.find(type => type.path === currentPath);
     if (activeType) {
       setActiveHouseType(activeType.name);
-    } else if (currentPath === "/individual" || currentPath === "/individual/") {
-      setActiveHouseType("All");
     }
   }, [location.pathname]);
 
@@ -51,7 +49,6 @@ const IndividualPage = () => {
 
   return (
     <div className="w-full min-h-screen relative">
-      {/* Background and other content same as before */}
       <div 
         className="fixed inset-0 z-0"
         style={{
@@ -80,24 +77,6 @@ const IndividualPage = () => {
               }}
             ></div>
           ))}
-          
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={`shape-${i}`}
-              className="absolute animate-geometric-float"
-              style={{
-                width: `${20 + Math.random() * 40}px`,
-                height: `${20 + Math.random() * 40}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                background: `linear-gradient(135deg, rgba(0, 105, 92, 0.1), rgba(38, 166, 154, 0.05))`,
-                borderRadius: i % 3 === 0 ? '50%' : i % 3 === 1 ? '20%' : '0%',
-                border: '1px solid rgba(38, 166, 154, 0.15)',
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${15 + Math.random() * 15}s`,
-              }}
-            ></div>
-          ))}
         </div>
       </div>
 
@@ -105,35 +84,20 @@ const IndividualPage = () => {
         <section className="w-full h-[350px] md:h-[450px] relative flex items-center overflow-hidden group">
           <div className="absolute inset-0 bg-gradient-to-b animate-gradient-slow"></div>
           
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
-              <div
-                key={`dot-${i}`}
-                className="absolute w-2 h-2 bg-teal-400/30 rounded-full animate-bubble-float"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${5 + Math.random() * 5}s`,
-                }}
-              ></div>
-            ))}
-          </div>
-          
           <div className="max-w-none mx-auto px-6 relative z-10 text-center w-full">
             <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
               <Star className="w-4 h-4 text-teal-300 animate-spin-slow" fill="currentColor" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300 text-sm font-medium">
-                Premium Properties
+                Independent House Properties
               </span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
-              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Individual Property</span>
+              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Independent House</span>
             </h1>
             
             <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed ">
-              Browse through our verified individual properties with premium amenities
+              Explore spacious independent houses with premium amenities and prime locations
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 px-4 animate-fade-in-up delay-200">
@@ -150,7 +114,6 @@ const IndividualPage = () => {
                 >
                   <div className="absolute inset-0 animate-gradient-shift"></div>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
                   <div className="relative z-10 flex items-center gap-3">
                     <span className="group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">{category.icon}</span>
                     <span>{category.name}</span>
@@ -178,62 +141,32 @@ const IndividualPage = () => {
                     <Home className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
                     <span className="relative z-10">{activeButton}</span>
                     <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${openDropdown === "toggle" ? 'rotate-180' : ''} relative z-10`} />
-                    <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
                   </button>
 
                   {openDropdown === "toggle" && (
                     <div className="absolute top-full left-0 mt-2 bg-teal-50/95 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden z-50 min-w-[180px] border border-teal-200/30 animate-slide-down-fast">
-                      <button
-                        onClick={() => {
-                          handleNavigation("/buy");
-                          setActiveButton("Buy");
-                          setOpenDropdown(null);
-                        }}
-                        className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
-                      >
+                      <button onClick={() => { handleNavigation("/buy"); setActiveButton("Buy"); setOpenDropdown(null); }} className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group">
                         <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
                           <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
                           Buy
                         </div>
                       </button>
                       <div className="h-px bg-gradient-to-r from-transparent via-teal-200/50 to-transparent"></div>
-                      <button
-                        onClick={() => {
-                          handleNavigation("/rent");
-                          setActiveButton("Rent");
-                          setOpenDropdown(null);
-                        }}
-                        className="w-full px-5 py-3.5 text-left text-base font-semibold transition-all duration-300 group"
-                        style={{ color: "#00695C", backgroundColor: "#e0f2f1" }}
-                      >
+                      <button onClick={() => { handleNavigation("/rent"); setActiveButton("Rent"); setOpenDropdown(null); }} className="w-full px-5 py-3.5 text-left text-base font-semibold transition-all duration-300 group" style={{ color: "#00695C", backgroundColor: "#e0f2f1" }}>
                         <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
                           <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
                           Rent
                         </div>
                       </button>
                       <div className="h-px bg-gradient-to-r from-transparent via-teal-200/50 to-transparent"></div>
-                      <button
-                        onClick={() => {
-                          handleNavigation("/lease");
-                          setActiveButton("Lease");
-                          setOpenDropdown(null);
-                        }}
-                        className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
-                      >
+                      <button onClick={() => { handleNavigation("/lease"); setActiveButton("Lease"); setOpenDropdown(null); }} className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group">
                         <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
                           <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
                           Lease
                         </div>
                       </button>
                       <div className="h-px bg-gradient-to-r from-transparent via-teal-200/50 to-transparent"></div>
-                      <button
-                        onClick={() => {
-                          handleNavigation("/sell");
-                          setActiveButton("Sell");
-                          setOpenDropdown(null);
-                        }}
-                        className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
-                      >
+                      <button onClick={() => { handleNavigation("/sell"); setActiveButton("Sell"); setOpenDropdown(null); }} className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group">
                         <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
                           <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
                           Sell
@@ -248,7 +181,7 @@ const IndividualPage = () => {
                   <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
                   <input
                     type="text"
-                    placeholder="Search by city, locality, or landmark"
+                    placeholder="Search independent houses by city, locality, or landmark"
                     className="w-full pl-12 pr-5 py-3.5 rounded-2xl border-2 border-teal-200/50 bg-teal-50/90 text-base focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-xl text-teal-900 placeholder-teal-400 transition-all duration-500 relative z-10 hover:shadow-2xl"
                   />
                   <MapPin className="absolute right-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
@@ -345,15 +278,13 @@ const IndividualPage = () => {
                     <Home className="w-12 h-12 text-white group-hover:rotate-12 transition-transform duration-700 relative z-10" />
                   </div>
                   
-                  <h2 className="text-3xl md:text-4xl font-bold text-teal-900 mb-4 group-hover:text-teal-950 transition-colors duration-300">
-                    {activeHouseType === "All" ? "Premium Properties" : `${activeHouseType} Properties`}
+                  <h2 className="text-3xl md:text-4xl font-bold text-teal-900 mb-4">
+                    {activeHouseType === "Independent House" ? "Independent Houses" : activeHouseType} 
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 animate-gradient-text-slow"> Coming Soon</span>
                   </h2>
                   
-                  <p className="text-teal-800 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed group-hover:text-teal-900 transition-colors duration-300 backdrop-blur-sm bg-teal-100/30 rounded-2xl p-6 border border-teal-200/20">
-                    {activeHouseType === "All" 
-                      ? "We're currently adding exclusive individual properties to our database."
-                      : `We're currently adding exclusive ${activeHouseType.toLowerCase()} properties to our database.`}
+                  <p className="text-teal-800 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed backdrop-blur-sm bg-teal-100/30 rounded-2xl p-6 border border-teal-200/20">
+                    We're adding premium {activeHouseType.toLowerCase()} listings. Stay tuned for exclusive properties in prime locations.
                     <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 font-semibold text-xl">
                       Check back soon for amazing deals!
                     </span>
@@ -378,45 +309,11 @@ const IndividualPage = () => {
                   </div>
                 </div>
               </section>
-
-              <div className="mt-8 bg-gradient-to-br from-teal-50/90 via-emerald-50/90 to-teal-50/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 lg:p-12 text-center border border-teal-200/30 animate-fade-in-up delay-300">
-                <div className="max-w-2xl mx-auto">
-                  <div className="w-20 h-20 rounded-3xl bg-gradient-to-r from-teal-500/10 to-emerald-500/10 mx-auto mb-6 flex items-center justify-center relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-3xl animate-pulse-slow"></div>
-                    <Home className="w-10 h-10 text-teal-600 animate-bounce-slow relative z-10" />
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-teal-900 mb-4">
-                    No {activeHouseType !== "All" ? `${activeHouseType} ` : ""}Properties Found
-                  </h3>
-                  
-                  <p className="text-teal-800 mb-6 backdrop-blur-sm bg-teal-100/30 rounded-xl p-4 border border-teal-200/20">
-                    {activeHouseType !== "All"
-                      ? `We don't have any ${activeHouseType.toLowerCase()} properties available at the moment.`
-                      : "Use the filters on the right to find properties that match your criteria."}
-                  </p>
-                  
-                  <div className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-100">
-                    {[0, 150, 300].map((delay) => (
-                      <div
-                        key={delay}
-                        className="w-2 h-2 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500 animate-pulse"
-                        style={{ animationDelay: `${delay}ms` }}
-                      ></div>
-                    ))}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 font-medium">
-                      {activeHouseType !== "All" 
-                        ? `Check back later for ${activeHouseType.toLowerCase()} listings` 
-                        : "Adjust your filters to see matching properties"}
-                    </span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div className="lg:w-1/3 lg:relative">
               <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:custom-scrollbar animate-slide-in-right">
-                <div className="bg-gradient-to-b from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-teal-200/30 hover:shadow-[0_0_40px_rgba(0,105,92,0.2)] transition-all duration-500">
+                <div className="bg-gradient-to-b from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-teal-200/30">
                   <h3 className="text-xl font-bold text-teal-900 mb-6 flex items-center gap-3">
                     <div className="p-2 rounded-xl bg-gradient-to-r from-teal-500/10 to-emerald-500/10 animate-pulse-slow">
                       <Filter className="w-5 h-5 animate-rotate-slow" style={{ color: "#00695C" }} />
@@ -510,7 +407,6 @@ const IndividualPage = () => {
       </div>
 
       <style jsx>{`
-        /* Keep all existing styles */
         @keyframes gradient-flow {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
@@ -545,20 +441,6 @@ const IndividualPage = () => {
         }
         .animate-particle-float {
           animation: particle-float 12s ease-in-out infinite;
-        }
-        @keyframes geometric-float {
-          0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-          50% { transform: translateY(-30px) rotate(180deg) scale(1.1); }
-        }
-        .animate-geometric-float {
-          animation: geometric-float 20s ease-in-out infinite;
-        }
-        @keyframes bubble-float {
-          0%, 100% { transform: translateY(0px) scale(1); opacity: 0.3; }
-          50% { transform: translateY(-25px) scale(1.2); opacity: 0.8; }
-        }
-        .animate-bubble-float {
-          animation: bubble-float 6s ease-in-out infinite;
         }
         @keyframes float-glow {
           0%, 100% { transform: translateY(0px); box-shadow: 0 0 30px rgba(0,105,92,0.3); }
@@ -598,10 +480,6 @@ const IndividualPage = () => {
         .animate-slide-in-right {
           animation: slide-in-right 0.5s ease-out forwards;
         }
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
         .animate-spin-slow {
           animation: spin-slow 20s linear infinite;
         }
@@ -639,6 +517,8 @@ const IndividualPage = () => {
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
@@ -666,4 +546,4 @@ const IndividualPage = () => {
   );
 };
 
-export default IndividualPage;
+export default IndependentHousePage;

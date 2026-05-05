@@ -12,6 +12,19 @@ import CustomerPortalPage from "./pages/CustomerPortalPage";
 import IndividualPage from "./pages/IndividualPage";
 import BuyPage from "./pages/BuyPage";
 import LeasePage from "./pages/LeasePage";
+// import RentPage from "./pages/RentPage";
+// import SellPage from "./pages/SellPage";
+// import ApartmentPage from "./pages/ApartmentPage";
+// import CommercialPage from "./pages/CommercialPage";
+// import LandPlotsPage from "./pages/LandPlotsPage";
+// import HostelPage from "./pages/HostelPage";
+
+// Import all house type pages
+import IndependentHousePage from "./pages/IndependentHousePage";
+import IndependentVillaPage from "./pages/IndependentVillaPage";
+import ResidentialApartmentPage from "./pages/ResidentialApartmentPage";
+import DuplexResidentialUnitPage from "./pages/DuplexResidentialUnitPage";
+import RowHousePage from "./pages/RowHousePage";
 
 // Import all form modals
 import OwnerFormModal from "./components/OwnerFormModal";
@@ -93,9 +106,25 @@ function AppLayout() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/customer-portal" element={<CustomerPortalPage />} />
+          
+          {/* Customer Portal Routes */}
           <Route path="/individual" element={<IndividualPage />} />
+          {/* <Route path="/rent" element={<RentPage />} />
           <Route path="/buy" element={<BuyPage />} />
           <Route path="/lease" element={<LeasePage />} />
+          <Route path="/sell" element={<SellPage />} />
+          <Route path="/apartment" element={<ApartmentPage />} />
+          <Route path="/commercial" element={<CommercialPage />} />
+          <Route path="/land-plots" element={<LandPlotsPage />} />
+          <Route path="/hostel" element={<HostelPage />} /> */}
+          
+          {/* Individual House Type Routes */}
+          <Route path="/individual/independent-house" element={<IndependentHousePage />} />
+          <Route path="/individual/independent-villa" element={<IndependentVillaPage />} />
+          <Route path="/individual/residential-apartment" element={<ResidentialApartmentPage />} />
+          <Route path="/individual/duplex-residential-unit" element={<DuplexResidentialUnitPage />} />
+          <Route path="/individual/row-house" element={<RowHousePage />} />
+          
           <Route 
             path="/post-property" 
             element={<PostPropertyPage onPostPropertyClick={handlePostPropertyClick} />} 
@@ -113,6 +142,3 @@ export default function App() {
     </Router>
   );
 }
-
-
-
