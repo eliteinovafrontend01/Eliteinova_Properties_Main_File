@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import backgroundImage from "../assets/ind1.jpg"
+import backgroundImage from "../assets/ind1.jpg";
+import IndependentHouseFilter from "../components/filters/IndependentHouseFilter";
 
 const IndependentHousePage = () => {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ const IndependentHousePage = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [hoveredFilter, setHoveredFilter] = useState(null);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [appliedFilters, setAppliedFilters] = useState(null);
 
   const propertyCategories = [
     { name: "Apartment", path: "/apartment", icon: <Building className="w-4 h-4" /> },
@@ -45,6 +48,12 @@ const IndependentHousePage = () => {
 
   const handlePropertyCategoryNavigation = (path) => {
     navigate(path);
+  };
+
+  const handleFilterChange = (filters) => {
+    setAppliedFilters(filters);
+    console.log("Applied Filters:", filters);
+    // Here you can make API call to fetch filtered properties
   };
 
   return (
@@ -186,6 +195,23 @@ const IndependentHousePage = () => {
                   />
                   <MapPin className="absolute right-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
                 </div>
+
+                {/* Advanced Filter Button */}
+                <button
+                  onClick={() => setShowFilterModal(true)}
+                  className="group relative px-6 py-3.5 rounded-xl text-white font-semibold text-base flex items-center gap-3 shadow-xl hover:shadow-[0_0_30px_rgba(0,105,92,0.4)] transition-all duration-500 transform hover:scale-105 overflow-hidden"
+                  style={{
+                    background: "linear-gradient(135deg, #00897B, #26A69A)",
+                    backgroundSize: "200% 200%"
+                  }}
+                >
+                  <div className="absolute inset-0 animate-gradient-shift-slow"></div>
+                  <Filter className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+                  <span className="relative z-10">Advanced Filters</span>
+                  {appliedFilters && (
+                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></span>
+                  )}
+                </button>
               </div>
 
               <div className="flex flex-wrap gap-3">
@@ -246,9 +272,31 @@ const IndependentHousePage = () => {
                   );
                 })}
               </div>
+              
+              {/* Mobile Filter Button */}
+              <button
+                onClick={() => setShowFilterModal(true)}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-semibold flex items-center justify-center gap-2 shadow-lg"
+              >
+                <Filter className="w-4 h-4" />
+                Filter Properties
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Filter Modal */}
+        {showFilterModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
+            <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+              <IndependentHouseFilter 
+                activeTab={activeButton}
+                onFilterChange={handleFilterChange}
+                onClose={() => setShowFilterModal(false)}
+              />
+            </div>
+          </div>
+        )}
 
         <div className="max-w-none mx-auto px-6 py-8 lg:py-12">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
@@ -290,6 +338,15 @@ const IndependentHousePage = () => {
                     </span>
                   </p>
                   
+                  {appliedFilters && (
+                    <div className="mt-6 p-4 bg-teal-100/50 rounded-xl">
+                      <p className="text-sm text-teal-700 font-semibold">Filters Applied:</p>
+                      <p className="text-xs text-teal-600 mt-1">
+                        {Object.keys(appliedFilters).filter(key => appliedFilters[key] && (typeof appliedFilters[key] !== 'object' || Object.keys(appliedFilters[key]).length > 0)).length} filters active
+                      </p>
+                    </div>
+                  )}
+                  
                   <div className="mt-8 flex justify-center gap-4">
                     <button className="group relative px-6 py-3 rounded-xl border-2 border-teal-500 text-teal-600 font-semibold hover:bg-gradient-to-r from-teal-50 to-emerald-50 transition-all duration-500 transform hover:scale-105 overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-100 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -313,92 +370,12 @@ const IndependentHousePage = () => {
 
             <div className="lg:w-1/3 lg:relative">
               <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:custom-scrollbar animate-slide-in-right">
-                <div className="bg-gradient-to-b from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-teal-200/30">
-                  <h3 className="text-xl font-bold text-teal-900 mb-6 flex items-center gap-3">
-                    <div className="p-2 rounded-xl bg-gradient-to-r from-teal-500/10 to-emerald-500/10 animate-pulse-slow">
-                      <Filter className="w-5 h-5 animate-rotate-slow" style={{ color: "#00695C" }} />
-                    </div>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                      Advanced Filters
-                    </span>
-                  </h3>
-
-                  <div className="mb-6 animate-fade-in-up delay-100">
-                    <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
-                      <span className="text-xl animate-bounce-slow">💰</span> 
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                        Price Range
-                      </span>
-                    </label>
-                    <div className="flex gap-3">
-                      <input
-                        type="number"
-                        placeholder="Min"
-                        className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
-                      />
-                      <input
-                        type="number"
-                        placeholder="Max"
-                        className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
-                      />
-                    </div>
-                    <div className="mt-3 h-2 bg-gradient-to-r from-teal-100 to-emerald-100 rounded-full overflow-hidden">
-                      <div className="h-full w-3/4 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full animate-progress"></div>
-                    </div>
-                  </div>
-
-                  <div className="mb-6 animate-fade-in-up delay-200">
-                    <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
-                      <span className="text-xl animate-bounce-slow">🏠</span>
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                        BHK Type
-                      </span>
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {["1 BHK", "2 BHK", "3 BHK", "4 BHK", "5+ BHK"].map((bhk, index) => (
-                        <label 
-                          key={bhk} 
-                          onMouseEnter={() => setHoveredFilter(`bhk-${index}`)}
-                          onMouseLeave={() => setHoveredFilter(null)}
-                          className={`flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 hover:border-teal-300 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r from-teal-50/50 to-emerald-50/50 group animate-fade-in-up ${
-                            hoveredFilter === `bhk-${index}` ? 'scale-[1.02]' : ''
-                          }`}
-                          style={{ animationDelay: `${index * 50}ms` }}
-                        >
-                          <input 
-                            type="checkbox" 
-                            className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30 transition-all duration-300" 
-                          />
-                          <span className="text-sm text-teal-800 group-hover:text-teal-900 group-hover:font-medium transition-all duration-300">
-                            {bhk}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex gap-3 pt-6 border-t border-teal-200/30 animate-fade-in-up delay-500">
-                    <button
-                      className="flex-1 px-4 py-3 rounded-xl border-2 border-teal-200/50 text-sm font-medium text-teal-700 hover:bg-gradient-to-r from-teal-50 to-emerald-50 hover:border-teal-300 transition-all duration-500 transform hover:scale-[1.02] relative overflow-hidden group"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-100 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                      <span className="relative z-10">Clear All</span>
-                    </button>
-                    <button
-                      className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold text-white shadow-xl hover:shadow-[0_0_25px_rgba(0,105,92,0.4)] transition-all duration-500 transform hover:scale-[1.02] group relative overflow-hidden"
-                      style={{
-                        background: "linear-gradient(135deg, #00695C, #26A69A)",
-                        backgroundSize: "200% 200%"
-                      }}
-                    >
-                      <div className="absolute inset-0 animate-gradient-shift"></div>
-                      <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
-                      <span className="relative z-10 flex items-center justify-center gap-2">
-                        Apply Filters
-                        <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
-                      </span>
-                    </button>
-                  </div>
+                {/* Desktop Sidebar Filter */}
+                <div className="hidden lg:block">
+                  <IndependentHouseFilter 
+                    activeTab={activeButton}
+                    onFilterChange={handleFilterChange}
+                  />
                 </div>
               </div>
             </div>
@@ -449,6 +426,13 @@ const IndependentHousePage = () => {
         .animate-float-glow {
           animation: float-glow 3s ease-in-out infinite;
         }
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.3s ease-out forwards;
+        }
         @keyframes fade-in-up {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
@@ -483,9 +467,6 @@ const IndependentHousePage = () => {
         .animate-spin-slow {
           animation: spin-slow 20s linear infinite;
         }
-        .animate-rotate-slow {
-          animation: spin-slow 10s linear infinite;
-        }
         @keyframes bounce-slow {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-5px); }
@@ -499,20 +480,6 @@ const IndependentHousePage = () => {
         }
         .animate-shimmer {
           animation: shimmer 3s linear infinite;
-        }
-        @keyframes progress {
-          0% { width: 0%; }
-          100% { width: 75%; }
-        }
-        .animate-progress {
-          animation: progress 1.5s ease-out forwards;
-        }
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.8; transform: scale(1.05); }
-        }
-        .animate-pulse-slow {
-          animation: pulse-slow 2s ease-in-out infinite;
         }
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
