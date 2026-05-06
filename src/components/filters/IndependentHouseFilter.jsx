@@ -5,7 +5,7 @@ import {
   Shield, Sun, Coffee, Users, Briefcase, 
   MapPin, Square, TrendingUp, Clock, FileText,
   CheckCircle, XCircle, Sprout, Leaf,
-  Filter, X, ChevronDown
+  Filter, X
 } from "lucide-react";
 
 const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose }) => {
@@ -184,29 +184,29 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
   const renderCommonFilters = () => (
     <>
       {/* Location */}
-      <div className="mb-6 animate-fade-in-up">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <MapPin className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Preferred Location</span>
+          Preferred Location
         </label>
         <input
           type="text"
           value={preferredLocation}
           onChange={(e) => setPreferredLocation(e.target.value)}
           placeholder="Enter city, locality, or landmark"
-          className="w-full px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+          className="w-full px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300"
         />
       </div>
       
       {/* Bedrooms */}
-      <div className="mb-6 animate-fade-in-up delay-100">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Bed className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Bedrooms</span>
+          Bedrooms
         </label>
         <div className="grid grid-cols-2 gap-2">
           {bedroomOptions.map((bhk) => (
-            <label key={bhk} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={bhk} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-teal-50">
               <input
                 type="checkbox"
                 checked={bedrooms.includes(bhk)}
@@ -217,23 +217,23 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
                       : [...prev, bhk]
                   );
                 }}
-                className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{bhk}</span>
+              <span className="text-sm font-semibold text-teal-900">{bhk}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Bathrooms */}
-      <div className="mb-6 animate-fade-in-up delay-200">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Bath className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Bathrooms</span>
+          Bathrooms
         </label>
         <div className="grid grid-cols-2 gap-2">
           {bathroomOptions.map((bath) => (
-            <label key={bath} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={bath} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-teal-50">
               <input
                 type="checkbox"
                 checked={bathrooms.includes(bath)}
@@ -244,118 +244,118 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
                       : [...prev, bath]
                   );
                 }}
-                className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{bath}</span>
+              <span className="text-sm font-semibold text-teal-900">{bath}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Furnishing Type */}
-      <div className="mb-6 animate-fade-in-up delay-300">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Home className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Furnishing Type</span>
+          Furnishing Type
         </label>
         <div className="grid grid-cols-1 gap-2">
           {furnishingOptions.map((type) => (
-            <label key={type} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={type} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-teal-50">
               <input
                 type="radio"
                 name="furnishingType"
                 checked={furnishingType === type}
                 onChange={() => setFurnishingType(type)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{type}</span>
+              <span className="text-sm font-semibold text-teal-900">{type}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Parking */}
-      <div className="mb-6 animate-fade-in-up delay-400">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Car className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Car Parking</span>
+          Car Parking
         </label>
         <div className="grid grid-cols-1 gap-2">
           {parkingOptions.map((park) => (
-            <label key={park} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={park} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-teal-50">
               <input
                 type="radio"
                 name="parking"
                 checked={parking === park}
                 onChange={() => setParking(park)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{park}</span>
+              <span className="text-sm font-semibold text-teal-900">{park}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Garden Space */}
-      <div className="mb-6 animate-fade-in-up delay-500">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Sprout className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Garden Space</span>
+          Garden Space
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
-            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="gardenSpace"
                 checked={gardenSpace === option}
                 onChange={() => setGardenSpace(option)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{option}</span>
+              <span className="text-sm font-semibold text-teal-900">{option}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Terrace/Balcony */}
-      <div className="mb-6 animate-fade-in-up delay-600">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Sun className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Terrace / Balcony</span>
+          Terrace / Balcony
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
-            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="terrace"
                 checked={terrace === option}
                 onChange={() => setTerrace(option)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{option}</span>
+              <span className="text-sm font-semibold text-teal-900">{option}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Amenities */}
-      <div className="mb-6 animate-fade-in-up delay-700">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <CheckCircle className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Amenities Required</span>
+          Amenities Required
         </label>
         <div className="grid grid-cols-2 gap-2">
-          {(activePropertyType === "Rent" ? rentAmenities : commonAmenities).map((amenity, idx) => (
-            <label key={amenity.id} className="flex items-center gap-2 p-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 text-sm font-semibold text-teal-800 hover:text-teal-900 group animate-fade-in-up" style={{ animationDelay: `${idx * 50}ms` }}>
+          {(activePropertyType === "Rent" ? rentAmenities : commonAmenities).map((amenity) => (
+            <label key={amenity.id} className="flex items-center gap-2 p-2 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300 text-sm font-semibold text-teal-900">
               <input
                 type="checkbox"
                 checked={amenities.includes(amenity.id)}
                 onChange={() => handleAmenityToggle(amenity.id)}
-                className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
+              <span className="flex items-center gap-1">
                 {amenity.icon}
                 {amenity.label}
               </span>
@@ -371,10 +371,10 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       {renderCommonFilters()}
       
       {/* Budget Range */}
-      <div className="mb-6 animate-fade-in-up delay-100">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <DollarSign className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Budget Range (₹)</span>
+          Budget Range (₹)
         </label>
         <div className="flex gap-3">
           <input
@@ -382,26 +382,23 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
             value={budgetRange.min}
             onChange={(e) => setBudgetRange({ ...budgetRange, min: e.target.value })}
             placeholder="Min"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
           <input
             type="number"
             value={budgetRange.max}
             onChange={(e) => setBudgetRange({ ...budgetRange, max: e.target.value })}
             placeholder="Max"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
-        </div>
-        <div className="mt-3 h-2 bg-gradient-to-r from-teal-100 to-emerald-100 rounded-full overflow-hidden">
-          <div className="h-full w-3/4 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full animate-progress"></div>
         </div>
       </div>
       
       {/* Plot Size */}
-      <div className="mb-6 animate-fade-in-up delay-200">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Square className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Plot Size (sq. ft.)</span>
+          Plot Size (sq. ft.)
         </label>
         <div className="flex gap-3">
           <input
@@ -409,23 +406,23 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
             value={plotSize.min}
             onChange={(e) => setPlotSize({ ...plotSize, min: e.target.value })}
             placeholder="Min"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
           <input
             type="number"
             value={plotSize.max}
             onChange={(e) => setPlotSize({ ...plotSize, max: e.target.value })}
             placeholder="Max"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
         </div>
       </div>
       
       {/* Built-up Area */}
-      <div className="mb-6 animate-fade-in-up delay-300">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Building className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Built-up Area (sq. ft.)</span>
+          Built-up Area (sq. ft.)
         </label>
         <div className="flex gap-3">
           <input
@@ -433,101 +430,101 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
             value={builtupArea.min}
             onChange={(e) => setBuiltupArea({ ...builtupArea, min: e.target.value })}
             placeholder="Min"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
           <input
             type="number"
             value={builtupArea.max}
             onChange={(e) => setBuiltupArea({ ...builtupArea, max: e.target.value })}
             placeholder="Max"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
         </div>
       </div>
       
       {/* Purchase Time */}
-      <div className="mb-6 animate-fade-in-up delay-400">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Clock className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Expected Purchase Time</span>
+          Expected Purchase Time
         </label>
         <div className="grid grid-cols-2 gap-2">
           {["Immediately", "Within 3 Months", "Within 6 Months", "Just Exploring"].map((time) => (
-            <label key={time} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={time} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="purchaseTime"
                 checked={purchaseTime === time}
                 onChange={() => setPurchaseTime(time)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{time}</span>
+              <span className="text-sm font-semibold text-teal-900">{time}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Buying Purpose */}
-      <div className="mb-6 animate-fade-in-up delay-500">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Briefcase className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Buying Purpose</span>
+          Buying Purpose
         </label>
         <div className="flex gap-3">
           {["Self Use", "Investment", "Vacation Home"].map((purpose) => (
-            <label key={purpose} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={purpose} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="buyingPurpose"
                 checked={buyingPurpose === purpose}
                 onChange={() => setBuyingPurpose(purpose)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{purpose}</span>
+              <span className="text-sm font-semibold text-teal-900">{purpose}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Home Loan Required */}
-      <div className="mb-6 animate-fade-in-up delay-600">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <DollarSign className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Home Loan Required</span>
+          Home Loan Required
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
-            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="homeLoanRequired"
                 checked={homeLoanRequired === option}
                 onChange={() => setHomeLoanRequired(option)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{option}</span>
+              <span className="text-sm font-semibold text-teal-900">{option}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Floors Preferred */}
-      <div className="mb-6 animate-fade-in-up delay-700">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Building className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Floors Preferred</span>
+          Floors Preferred
         </label>
         <div className="flex gap-3">
           {["Ground Floor", "Duplex", "Multi-Floor"].map((floor) => (
-            <label key={floor} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={floor} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="floorsPreferred"
                 checked={floorsPreferred === floor}
                 onChange={() => setFloorsPreferred(floor)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{floor}</span>
+              <span className="text-sm font-semibold text-teal-900">{floor}</span>
             </label>
           ))}
         </div>
@@ -540,10 +537,10 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       {renderCommonFilters()}
       
       {/* Monthly Rent Budget */}
-      <div className="mb-6 animate-fade-in-up delay-100">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <DollarSign className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Monthly Rent Budget (₹)</span>
+          Monthly Rent Budget (₹)
         </label>
         <div className="flex gap-3">
           <input
@@ -551,26 +548,23 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
             value={monthlyRentBudget.min}
             onChange={(e) => setMonthlyRentBudget({ ...monthlyRentBudget, min: e.target.value })}
             placeholder="Min"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
           <input
             type="number"
             value={monthlyRentBudget.max}
             onChange={(e) => setMonthlyRentBudget({ ...monthlyRentBudget, max: e.target.value })}
             placeholder="Max"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
         </div>
-        {/* <div className="mt-3 h-2 bg-gradient-to-r from-teal-100 to-emerald-100 rounded-full overflow-hidden">
-          <div className="h-full w-3/4 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full animate-progress"></div>
-        </div> */}
       </div>
       
       {/* Security Deposit */}
-      <div className="mb-6 animate-fade-in-up delay-200">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Lock className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Security Deposit Budget (₹)</span>
+          Security Deposit Budget (₹)
         </label>
         <div className="flex gap-3">
           <input
@@ -578,93 +572,93 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
             value={securityDeposit.min}
             onChange={(e) => setSecurityDeposit({ ...securityDeposit, min: e.target.value })}
             placeholder="Min"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
           <input
             type="number"
             value={securityDeposit.max}
             onChange={(e) => setSecurityDeposit({ ...securityDeposit, max: e.target.value })}
             placeholder="Max"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
         </div>
       </div>
       
       {/* Move-in Date */}
-      <div className="mb-6 animate-fade-in-up delay-300">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Calendar className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Move-in Date</span>
+          Move-in Date
         </label>
         <input
           type="date"
           value={moveInDate}
           onChange={(e) => setMoveInDate(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 transition-all duration-300 hover:shadow-xl"
+          className="w-full px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900"
         />
       </div>
       
       {/* Rental Duration */}
-      <div className="mb-6 animate-fade-in-up delay-400">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Clock className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Rental Duration</span>
+          Rental Duration
         </label>
         <div className="flex gap-3">
           {["Short Term", "Long Term", "Flexible"].map((duration) => (
-            <label key={duration} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={duration} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="rentalDuration"
                 checked={rentalDuration === duration}
                 onChange={() => setRentalDuration(duration)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{duration}</span>
+              <span className="text-sm font-semibold text-teal-900">{duration}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Occupancy Details */}
-      <div className="mb-6 animate-fade-in-up delay-500">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Users className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Occupancy Details</span>
+          Occupancy Details
         </label>
         <div className="grid grid-cols-2 gap-2">
           {["Single", "Family", "Bachelors", "Company Lease"].map((occupancy) => (
-            <label key={occupancy} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={occupancy} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="occupancyDetails"
                 checked={occupancyDetails === occupancy}
                 onChange={() => setOccupancyDetails(occupancy)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{occupancy}</span>
+              <span className="text-sm font-semibold text-teal-900">{occupancy}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Pet Friendly */}
-      <div className="mb-6 animate-fade-in-up delay-600">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Sprout className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Pet Friendly</span>
+          Pet Friendly
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
-            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="petFriendly"
                 checked={petFriendly === option}
                 onChange={() => setPetFriendly(option)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{option}</span>
+              <span className="text-sm font-semibold text-teal-900">{option}</span>
             </label>
           ))}
         </div>
@@ -677,10 +671,10 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       {renderCommonFilters()}
       
       {/* Expected Price */}
-      <div className="mb-6 animate-fade-in-up delay-100">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <TrendingUp className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Expected Selling Price (₹)</span>
+          Expected Selling Price (₹)
         </label>
         <div className="flex gap-3">
           <input
@@ -688,141 +682,138 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
             value={expectedPrice.min}
             onChange={(e) => setExpectedPrice({ ...expectedPrice, min: e.target.value })}
             placeholder="Min"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
           <input
             type="number"
             value={expectedPrice.max}
             onChange={(e) => setExpectedPrice({ ...expectedPrice, max: e.target.value })}
             placeholder="Max"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
-        </div>
-        <div className="mt-3 h-2 bg-gradient-to-r from-teal-100 to-emerald-100 rounded-full overflow-hidden">
-          <div className="h-full w-3/4 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full animate-progress"></div>
         </div>
       </div>
       
       {/* Negotiable */}
-      <div className="mb-6 animate-fade-in-up delay-200">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <DollarSign className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Negotiable</span>
+          Negotiable
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
-            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="negotiable"
                 checked={negotiable === option}
                 onChange={() => setNegotiable(option)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{option}</span>
+              <span className="text-sm font-semibold text-teal-900">{option}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Property Age */}
-      <div className="mb-6 animate-fade-in-up delay-300">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Clock className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Age of Property (Years)</span>
+          Age of Property (Years)
         </label>
         <input
           type="number"
           value={propertyAge}
           onChange={(e) => setPropertyAge(e.target.value)}
           placeholder="Enter property age"
-          className="w-full px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+          className="w-full px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900"
         />
       </div>
       
       {/* Property Condition */}
-      <div className="mb-6 animate-fade-in-up delay-400">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <CheckCircle className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Property Condition</span>
+          Property Condition
         </label>
         <div className="grid grid-cols-2 gap-2">
           {["New", "Good", "Renovated", "Needs Renovation"].map((condition) => (
-            <label key={condition} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={condition} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="propertyCondition"
                 checked={propertyCondition === condition}
                 onChange={() => setPropertyCondition(condition)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{condition}</span>
+              <span className="text-sm font-semibold text-teal-900">{condition}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Ownership Type */}
-      <div className="mb-6 animate-fade-in-up delay-500">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <FileText className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Ownership Type</span>
+          Ownership Type
         </label>
         <div className="flex gap-3">
           {["Freehold", "Leasehold"].map((type) => (
-            <label key={type} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={type} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="ownershipType"
                 checked={ownershipType === type}
                 onChange={() => setOwnershipType(type)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{type}</span>
+              <span className="text-sm font-semibold text-teal-900">{type}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Loan Outstanding */}
-      <div className="mb-6 animate-fade-in-up delay-600">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <DollarSign className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Loan Outstanding</span>
+          Loan Outstanding
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
-            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="loanOutstanding"
                 checked={loanOutstanding === option}
                 onChange={() => setLoanOutstanding(option)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{option}</span>
+              <span className="text-sm font-semibold text-teal-900">{option}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Floor Count */}
-      <div className="mb-6 animate-fade-in-up delay-700">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Building className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Number of Floors</span>
+          Number of Floors
         </label>
         <div className="flex gap-3">
           {["Ground Floor", "Duplex", "Multi-Floor"].map((floor) => (
-            <label key={floor} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={floor} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="floorCount"
                 checked={floorCount === floor}
                 onChange={() => setFloorCount(floor)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{floor}</span>
+              <span className="text-sm font-semibold text-teal-900">{floor}</span>
             </label>
           ))}
         </div>
@@ -835,10 +826,10 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       {renderCommonFilters()}
       
       {/* Lease Budget */}
-      <div className="mb-6 animate-fade-in-up delay-100">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <DollarSign className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Lease Budget Range (₹/month)</span>
+          Lease Budget Range (₹/month)
         </label>
         <div className="flex gap-3">
           <input
@@ -846,26 +837,23 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
             value={leaseBudget.min}
             onChange={(e) => setLeaseBudget({ ...leaseBudget, min: e.target.value })}
             placeholder="Min"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
           <input
             type="number"
             value={leaseBudget.max}
             onChange={(e) => setLeaseBudget({ ...leaseBudget, max: e.target.value })}
             placeholder="Max"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
-        </div>
-        <div className="mt-3 h-2 bg-gradient-to-r from-teal-100 to-emerald-100 rounded-full overflow-hidden">
-          <div className="h-full w-3/4 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full animate-progress"></div>
         </div>
       </div>
       
       {/* Advance Deposit */}
-      <div className="mb-6 animate-fade-in-up delay-200">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Lock className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Advance / Security Deposit (₹)</span>
+          Advance / Security Deposit (₹)
         </label>
         <div className="flex gap-3">
           <input
@@ -873,79 +861,79 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
             value={advanceDeposit.min}
             onChange={(e) => setAdvanceDeposit({ ...advanceDeposit, min: e.target.value })}
             placeholder="Min"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
           <input
             type="number"
             value={advanceDeposit.max}
             onChange={(e) => setAdvanceDeposit({ ...advanceDeposit, max: e.target.value })}
             placeholder="Max"
-            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+            className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400"
           />
         </div>
       </div>
       
       {/* Lease Duration */}
-      <div className="mb-6 animate-fade-in-up delay-300">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Calendar className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Preferred Lease Duration</span>
+          Preferred Lease Duration
         </label>
         <div className="grid grid-cols-2 gap-2">
           {["1 Year", "2 Years", "3 Years", "5+ Years"].map((duration) => (
-            <label key={duration} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={duration} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="leaseDuration"
                 checked={leaseDuration === duration}
                 onChange={() => setLeaseDuration(duration)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{duration}</span>
+              <span className="text-sm font-semibold text-teal-900">{duration}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Occupancy Type */}
-      <div className="mb-6 animate-fade-in-up delay-400">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Users className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Occupancy Type</span>
+          Occupancy Type
         </label>
         <div className="grid grid-cols-2 gap-2">
           {["Family", "Company Lease", "Vacation Stay"].map((type) => (
-            <label key={type} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={type} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="occupancyType"
                 checked={occupancyType === type}
                 onChange={() => setOccupancyType(type)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{type}</span>
+              <span className="text-sm font-semibold text-teal-900">{type}</span>
             </label>
           ))}
         </div>
       </div>
       
       {/* Pet Friendly */}
-      <div className="mb-6 animate-fade-in-up delay-500">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Sprout className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Pet Friendly</span>
+          Pet Friendly
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
-            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
                 name="leasePetFriendly"
                 checked={leasePetFriendly === option}
                 onChange={() => setLeasePetFriendly(option)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{option}</span>
+              <span className="text-sm font-semibold text-teal-900">{option}</span>
             </label>
           ))}
         </div>
@@ -954,45 +942,40 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
   );
   
   return (
-    <div className="bg-gradient-to-b from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-teal-200/30 flex flex-col overflow-hidden hover:shadow-[0_0_40px_rgba(0,105,92,0.2)] transition-all duration-500">
+    <div className="bg-[#daeeed] backdrop-blur-xl rounded-2xl shadow-2xl border border-teal-200/30 flex flex-col overflow-hidden">
       {/* Frozen Header + Tabs */}
-      <div className="sticky top-0 z-20 rounded-t-3xl overflow-hidden">
-        <div className="px-6 py-4 flex justify-between items-center" style={{background: "linear-gradient(135deg, #00695C, #26A69A)"}}>
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <div className="p-1 rounded-lg bg-white/20 animate-pulse-slow">
-              <Filter className="w-5 h-5" />
-            </div>
-            <span className="text-white font-bold">
-              Filter Properties
-            </span>
-          </h3>
-          {onClose && (
-            <button onClick={onClose} className="text-white hover:bg-white/20 rounded-lg p-1 transition-all duration-300 transform hover:rotate-90">
-              <X className="w-5 h-5" />
-            </button>
-          )}
-        </div>
-        
-        {/* Tab Buttons */}
-        <div className="flex border-b border-teal-200/30 bg-gradient-to-r from-teal-50/90 via-emerald-50/90 to-teal-50/90 backdrop-blur-sm sticky top-0 z-10">
-          {propertyTypes.map((type) => (
-            <button
-              key={type}
-              onClick={() => setActivePropertyType(type)}
-              className={`flex-1 py-3 px-4 text-center font-semibold transition-all duration-300 relative group overflow-hidden ${
-                activePropertyType === type
-                  ? "text-teal-700"
-                  : "text-teal-500 hover:text-teal-700"
-              }`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-100/0 via-teal-100/50 to-teal-100/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <span className="relative z-10">{type}</span>
-              {activePropertyType === type && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full animate-progress"></div>
-              )}
-            </button>
-          ))}
-        </div>
+      <div className="sticky top-0 z-20 rounded-t-2xl overflow-hidden">
+      <div className="bg-gradient-to-r from-teal-600 to-emerald-600 px-6 py-4 flex justify-between items-center">
+        <h3 className="text-xl font-bold text-white flex items-center gap-2">
+          <Filter className="w-5 h-5" />
+          Filter Properties
+        </h3>
+        {onClose && (
+          <button onClick={onClose} className="text-white hover:bg-white/20 rounded-lg p-1 transition-all">
+            <X className="w-5 h-5" />
+          </button>
+        )}
+      </div>
+      
+      {/* Tab Buttons */}
+      <div className="flex border-b border-teal-200/30 bg-[#daeeed] sticky top-0 z-10">
+        {propertyTypes.map((type) => (
+          <button
+            key={type}
+            onClick={() => setActivePropertyType(type)}
+            className={`flex-1 py-3 px-4 text-center font-semibold transition-all duration-300 relative ${
+              activePropertyType === type
+                ? "text-teal-700 bg-white/50"
+                : "text-teal-500 hover:text-teal-700 hover:bg-white/30"
+            }`}
+          >
+            {type}
+            {activePropertyType === type && (
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full"></div>
+            )}
+          </button>
+        ))}
+      </div>
       </div>
       
       {/* Filter Content */}
@@ -1004,70 +987,28 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       </div>
       
       {/* Action Buttons */}
-      <div className="p-6 border-t border-teal-200/30 bg-gradient-to-r from-teal-50/90 via-emerald-50/90 to-teal-50/90 backdrop-blur-sm flex gap-3">
+      <div className="p-6 border-t border-teal-200/30 bg-[#daeeed] flex gap-3">
         <button
           onClick={handleClearFilters}
-          className="flex-1 px-4 py-3 rounded-xl border-2 border-teal-200/50 text-sm font-medium text-teal-700 hover:bg-gradient-to-r hover:from-teal-50 hover:to-emerald-50 hover:border-teal-300 transition-all duration-500 transform hover:scale-[1.02] relative overflow-hidden group"
+          className="flex-1 px-4 py-3 rounded-xl border-2 border-teal-200/50 text-sm font-medium text-teal-700 hover:bg-gradient-to-r from-teal-50 to-emerald-50 hover:border-teal-300 transition-all duration-500"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-100 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-          <span className="relative z-10">Clear All</span>
+          Clear All
         </button>
         <button
           onClick={handleApplyFilters}
-          className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold text-white shadow-xl hover:shadow-[0_0_25px_rgba(0,105,92,0.4)] transition-all duration-500 transform hover:scale-[1.02] group relative overflow-hidden"
-          style={{background: "linear-gradient(135deg, #00695C, #26A69A)"}}
+          className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold text-white shadow-xl hover:shadow-[0_0_25px_rgba(0,105,92,0.4)] transition-all duration-500 bg-gradient-to-r from-teal-600 to-emerald-600"
         >
-          <div className="absolute inset-0 animate-gradient-shift"></div>
-          <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
-          <span className="relative z-10 flex items-center justify-center gap-2">
-            Apply Filters
-            <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
-          </span>
+          Apply Filters
         </button>
       </div>
       
       <style jsx>{`
-        @keyframes gradient-shift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-gradient-shift {
-          background-size: 200% 200%;
-          animation: gradient-shift 2s linear infinite;
-        }
-        @keyframes progress {
-          0% { width: 0%; }
-          100% { width: 100%; }
-        }
-        .animate-progress {
-          animation: progress 0.4s ease-out forwards;
-        }
-        @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.4s ease-out forwards;
-        }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
-        .delay-600 { animation-delay: 0.6s; }
-        .delay-700 { animation-delay: 0.7s; }
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.8; transform: scale(1.05); }
-        }
-        .animate-pulse-slow {
-          animation: pulse-slow 2s ease-in-out infinite;
-        }
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
+          background: linear-gradient(to bottom, transparent, rgba(0, 105, 92, 0.1), transparent);
+          border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: linear-gradient(to bottom, #00695C, #26A69A);
@@ -1075,6 +1016,7 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: linear-gradient(to bottom, #004D40, #00796B);
+          box-shadow: 0 0 10px rgba(0, 105, 92, 0.5);
         }
       `}</style>
     </div>

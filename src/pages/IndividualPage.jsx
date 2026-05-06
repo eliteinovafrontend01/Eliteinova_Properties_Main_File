@@ -272,13 +272,13 @@ const IndividualPage = () => {
                         ? "#ffffff" 
                         : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
                       backgroundSize: "200% 200%",
-                      border: isActive ? "2px solid #00695C" : "none"
+                      border: isActive ? "3px solid #00695C" : "none"
                     }}
                     >
                       <div className={`absolute inset-0 animate-gradient-shift-slow ${isActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-500'}`}></div>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                       {isActive && (
-                        <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur-xl opacity-60"></div>
+                        <div className="absolute -inset-1 rounded-xl"></div>
                       )}
                       <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
                       <span className="relative z-10 flex items-center gap-3">

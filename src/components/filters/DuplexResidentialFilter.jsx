@@ -5,24 +5,22 @@ import {
   Shield, Sun, Coffee, Users, Briefcase,
   MapPin, Square, TrendingUp, Clock, FileText,
   CheckCircle, XCircle, Sprout, Leaf,
-  Filter, X, ChevronDown, SwatchBook, Dumbbell,
-  Waves, Crown, Building2 as ClubhouseIcon, Camera as CameraIcon
+  Filter, X, Dumbbell, Waves, Hotel, Landmark, ParkingCircle
 } from "lucide-react";
 
-
-const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose }) => {
+const DuplexResidentialFilter = ({ activeTab = "Rent", onFilterChange, onClose }) => {
   const [activePropertyType, setActivePropertyType] = useState(activeTab);
-  
+
   // Common states for all tabs
   const [bedrooms, setBedrooms] = useState([]);
   const [bathrooms, setBathrooms] = useState([]);
   const [furnishingType, setFurnishingType] = useState("");
-  const [parking, setParking] = useState("");
+  const [balconyTerrace, setBalconyTerrace] = useState("");
+  const [privateParking, setPrivateParking] = useState("");
   const [gardenSpace, setGardenSpace] = useState("");
-  const [swimmingPool, setSwimmingPool] = useState("");
-  const [terrace, setTerrace] = useState("");
   const [amenities, setAmenities] = useState([]);
-  
+  const [preferredLocation, setPreferredLocation] = useState("");
+
   // Buy specific states
   const [budgetRange, setBudgetRange] = useState({ min: "", max: "" });
   const [plotSize, setPlotSize] = useState({ min: "", max: "" });
@@ -30,8 +28,8 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
   const [purchaseTime, setPurchaseTime] = useState("");
   const [buyingPurpose, setBuyingPurpose] = useState("");
   const [homeLoanRequired, setHomeLoanRequired] = useState("");
-  const [floorsPreferred, setFloorsPreferred] = useState("");
-  
+  const [facingPreference, setFacingPreference] = useState("");
+
   // Rent specific states
   const [monthlyRentBudget, setMonthlyRentBudget] = useState({ min: "", max: "" });
   const [securityDeposit, setSecurityDeposit] = useState({ min: "", max: "" });
@@ -39,8 +37,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
   const [rentalDuration, setRentalDuration] = useState("");
   const [occupancyDetails, setOccupancyDetails] = useState("");
   const [petFriendly, setPetFriendly] = useState("");
-  const [waterSupply, setWaterSupply] = useState("");
-  
+
   // Sell specific states
   const [expectedPrice, setExpectedPrice] = useState({ min: "", max: "" });
   const [negotiable, setNegotiable] = useState("");
@@ -48,61 +45,58 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
   const [propertyCondition, setPropertyCondition] = useState("");
   const [ownershipType, setOwnershipType] = useState("");
   const [loanOutstanding, setLoanOutstanding] = useState("");
-  const [floorCount, setFloorCount] = useState("");
-  
+
   // Lease specific states
   const [leaseBudget, setLeaseBudget] = useState({ min: "", max: "" });
   const [advanceDeposit, setAdvanceDeposit] = useState({ min: "", max: "" });
   const [leaseDuration, setLeaseDuration] = useState("");
   const [occupancyType, setOccupancyType] = useState("");
   const [leasePetFriendly, setLeasePetFriendly] = useState("");
-  const [preferredLocation, setPreferredLocation] = useState("");
-  
+
   const propertyTypes = ["Buy", "Rent", "Sell", "Lease"];
-  
+
   const bedroomOptions = ["2 BHK", "3 BHK", "4 BHK", "5+ BHK"];
-  const bathroomOptions = ["2", "3", "4", "5+"];
+  const bathroomOptions = ["1", "2", "3", "4+"];
   const furnishingOptions = ["Fully Furnished", "Semi Furnished", "Unfurnished"];
-  const parkingOptions = ["1 Car", "2 Cars", "3+ Cars"];
-  const floorOptions = ["Single Floor", "Duplex", "Triplex"];
   const yesNoOptions = ["Yes", "No"];
-  
+  const facingOptions = ["East", "West", "North", "South", "No Preference"];
+
   const commonAmenities = [
-    { id: "gatedCommunity", label: "Gated Community", icon: <Building className="w-4 h-4" /> },
-    { id: "security247", label: "24/7 Security", icon: <Shield className="w-4 h-4" /> },
-    { id: "powerBackup", label: "Power Backup", icon: <Lock className="w-4 h-4" /> },
-    { id: "cctv", label: "CCTV Surveillance", icon: <Camera className="w-4 h-4" /> },
-    { id: "clubhouse", label: "Clubhouse", icon: <ClubhouseIcon className="w-4 h-4" /> },
-    { id: "playArea", label: "Children's Play Area", icon: <Users className="w-4 h-4" /> },
-    { id: "gym", label: "Gym / Fitness Center", icon: <Dumbbell className="w-4 h-4" /> },
-    { id: "smartHome", label: "Smart Home Features", icon: <Wifi className="w-4 h-4" /> },
-    { id: "balcony", label: "Balcony / Terrace", icon: <Sun className="w-4 h-4" /> }
-  ];
-  
-  const rentAmenities = [
     { id: "waterSupply247", label: "24/7 Water Supply", icon: <Coffee className="w-4 h-4" /> },
+    { id: "powerBackup", label: "Power Backup", icon: <Lock className="w-4 h-4" /> },
+    { id: "security", label: "Security", icon: <Shield className="w-4 h-4" /> },
+    { id: "cctv", label: "CCTV Surveillance", icon: <Camera className="w-4 h-4" /> },
+    { id: "modularKitchen", label: "Modular Kitchen", icon: <Coffee className="w-4 h-4" /> },
+    { id: "gatedCommunity", label: "Gated Community", icon: <Building className="w-4 h-4" /> },
+    { id: "gym", label: "Gym / Fitness Center", icon: <Dumbbell className="w-4 h-4" /> },
+    { id: "swimmingPool", label: "Swimming Pool", icon: <Waves className="w-4 h-4" /> },
+    { id: "playArea", label: "Children's Play Area", icon: <Users className="w-4 h-4" /> },
+    { id: "clubhouse", label: "Clubhouse", icon: <Hotel className="w-4 h-4" /> },
+    { id: "nearbySchool", label: "Nearby School / Hospital", icon: <Landmark className="w-4 h-4" /> }
+  ];
+
+  const rentAmenities = [
     { id: "wifiReady", label: "Wi-Fi Ready", icon: <Wifi className="w-4 h-4" /> },
     ...commonAmenities
   ];
-  
+
   const handleAmenityToggle = (amenityId) => {
-    setAmenities(prev => 
-      prev.includes(amenityId) 
+    setAmenities(prev =>
+      prev.includes(amenityId)
         ? prev.filter(id => id !== amenityId)
         : [...prev, amenityId]
     );
   };
-  
+
   const handleApplyFilters = () => {
     const filters = {
       propertyType: activePropertyType,
       bedrooms,
       bathrooms,
       furnishingType,
-      parking,
+      balconyTerrace,
+      privateParking,
       gardenSpace,
-      swimmingPool,
-      terrace,
       amenities,
       preferredLocation,
       ...(activePropertyType === "Buy" && {
@@ -112,7 +106,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
         purchaseTime,
         buyingPurpose,
         homeLoanRequired,
-        floorsPreferred
+        facingPreference
       }),
       ...(activePropertyType === "Rent" && {
         monthlyRentBudget,
@@ -120,8 +114,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
         moveInDate,
         rentalDuration,
         occupancyDetails,
-        petFriendly,
-        waterSupply
+        petFriendly
       }),
       ...(activePropertyType === "Sell" && {
         expectedPrice,
@@ -129,8 +122,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
         propertyAge,
         propertyCondition,
         ownershipType,
-        loanOutstanding,
-        floorCount
+        loanOutstanding
       }),
       ...(activePropertyType === "Lease" && {
         leaseBudget,
@@ -140,7 +132,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
         leasePetFriendly
       })
     };
-    
+
     if (onFilterChange) {
       onFilterChange(filters);
     }
@@ -148,45 +140,42 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       onClose();
     }
   };
-  
+
   const handleClearFilters = () => {
     setBedrooms([]);
     setBathrooms([]);
     setFurnishingType("");
-    setParking("");
+    setBalconyTerrace("");
+    setPrivateParking("");
     setGardenSpace("");
-    setSwimmingPool("");
-    setTerrace("");
     setAmenities([]);
+    setPreferredLocation("");
     setBudgetRange({ min: "", max: "" });
     setPlotSize({ min: "", max: "" });
     setBuiltupArea({ min: "", max: "" });
     setPurchaseTime("");
     setBuyingPurpose("");
     setHomeLoanRequired("");
-    setFloorsPreferred("");
+    setFacingPreference("");
     setMonthlyRentBudget({ min: "", max: "" });
     setSecurityDeposit({ min: "", max: "" });
     setMoveInDate("");
     setRentalDuration("");
     setOccupancyDetails("");
     setPetFriendly("");
-    setWaterSupply("");
     setExpectedPrice({ min: "", max: "" });
     setNegotiable("");
     setPropertyAge("");
     setPropertyCondition("");
     setOwnershipType("");
     setLoanOutstanding("");
-    setFloorCount("");
     setLeaseBudget({ min: "", max: "" });
     setAdvanceDeposit({ min: "", max: "" });
     setLeaseDuration("");
     setOccupancyType("");
     setLeasePetFriendly("");
-    setPreferredLocation("");
   };
-  
+
   const renderCommonFilters = () => (
     <>
       {/* Location */}
@@ -203,12 +192,12 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           className="w-full px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300"
         />
       </div>
-      
+
       {/* Bedrooms */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Bed className="w-4 h-4 text-teal-600" />
-          Bedrooms
+          Bedrooms Required
         </label>
         <div className="grid grid-cols-2 gap-2">
           {bedroomOptions.map((bhk) => (
@@ -217,8 +206,8 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
                 type="checkbox"
                 checked={bedrooms.includes(bhk)}
                 onChange={() => {
-                  setBedrooms(prev => 
-                    prev.includes(bhk) 
+                  setBedrooms(prev =>
+                    prev.includes(bhk)
                       ? prev.filter(b => b !== bhk)
                       : [...prev, bhk]
                   );
@@ -230,12 +219,12 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Bathrooms */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Bath className="w-4 h-4 text-teal-600" />
-          Bathrooms
+          Bathrooms Required
         </label>
         <div className="grid grid-cols-2 gap-2">
           {bathroomOptions.map((bath) => (
@@ -244,8 +233,8 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
                 type="checkbox"
                 checked={bathrooms.includes(bath)}
                 onChange={() => {
-                  setBathrooms(prev => 
-                    prev.includes(bath) 
+                  setBathrooms(prev =>
+                    prev.includes(bath)
                       ? prev.filter(b => b !== bath)
                       : [...prev, bath]
                   );
@@ -257,7 +246,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Furnishing Type */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -279,34 +268,56 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
-      {/* Parking */}
+
+      {/* Balcony / Terrace */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
-          <Car className="w-4 h-4 text-teal-600" />
-          Car Parking
+          <Sun className="w-4 h-4 text-teal-600" />
+          Balcony / Terrace
         </label>
-        <div className="grid grid-cols-1 gap-2">
-          {parkingOptions.map((park) => (
-            <label key={park} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-teal-50">
+        <div className="flex gap-3">
+          {yesNoOptions.map((option) => (
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
-                name="parking"
-                checked={parking === park}
-                onChange={() => setParking(park)}
+                name="balconyTerrace"
+                checked={balconyTerrace === option}
+                onChange={() => setBalconyTerrace(option)}
                 className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-900">{park}</span>
+              <span className="text-sm font-semibold text-teal-900">{option}</span>
             </label>
           ))}
         </div>
       </div>
-      
-      {/* Garden Space */}
+
+      {/* Private Parking */}
+      <div className="mb-6">
+        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
+          <Car className="w-4 h-4 text-teal-600" />
+          Private Parking
+        </label>
+        <div className="flex gap-3">
+          {yesNoOptions.map((option) => (
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
+              <input
+                type="radio"
+                name="privateParking"
+                checked={privateParking === option}
+                onChange={() => setPrivateParking(option)}
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
+              />
+              <span className="text-sm font-semibold text-teal-900">{option}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Garden / Open Space */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Sprout className="w-4 h-4 text-teal-600" />
-          Garden Space
+          Garden / Open Space
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
@@ -323,51 +334,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
-      {/* Swimming Pool */}
-      <div className="mb-6">
-        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
-          <Waves className="w-4 h-4 text-teal-600" />
-          Swimming Pool
-        </label>
-        <div className="flex gap-3">
-          {yesNoOptions.map((option) => (
-            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
-              <input
-                type="radio"
-                name="swimmingPool"
-                checked={swimmingPool === option}
-                onChange={() => setSwimmingPool(option)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
-              />
-              <span className="text-sm font-semibold text-teal-900">{option}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-      
-      {/* Terrace/Balcony */}
-      <div className="mb-6">
-        <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
-          <Sun className="w-4 h-4 text-teal-600" />
-          Terrace / Balcony
-        </label>
-        <div className="flex gap-3">
-          {yesNoOptions.map((option) => (
-            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
-              <input
-                type="radio"
-                name="terrace"
-                checked={terrace === option}
-                onChange={() => setTerrace(option)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
-              />
-              <span className="text-sm font-semibold text-teal-900">{option}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-      
+
       {/* Amenities */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -375,7 +342,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           Amenities Required
         </label>
         <div className="grid grid-cols-2 gap-2">
-          {(activePropertyType === "Rent" ? rentAmenities : commonAmenities).map((amenity) => (
+          {(activePropertyType === "Rent" || activePropertyType === "Lease" ? rentAmenities : commonAmenities).map((amenity) => (
             <label key={amenity.id} className="flex items-center gap-2 p-2 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300 text-sm font-semibold text-teal-900">
               <input
                 type="checkbox"
@@ -393,11 +360,11 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       </div>
     </>
   );
-  
+
   const renderBuyFilters = () => (
     <>
       {renderCommonFilters()}
-      
+
       {/* Budget Range */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -421,7 +388,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           />
         </div>
       </div>
-      
+
       {/* Plot Size */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -445,7 +412,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           />
         </div>
       </div>
-      
+
       {/* Built-up Area */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -469,7 +436,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           />
         </div>
       </div>
-      
+
       {/* Purchase Time */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -491,7 +458,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Buying Purpose */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -499,7 +466,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           Buying Purpose
         </label>
         <div className="flex gap-3">
-          {["Self Use", "Investment", "Vacation Home"].map((purpose) => (
+          {["Self Use", "Investment", "Rental Income"].map((purpose) => (
             <label key={purpose} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
@@ -513,7 +480,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Home Loan Required */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -535,35 +502,35 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
-      {/* Floors Preferred */}
+
+      {/* Facing Preference */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
-          <Building className="w-4 h-4 text-teal-600" />
-          Floors Preferred
+          <Sun className="w-4 h-4 text-teal-600" />
+          Facing Preference
         </label>
-        <div className="flex gap-3">
-          {["Single Floor", "Duplex", "Triplex"].map((floor) => (
-            <label key={floor} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
+        <div className="flex flex-wrap gap-2">
+          {facingOptions.map((facing) => (
+            <label key={facing} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-300 bg-white hover:border-teal-500 cursor-pointer transition-all duration-300">
               <input
                 type="radio"
-                name="floorsPreferred"
-                checked={floorsPreferred === floor}
-                onChange={() => setFloorsPreferred(floor)}
+                name="facingPreference"
+                checked={facingPreference === facing}
+                onChange={() => setFacingPreference(facing)}
                 className="w-4 h-4 text-teal-600 focus:ring-teal-500/30"
               />
-              <span className="text-sm font-semibold text-teal-900">{floor}</span>
+              <span className="text-sm font-semibold text-teal-900">{facing}</span>
             </label>
           ))}
         </div>
       </div>
     </>
   );
-  
+
   const renderRentFilters = () => (
     <>
       {renderCommonFilters()}
-      
+
       {/* Monthly Rent Budget */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -587,7 +554,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           />
         </div>
       </div>
-      
+
       {/* Security Deposit */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -611,7 +578,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           />
         </div>
       </div>
-      
+
       {/* Move-in Date */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -625,7 +592,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           className="w-full px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900"
         />
       </div>
-      
+
       {/* Rental Duration */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -647,7 +614,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Occupancy Details */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -669,7 +636,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Pet Friendly */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -693,11 +660,11 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       </div>
     </>
   );
-  
+
   const renderSellFilters = () => (
     <>
       {renderCommonFilters()}
-      
+
       {/* Expected Price */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -721,7 +688,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           />
         </div>
       </div>
-      
+
       {/* Negotiable */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -743,7 +710,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Property Age */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -758,7 +725,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           className="w-full px-4 py-3 rounded-xl border-2 border-teal-300 bg-white text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900"
         />
       </div>
-      
+
       {/* Property Condition */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -780,7 +747,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Ownership Type */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -802,7 +769,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Loan Outstanding */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -826,11 +793,11 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       </div>
     </>
   );
-  
+
   const renderLeaseFilters = () => (
     <>
       {renderCommonFilters()}
-      
+
       {/* Lease Budget */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -854,7 +821,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           />
         </div>
       </div>
-      
+
       {/* Advance Deposit */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -878,8 +845,8 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           />
         </div>
       </div>
-      
-      {/* Lease Duration */}
+
+      {/* Preferred Lease Duration */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
           <Calendar className="w-4 h-4 text-teal-600" />
@@ -900,7 +867,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Occupancy Type */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -922,7 +889,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
+
       {/* Pet Friendly */}
       <div className="mb-6">
         <label className="text-sm font-bold text-teal-900 mb-3 block flex items-center gap-2">
@@ -946,52 +913,52 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       </div>
     </>
   );
-  
+
   return (
     <div className="bg-[#daeeed] backdrop-blur-xl rounded-2xl shadow-2xl border border-teal-200/30 flex flex-col overflow-hidden">
       {/* Frozen Header + Tabs */}
       <div className="sticky top-0 z-20 rounded-t-2xl overflow-hidden">
-      <div className="bg-gradient-to-r from-teal-600 to-emerald-600 px-6 py-4 flex justify-between items-center">
-        <h3 className="text-xl font-bold text-white flex items-center gap-2">
-          <Filter className="w-5 h-5" />
-          Filter Villas
-        </h3>
-        {onClose && (
-          <button onClick={onClose} className="text-white hover:bg-white/20 rounded-lg p-1 transition-all">
-            <X className="w-5 h-5" />
-          </button>
-        )}
+        <div className="bg-gradient-to-r from-teal-600 to-emerald-600 px-6 py-4 flex justify-between items-center">
+          <h3 className="text-xl font-bold text-white flex items-center gap-2">
+            <Filter className="w-5 h-5" />
+            Filter Duplex Residential Units
+          </h3>
+          {onClose && (
+            <button onClick={onClose} className="text-white hover:bg-white/20 rounded-lg p-1 transition-all">
+              <X className="w-5 h-5" />
+            </button>
+          )}
+        </div>
+
+        {/* Tab Buttons */}
+        <div className="flex border-b border-teal-200/30 bg-[#daeeed] sticky top-0 z-10">
+          {propertyTypes.map((type) => (
+            <button
+              key={type}
+              onClick={() => setActivePropertyType(type)}
+              className={`flex-1 py-3 px-4 text-center font-semibold transition-all duration-300 relative ${
+                activePropertyType === type
+                  ? "text-teal-700 bg-white/50"
+                  : "text-teal-500 hover:text-teal-700 hover:bg-white/30"
+              }`}
+            >
+              {type}
+              {activePropertyType === type && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full"></div>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
-      
-      {/* Tab Buttons */}
-      <div className="flex border-b border-teal-200/30 bg-[#daeeed] sticky top-0 z-10">
-        {propertyTypes.map((type) => (
-          <button
-            key={type}
-            onClick={() => setActivePropertyType(type)}
-            className={`flex-1 py-3 px-4 text-center font-semibold transition-all duration-300 relative ${
-              activePropertyType === type
-                ? "text-teal-700 bg-white/50"
-                : "text-teal-500 hover:text-teal-700 hover:bg-white/30"
-            }`}
-          >
-            {type}
-            {activePropertyType === type && (
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full"></div>
-            )}
-          </button>
-        ))}
-      </div>
-      </div>
-      
+
       {/* Filter Content */}
-      <div className="p-6 max-h-[600px] overflow-y-auto custom-scrollbar" style={{height: "600px"}}>
+      <div className="p-6 max-h-[600px] overflow-y-auto custom-scrollbar" style={{ height: "600px" }}>
         {activePropertyType === "Buy" && renderBuyFilters()}
         {activePropertyType === "Rent" && renderRentFilters()}
         {activePropertyType === "Sell" && renderSellFilters()}
         {activePropertyType === "Lease" && renderLeaseFilters()}
       </div>
-      
+
       {/* Action Buttons */}
       <div className="p-6 border-t border-teal-200/30 bg-[#daeeed] flex gap-3">
         <button
@@ -1007,7 +974,7 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           Apply Filters
         </button>
       </div>
-      
+
       <style jsx>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
@@ -1029,4 +996,4 @@ const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose })
   );
 };
 
-export default IndependentVillaFilter;
+export default DuplexResidentialFilter;
