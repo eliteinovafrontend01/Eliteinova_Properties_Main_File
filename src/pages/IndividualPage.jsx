@@ -263,19 +263,19 @@ const IndividualPage = () => {
                       key={type.name}
                       onClick={() => handleNavigation(type.path, type.name)}
                       className={`group relative px-5 py-3 rounded-xl font-semibold text-base shadow-xl transition-all duration-500 whitespace-nowrap transform hover:-translate-y-1 hover:scale-105 overflow-hidden ${
-                        isActive 
-                          ? "text-white shadow-[0_0_30px_rgba(0,105,92,0.6)]" 
-                          : "text-white/90 hover:text-white"
-                      }`}
-                      style={{
-                        background: isActive 
-                          ? "linear-gradient(135deg, #004D40, #00695C, #00897B)" 
-                          : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
-                        backgroundSize: "200% 200%",
-                        border: isActive ? "2px solid rgba(255,255,255,0.3)" : "none"
-                      }}
+                      isActive 
+                        ? "text-teal-800 shadow-none" 
+                        : "text-white/90 hover:text-white"
+                    }`}
+                    style={{
+                      background: isActive 
+                        ? "#ffffff" 
+                        : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
+                      backgroundSize: "200% 200%",
+                      border: isActive ? "2px solid #00695C" : "none"
+                    }}
                     >
-                      <div className={`absolute inset-0 animate-gradient-shift-slow ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-500'}`}></div>
+                      <div className={`absolute inset-0 animate-gradient-shift-slow ${isActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-500'}`}></div>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                       {isActive && (
                         <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur-xl opacity-60"></div>
@@ -415,7 +415,7 @@ const IndividualPage = () => {
             </div>
 
             <div className="lg:w-1/3 lg:relative">
-              <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:custom-scrollbar animate-slide-in-right">
+              <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:scrollbar-hide animate-slide-in-right">
                 <div className="bg-gradient-to-b from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-teal-200/30 hover:shadow-[0_0_40px_rgba(0,105,92,0.2)] transition-all duration-500">
                   <h3 className="text-xl font-bold text-teal-900 mb-6 flex items-center gap-3">
                     <div className="p-2 rounded-xl bg-gradient-to-r from-teal-500/10 to-emerald-500/10 animate-pulse-slow">

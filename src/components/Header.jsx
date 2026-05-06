@@ -55,10 +55,10 @@ const Header = ({ onPostPropertyClick }) => {
   ];
 
   const quickLinks = [
-    { name: "⭐ Featured", path: "/featured", icon: <Star className="w-3 h-3" /> },
-    { name: "📈 Trending", path: "/trending", icon: <TrendingUp className="w-3 h-3" /> },
-    { name: "👑 Premium", path: "/premium", icon: <Award className="w-3 h-3" /> },
-    { name: "✅ Verified", path: "/verified", icon: <CheckCircle className="w-3 h-3" /> },
+    // { name: "⭐ Featured", icon: <Star className="w-3 h-3" /> },
+    // // { name: "📈 Trending", path: "/trending", icon: <TrendingUp className="w-3 h-3" /> },
+    // { name: "👑 Premium", path: "/premium", icon: <Award className="w-3 h-3" /> },
+    // { name: "✅ Verified", path: "/verified", icon: <CheckCircle className="w-3 h-3" /> },
   ];
 
   useEffect(() => {
@@ -562,7 +562,7 @@ const handleCustomerPortalClick = (type) => {
             </div>
 
             {/* Live Stats with Emojis */}
-            <div className="ml-auto mr-4 flex items-center gap-6">
+            {/* <div className="ml-auto mr-4 flex items-center gap-6">
               <div className="text-white/80 text-sm flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 <span className="font-bold">🏠 1,234+</span>
@@ -573,8 +573,8 @@ const handleCustomerPortalClick = (type) => {
                 <span className="font-bold">😊 567+</span>
                 <span className="text-white/60">Happy Clients</span>
               </div>
-            </div>
-          </div>
+            </div>*/}
+          </div> 
         </nav>
       </header>
 

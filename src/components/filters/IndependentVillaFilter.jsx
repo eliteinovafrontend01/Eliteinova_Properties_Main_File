@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { 
-  Home, DollarSign, Calendar, Bed, Bath, 
-  Car, Trees, Building, Lock, Camera, Wifi, 
-  Shield, Sun, Coffee, Users, Briefcase, 
+import {
+  Home, DollarSign, Calendar, Bed, Bath,
+  Car, Trees, Building, Lock, Camera, Wifi,
+  Shield, Sun, Coffee, Users, Briefcase,
   MapPin, Square, TrendingUp, Clock, FileText,
   CheckCircle, XCircle, Sprout, Leaf,
-  Filter, X, ChevronDown
+  Filter, X, ChevronDown, SwatchBook, Dumbbell,
+  Waves, Crown, Building2 as ClubhouseIcon, Camera as CameraIcon
 } from "lucide-react";
 
-const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose }) => {
+
+const IndependentVillaFilter = ({ activeTab = "Rent", onFilterChange, onClose }) => {
   const [activePropertyType, setActivePropertyType] = useState(activeTab);
   
   // Common states for all tabs
@@ -17,6 +19,7 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
   const [furnishingType, setFurnishingType] = useState("");
   const [parking, setParking] = useState("");
   const [gardenSpace, setGardenSpace] = useState("");
+  const [swimmingPool, setSwimmingPool] = useState("");
   const [terrace, setTerrace] = useState("");
   const [amenities, setAmenities] = useState([]);
   
@@ -57,10 +60,11 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
   
   const propertyTypes = ["Buy", "Rent", "Sell", "Lease"];
   
-  const bedroomOptions = ["1 BHK", "2 BHK", "3 BHK", "4+ BHK"];
-  const bathroomOptions = ["1", "2", "3", "4+"];
+  const bedroomOptions = ["2 BHK", "3 BHK", "4 BHK", "5+ BHK"];
+  const bathroomOptions = ["2", "3", "4", "5+"];
   const furnishingOptions = ["Fully Furnished", "Semi Furnished", "Unfurnished"];
   const parkingOptions = ["1 Car", "2 Cars", "3+ Cars"];
+  const floorOptions = ["Single Floor", "Duplex", "Triplex"];
   const yesNoOptions = ["Yes", "No"];
   
   const commonAmenities = [
@@ -68,11 +72,11 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
     { id: "security247", label: "24/7 Security", icon: <Shield className="w-4 h-4" /> },
     { id: "powerBackup", label: "Power Backup", icon: <Lock className="w-4 h-4" /> },
     { id: "cctv", label: "CCTV Surveillance", icon: <Camera className="w-4 h-4" /> },
-    { id: "modularKitchen", label: "Modular Kitchen", icon: <Coffee className="w-4 h-4" /> },
+    { id: "clubhouse", label: "Clubhouse", icon: <ClubhouseIcon className="w-4 h-4" /> },
     { id: "playArea", label: "Children's Play Area", icon: <Users className="w-4 h-4" /> },
-    { id: "nearbySchool", label: "Nearby School/Hospital", icon: <MapPin className="w-4 h-4" /> },
+    { id: "gym", label: "Gym / Fitness Center", icon: <Dumbbell className="w-4 h-4" /> },
     { id: "smartHome", label: "Smart Home Features", icon: <Wifi className="w-4 h-4" /> },
-    { id: "balcony", label: "Balcony/Terrace", icon: <Sun className="w-4 h-4" /> }
+    { id: "balcony", label: "Balcony / Terrace", icon: <Sun className="w-4 h-4" /> }
   ];
   
   const rentAmenities = [
@@ -97,6 +101,7 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       furnishingType,
       parking,
       gardenSpace,
+      swimmingPool,
       terrace,
       amenities,
       preferredLocation,
@@ -150,6 +155,7 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
     setFurnishingType("");
     setParking("");
     setGardenSpace("");
+    setSwimmingPool("");
     setTerrace("");
     setAmenities([]);
     setBudgetRange({ min: "", max: "" });
@@ -296,11 +302,36 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
         </div>
       </div>
       
-      {/* Garden Space */}
+      {/* Floors Preferred */}
       <div className="mb-6 animate-fade-in-up delay-500">
         <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+          <Building className="w-4 h-4 text-teal-600" />
+          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Floors Configuration</span>
+        </label>
+        <div className="grid grid-cols-1 gap-2">
+          {floorOptions.map((floor) => (
+            <label key={floor} className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+              <input
+                type="radio"
+                name="floorsPreferred"
+                checked={activePropertyType === "Buy" ? floorsPreferred === floor : floorCount === floor}
+                onChange={() => {
+                  if (activePropertyType === "Buy") setFloorsPreferred(floor);
+                  else setFloorCount(floor);
+                }}
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+              />
+              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{floor}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+      
+      {/* Garden Space */}
+      <div className="mb-6 animate-fade-in-up delay-600">
+        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
           <Sprout className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Garden Space</span>
+          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Garden / Open Space</span>
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
@@ -318,11 +349,33 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
         </div>
       </div>
       
+      {/* Swimming Pool */}
+      <div className="mb-6 animate-fade-in-up delay-700">
+        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
+          <Waves className="w-4 h-4 text-teal-600" />
+          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Swimming Pool</span>
+        </label>
+        <div className="flex gap-3">
+          {yesNoOptions.map((option) => (
+            <label key={option} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
+              <input
+                type="radio"
+                name="swimmingPool"
+                checked={swimmingPool === option}
+                onChange={() => setSwimmingPool(option)}
+                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+              />
+              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{option}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+      
       {/* Terrace/Balcony */}
-      <div className="mb-6 animate-fade-in-up delay-600">
+      <div className="mb-6 animate-fade-in-up delay-[800ms]">
         <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
           <Sun className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Terrace / Balcony</span>
+          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Balcony / Terrace</span>
         </label>
         <div className="flex gap-3">
           {yesNoOptions.map((option) => (
@@ -341,7 +394,7 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
       </div>
       
       {/* Amenities */}
-      <div className="mb-6 animate-fade-in-up delay-700">
+      <div className="mb-6 animate-fade-in-up delay-[900ms]">
         <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
           <CheckCircle className="w-4 h-4 text-teal-600" />
           <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Amenities Required</span>
@@ -510,28 +563,6 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
-      {/* Floors Preferred */}
-      <div className="mb-6 animate-fade-in-up delay-700">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
-          <Building className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Floors Preferred</span>
-        </label>
-        <div className="flex gap-3">
-          {["Ground Floor", "Duplex", "Multi-Floor"].map((floor) => (
-            <label key={floor} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
-              <input
-                type="radio"
-                name="floorsPreferred"
-                checked={floorsPreferred === floor}
-                onChange={() => setFloorsPreferred(floor)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
-              />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{floor}</span>
-            </label>
-          ))}
-        </div>
-      </div>
     </>
   );
   
@@ -561,9 +592,6 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
             className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
           />
         </div>
-        {/* <div className="mt-3 h-2 bg-gradient-to-r from-teal-100 to-emerald-100 rounded-full overflow-hidden">
-          <div className="h-full w-3/4 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full animate-progress"></div>
-        </div> */}
       </div>
       
       {/* Security Deposit */}
@@ -805,28 +833,6 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
           ))}
         </div>
       </div>
-      
-      {/* Floor Count */}
-      <div className="mb-6 animate-fade-in-up delay-700">
-        <label className="text-sm font-bold text-teal-800 mb-3 block flex items-center gap-2">
-          <Building className="w-4 h-4 text-teal-600" />
-          <span className="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Number of Floors</span>
-        </label>
-        <div className="flex gap-3">
-          {["Ground Floor", "Duplex", "Multi-Floor"].map((floor) => (
-            <label key={floor} className="flex items-center gap-2 p-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 backdrop-blur-sm hover:border-teal-500 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 group">
-              <input
-                type="radio"
-                name="floorCount"
-                checked={floorCount === floor}
-                onChange={() => setFloorCount(floor)}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
-              />
-              <span className="text-sm font-semibold text-teal-800 group-hover:text-teal-900">{floor}</span>
-            </label>
-          ))}
-        </div>
-      </div>
     </>
   );
   
@@ -963,7 +969,7 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
               <Filter className="w-5 h-5" />
             </div>
             <span className="text-white font-bold">
-              Filter Properties
+              Filter Villas
             </span>
           </h3>
           {onClose && (
@@ -1081,4 +1087,4 @@ const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose })
   );
 };
 
-export default IndependentHouseFilter;
+export default IndependentVillaFilter;

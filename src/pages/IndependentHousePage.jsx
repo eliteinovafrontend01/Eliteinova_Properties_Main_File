@@ -369,7 +369,7 @@ const IndependentHousePage = () => {
             </div>
 
             <div className="lg:w-1/3 lg:relative">
-              <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:custom-scrollbar animate-slide-in-right">
+              <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:scrollbar-hide animate-slide-in-right">
                 {/* Desktop Sidebar Filter */}
                 <div className="hidden lg:block">
                   <IndependentHouseFilter 

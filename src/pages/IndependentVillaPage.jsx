@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import backgroundImage from "../assets/ind1.jpg"
+import backgroundImage from "../assets/ind1.jpg";
+import IndependentVillaFilter from "../components/filters/IndependentVillaFilter";
 
 const IndependentVillaPage = () => {
   const navigate = useNavigate();
@@ -9,8 +10,9 @@ const IndependentVillaPage = () => {
   const [activeButton, setActiveButton] = useState("Rent");
   const [activeHouseType, setActiveHouseType] = useState("Independent Villa");
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
-  const [hoveredFilter, setHoveredFilter] = useState(null);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [appliedFilters, setAppliedFilters] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const propertyCategories = [
     { name: "Apartment", path: "/apartment", icon: <Building className="w-4 h-4" /> },
@@ -45,6 +47,24 @@ const IndependentVillaPage = () => {
 
   const handlePropertyCategoryNavigation = (path) => {
     navigate(path);
+  };
+
+  const handleFilterChange = (filters) => {
+    setAppliedFilters(filters);
+    console.log("Applied Filters:", filters);
+    // Here you can make API call to fetch filtered properties
+  };
+
+  const handleClearFilters = () => {
+    setAppliedFilters(null);
+    // Clear any other filter states if needed
+  };
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      console.log("Searching for:", searchQuery);
+      // Implement search functionality
+    }
   };
 
   return (
@@ -158,7 +178,7 @@ const IndependentVillaPage = () => {
                       </button>
                       <div className="h-px bg-gradient-to-r from-transparent via-teal-200/50 to-transparent"></div>
                       <button onClick={() => { handleNavigation("/sell"); setActiveButton("Sell"); setOpenDropdown(null); }} className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group">
-                        <div className="flex items-center gap-3 group-hover:gap-4 transition-all"><div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-teal-500"></div>Sell</div>
+                        <div className="flex items-center gap-3 group-hover:gap-4 transition-all"><div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-purple-500 to-teal-500"></div>Sell</div>
                       </button>
                     </div>   
                   )}
@@ -169,11 +189,31 @@ const IndependentVillaPage = () => {
                   <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
                   <input
                     type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyPress={handleSearch}
                     placeholder="Search luxury villas by city, locality, or landmark"
                     className="w-full pl-12 pr-5 py-3.5 rounded-2xl border-2 border-teal-200/50 bg-teal-50/90 text-base focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30 shadow-xl text-teal-900 placeholder-teal-400 transition-all duration-500 relative z-10 hover:shadow-2xl"
                   />
                   <MapPin className="absolute right-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
                 </div>
+
+                {/* Advanced Filter Button */}
+                <button
+                  onClick={() => setShowFilterModal(true)}
+                  className="group relative px-6 py-3.5 rounded-xl text-white font-semibold text-base flex items-center gap-3 shadow-xl hover:shadow-[0_0_30px_rgba(249,115,22,0.4)] transition-all duration-500 transform hover:scale-105 overflow-hidden"
+                  style={{
+                    background: "linear-gradient(135deg, #E25822, #F97316)",
+                    backgroundSize: "200% 200%"
+                  }}
+                >
+                  <div className="absolute inset-0 animate-gradient-shift-slow"></div>
+                  <Filter className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+                  <span className="relative z-10">Advanced Filters</span>
+                  {appliedFilters && (
+                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></span>
+                  )}
+                </button>
               </div>
 
               <div className="flex flex-wrap gap-3">
@@ -230,9 +270,34 @@ const IndependentVillaPage = () => {
                   );
                 })}
               </div>
+              
+              {/* Mobile Filter Button */}
+              <button
+                onClick={() => setShowFilterModal(true)}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold flex items-center justify-center gap-2 shadow-lg"
+              >
+                <Filter className="w-4 h-4" />
+                Filter Properties
+                {appliedFilters && (
+                  <span className="ml-2 w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                )}
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Filter Modal */}
+        {showFilterModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
+            <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+              <IndependentVillaFilter 
+                activeTab={activeButton}
+                onFilterChange={handleFilterChange}
+                onClose={() => setShowFilterModal(false)}
+              />
+            </div>
+          </div>
+        )}
 
         <div className="max-w-none mx-auto px-6 py-8 lg:py-12">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
@@ -246,6 +311,7 @@ const IndependentVillaPage = () => {
                   
                   <div className="w-24 h-24 md:w-28 md:h-28 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-2xl group-hover:shadow-[0_0_50px_rgba(249,115,22,0.5)] transition-all duration-700 transform group-hover:scale-110 group-hover:rotate-3 relative" style={{ background: "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)", backgroundSize: "200% 200%" }}>
                     <div className="absolute inset-0 animate-gradient-shift-slow rounded-3xl"></div>
+                    <div className="absolute -inset-4 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-3xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-700"></div>
                     <Home className="w-12 h-12 text-white group-hover:rotate-12 transition-transform duration-700 relative z-10" />
                   </div>
                   
@@ -257,6 +323,28 @@ const IndependentVillaPage = () => {
                     Experience luxury living with our premium villa collections. Launching soon with exclusive offers.
                     <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-500 font-semibold text-xl">Check back soon for amazing deals!</span>
                   </p>
+                  
+                  {appliedFilters && (
+                    <div className="mt-6 p-4 bg-teal-100/50 rounded-xl">
+                      <div className="flex justify-between items-center mb-2">
+                        <p className="text-sm text-teal-700 font-semibold">Filters Applied:</p>
+                        <button 
+                          onClick={handleClearFilters}
+                          className="text-xs text-orange-600 hover:text-orange-700 font-medium"
+                        >
+                          Clear All
+                        </button>
+                      </div>
+                      <p className="text-xs text-teal-600 mt-1">
+                        {Object.keys(appliedFilters).filter(key => 
+                          appliedFilters[key] && 
+                          (typeof appliedFilters[key] !== 'object' || 
+                            (appliedFilters[key].min || appliedFilters[key].max || 
+                             (Array.isArray(appliedFilters[key]) && appliedFilters[key].length > 0)))
+                        ).length} filters active
+                      </p>
+                    </div>
+                  )}
                   
                   <div className="mt-8 flex justify-center gap-4">
                     <button className="group relative px-6 py-3 rounded-xl border-2 border-orange-500 text-orange-600 font-semibold hover:bg-gradient-to-r from-orange-50 to-amber-50 transition-all duration-500 transform hover:scale-105 overflow-hidden">
@@ -275,22 +363,12 @@ const IndependentVillaPage = () => {
 
             <div className="lg:w-1/3 lg:relative">
               <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:custom-scrollbar animate-slide-in-right">
-                <div className="bg-gradient-to-b from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-teal-200/30">
-                  <h3 className="text-xl font-bold text-teal-900 mb-6 flex items-center gap-3">
-                    <Filter className="w-5 h-5 text-teal-600" />
-                    <span>Advanced Filters</span>
-                  </h3>
-                  <div className="mb-6">
-                    <label className="text-sm font-semibold text-teal-800 mb-3 block">Price Range</label>
-                    <div className="flex gap-3">
-                      <input type="number" placeholder="Min" className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-orange-500" />
-                      <input type="number" placeholder="Max" className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-orange-500" />
-                    </div>
-                  </div>
-                  <div className="flex gap-3 pt-6 border-t border-teal-200/30">
-                    <button className="flex-1 px-4 py-3 rounded-xl border-2 border-teal-200/50 text-sm font-medium text-teal-700 hover:bg-gradient-to-r from-teal-50 to-emerald-50">Clear All</button>
-                    <button className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold text-white shadow-xl hover:shadow-[0_0_25px_rgba(249,115,22,0.4)] bg-gradient-to-r from-orange-500 to-orange-600">Apply Filters</button>
-                  </div>
+                {/* Desktop Sidebar Filter */}
+                <div className="hidden lg:block">
+                  <IndependentVillaFilter 
+                    activeTab={activeButton}
+                    onFilterChange={handleFilterChange}
+                  />
                 </div>
               </div>
             </div>
@@ -310,6 +388,8 @@ const IndependentVillaPage = () => {
         .animate-particle-float { animation: particle-float 12s ease-in-out infinite; }
         @keyframes float-glow { 0%, 100% { transform: translateY(0px); box-shadow: 0 0 30px rgba(0,105,92,0.3); } 50% { transform: translateY(-5px); box-shadow: 0 0 40px rgba(0,105,92,0.5); } }
         .animate-float-glow { animation: float-glow 3s ease-in-out infinite; }
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fade-in { animation: fade-in 0.3s ease-out forwards; }
         @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
         @keyframes slide-up { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -330,6 +410,7 @@ const IndependentVillaPage = () => {
         .lg\:custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .lg\:custom-scrollbar::-webkit-scrollbar-track { background: linear-gradient(to bottom, transparent, rgba(0, 105, 92, 0.1), transparent); border-radius: 10px; }
         .lg\:custom-scrollbar::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #00695C, #26A69A); border-radius: 10px; }
+        .lg\:custom-scrollbar::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #004D40, #00796B); box-shadow: 0 0 10px rgba(0, 105, 92, 0.5); }
       `}</style>
     </div>
   );
