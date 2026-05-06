@@ -90,31 +90,31 @@ const IndependentHousePage = () => {
       </div>
 
       <div className="relative z-10">
-        <section className="w-full h-[350px] md:h-[450px] relative flex items-center overflow-hidden group">
+        <section className="w-full h-[200px] md:h-[240px] relative flex items-center justify-center overflow-hidden group py-4">
           <div className="absolute inset-0 bg-gradient-to-b animate-gradient-slow"></div>
           
-          <div className="max-w-none mx-auto px-6 relative z-10 text-center w-full">
-            <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
+          <div className="max-w-none mx-auto px-6 relative z-10 text-center w-full flex flex-col items-center justify-center gap-1">
+            <div className="mb-1 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
               <Star className="w-4 h-4 text-teal-300 animate-spin-slow" fill="currentColor" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300 text-sm font-medium">
                 Independent House Properties
               </span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-1 animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
               Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Independent House</span>
             </h1>
             
-            <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed ">
+            <p className="text-base md:text-lg text-white/90 mb-2 max-w-3xl mx-auto leading-relaxed">
               Explore spacious independent houses with premium amenities and prime locations
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 px-4 animate-fade-in-up delay-200">
+            <div className="flex flex-wrap justify-center gap-2 px-4 animate-fade-in-up delay-200">
               {propertyCategories.map((category, index) => (
                 <button
                   key={category.name}
                   onClick={() => handlePropertyCategoryNavigation(category.path)}
-                  className="group relative px-7 py-3.5 rounded-xl text-white font-semibold text-base shadow-2xl hover:shadow-[0_0_40px_rgba(0,105,92,0.5)] transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 overflow-hidden animate-slide-up"
+                  className="group relative px-4 py-2 rounded-xl text-white font-semibold text-sm shadow-2xl hover:shadow-[0_0_40px_rgba(0,105,92,0.5)] transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 overflow-hidden animate-slide-up"
                   style={{
                     animationDelay: `${index * 100}ms`,
                     background: "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
@@ -140,7 +140,7 @@ const IndependentHousePage = () => {
                 <div className="relative">
                   <button
                     onClick={() => setOpenDropdown(openDropdown === "toggle" ? null : "toggle")}
-                    className="group relative px-6 py-3.5 rounded-xl text-white font-semibold text-base flex items-center gap-3 shadow-xl hover:shadow-[0_0_30px_rgba(0,105,92,0.4)] transition-all duration-500 transform hover:scale-105 overflow-hidden"
+                    className="group relative px-4 py-2 rounded-lg text-white font-semibold text-sm flex items-center gap-2 shadow-xl"
                     style={{
                       background: "linear-gradient(135deg, #00695C, #26A69A)",
                       backgroundSize: "200% 200%"
@@ -191,7 +191,7 @@ const IndependentHousePage = () => {
                   <input
                     type="text"
                     placeholder="Search independent houses by city, locality, or landmark"
-                    className="w-full pl-12 pr-5 py-3.5 rounded-2xl border-2 border-teal-200/50 bg-teal-50/90 text-base focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-xl text-teal-900 placeholder-teal-400 transition-all duration-500 relative z-10 hover:shadow-2xl"
+                    className="w-full pl-10 pr-5 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/90 text-sm"
                   />
                   <MapPin className="absolute right-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
                 </div>
@@ -199,7 +199,7 @@ const IndependentHousePage = () => {
                 {/* Advanced Filter Button */}
                 <button
                   onClick={() => setShowFilterModal(true)}
-                  className="group relative px-6 py-3.5 rounded-xl text-white font-semibold text-base flex items-center gap-3 shadow-xl hover:shadow-[0_0_30px_rgba(0,105,92,0.4)] transition-all duration-500 transform hover:scale-105 overflow-hidden"
+                  className="group relative px-4 py-2 rounded-lg text-white font-semibold text-sm flex items-center gap-2 shadow-xl hover:shadow-[0_0_30px_rgba(0,105,92,0.4)] transition-all duration-500 transform hover:scale-105 overflow-hidden"
                   style={{
                     background: "linear-gradient(135deg, #00897B, #26A69A)",
                     backgroundSize: "200% 200%"
@@ -221,7 +221,7 @@ const IndependentHousePage = () => {
                     <button
                       key={type.name}
                       onClick={() => handleNavigation(type.path, type.name)}
-                      className={`group relative px-5 py-3 rounded-xl font-semibold text-base shadow-xl transition-all duration-500 whitespace-nowrap transform hover:-translate-y-1 hover:scale-105 overflow-hidden ${
+                      className={`group relative px-3 py-1.5 rounded-lg font-semibold text-sm shadow-xl transition-all duration-500 whitespace-nowrap transform hover:-translate-y-1 hover:scale-105 overflow-hidden ${
                         isActive 
                           ? "text-white shadow-[0_0_30px_rgba(0,105,92,0.6)]" 
                           : "text-white/90 hover:text-white"

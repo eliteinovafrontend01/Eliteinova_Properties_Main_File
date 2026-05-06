@@ -268,12 +268,14 @@ const IndividualPage = () => {
                         : "text-white/90 hover:text-white"
                     }`}
                     style={{
-                      background: isActive 
-                        ? "#ffffff" 
-                        : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
-                      backgroundSize: "200% 200%",
-                      border: isActive ? "3px solid #00695C" : "none"
-                    }}
+                    background: isActive 
+                      ? "#ffffff" 
+                      : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
+                    backgroundSize: "200% 200%",
+                    outline: isActive ? "4px solid #00695C" : "none",
+                    outlineOffset: "-3px",   // pulls outline inward so it looks like a border
+                    border: "none"
+                  }}
                     >
                       <div className={`absolute inset-0 animate-gradient-shift-slow ${isActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-500'}`}></div>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
