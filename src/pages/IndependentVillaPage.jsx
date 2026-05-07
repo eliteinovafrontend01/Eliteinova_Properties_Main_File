@@ -3,6 +3,7 @@ import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark,
 import { useNavigate, useLocation } from "react-router-dom";
 import backgroundImage from "../assets/ind1.jpg";
 import IndependentVillaFilter from "../components/filters/IndependentVillaFilter";
+import IndependentVilla from "../components/propertycard/IndependentVilla";
 
 const IndependentVillaPage = () => {
   const navigate = useNavigate();
@@ -302,63 +303,9 @@ const IndependentVillaPage = () => {
         <div className="max-w-none mx-auto px-6 py-8 lg:py-12">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             <div className="lg:w-2/3">
-              <section>
-                <div className="bg-gradient-to-br from-teal-50/90 via-emerald-50/90 to-teal-50/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 lg:p-12 text-center border border-teal-200/30 hover:shadow-[0_0_60px_rgba(249,115,22,0.3)] transition-all duration-700 group animate-fade-in-up">
-                  <div className="mb-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-orange-100 to-amber-100 border border-orange-200">
-                    <span className="text-sm font-medium text-orange-700">Active Filter:</span>
-                    <span className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-500">{activeHouseType}</span>
-                  </div>
-                  
-                  <div className="w-24 h-24 md:w-28 md:h-28 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-2xl group-hover:shadow-[0_0_50px_rgba(249,115,22,0.5)] transition-all duration-700 transform group-hover:scale-110 group-hover:rotate-3 relative" style={{ background: "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)", backgroundSize: "200% 200%" }}>
-                    <div className="absolute inset-0 animate-gradient-shift-slow rounded-3xl"></div>
-                    <div className="absolute -inset-4 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-3xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-700"></div>
-                    <Home className="w-12 h-12 text-white group-hover:rotate-12 transition-transform duration-700 relative z-10" />
-                  </div>
-                  
-                  <h2 className="text-3xl md:text-4xl font-bold text-teal-900 mb-4">
-                    Luxury Villas <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 animate-gradient-text-slow">Coming Soon</span>
-                  </h2>
-                  
-                  <p className="text-teal-800 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed backdrop-blur-sm bg-teal-100/30 rounded-2xl p-6 border border-teal-200/20">
-                    Experience luxury living with our premium villa collections. Launching soon with exclusive offers.
-                    <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-500 font-semibold text-xl">Check back soon for amazing deals!</span>
-                  </p>
-                  
-                  {appliedFilters && (
-                    <div className="mt-6 p-4 bg-teal-100/50 rounded-xl">
-                      <div className="flex justify-between items-center mb-2">
-                        <p className="text-sm text-teal-700 font-semibold">Filters Applied:</p>
-                        <button 
-                          onClick={handleClearFilters}
-                          className="text-xs text-orange-600 hover:text-orange-700 font-medium"
-                        >
-                          Clear All
-                        </button>
-                      </div>
-                      <p className="text-xs text-teal-600 mt-1">
-                        {Object.keys(appliedFilters).filter(key => 
-                          appliedFilters[key] && 
-                          (typeof appliedFilters[key] !== 'object' || 
-                            (appliedFilters[key].min || appliedFilters[key].max || 
-                             (Array.isArray(appliedFilters[key]) && appliedFilters[key].length > 0)))
-                        ).length} filters active
-                      </p>
-                    </div>
-                  )}
-                  
-                  <div className="mt-8 flex justify-center gap-4">
-                    <button className="group relative px-6 py-3 rounded-xl border-2 border-orange-500 text-orange-600 font-semibold hover:bg-gradient-to-r from-orange-50 to-amber-50 transition-all duration-500 transform hover:scale-105 overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-100 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                      <span className="relative z-10">Get Notified</span>
-                    </button>
-                    <button className="group relative px-6 py-3 rounded-xl text-white font-semibold shadow-xl hover:shadow-[0_0_30px_rgba(249,115,22,0.5)] transition-all duration-500 transform hover:scale-105 overflow-hidden" style={{ background: "linear-gradient(135deg, #E25822, #F97316)", backgroundSize: "200% 200%" }}>
-                      <div className="absolute inset-0 animate-gradient-shift"></div>
-                      <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
-                      <span className="relative z-10">Browse Similar</span>
-                    </button>
-                  </div>
-                </div>
-              </section>
+              <section className="animate-fade-in-up">
+  <IndependentVilla />
+</section>
             </div>
 
             <div className="lg:w-1/3 lg:relative">
