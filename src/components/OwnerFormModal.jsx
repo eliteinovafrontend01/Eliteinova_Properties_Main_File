@@ -55,6 +55,178 @@ export default function OwnerFormModal({ isOpen, onClose }) {
             }}
           />
 
+          {/* ── LEFT SIDE BUILDINGS (white, decorative) ── */}
+          <svg
+            className="absolute bottom-0 left-0 pointer-events-none"
+            width="160"
+            height="90"
+            viewBox="0 0 160 90"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* B1 - Tallest skyscraper far left */}
+            <rect x="0" y="10" width="13" height="80" fill="white" />
+            <polygon points="6.5,4 0,10 13,10" fill="white" />
+            <rect x="2" y="15" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="6" y="15" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="10" y="15" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="2" y="22" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="6" y="22" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="10" y="22" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="2" y="29" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="6" y="29" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="10" y="29" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="2" y="36" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="6" y="36" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="10" y="36" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="2" y="43" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="6" y="43" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="10" y="43" width="2" height="3" fill="#26A69A" opacity="0.5" />
+
+            {/* B2 - Narrow tower with antenna */}
+            <rect x="15" y="28" width="9" height="62" fill="white" />
+            <rect x="18" y="22" width="3" height="8" fill="white" />
+            <rect x="19" y="18" width="1" height="6" fill="white" />
+            <rect x="16" y="33" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="20" y="33" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="16" y="40" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="20" y="40" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="16" y="47" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="20" y="47" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="16" y="54" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="20" y="54" width="2" height="3" fill="#26A69A" opacity="0.45" />
+
+            {/* B3 - Wide office block */}
+            <rect x="26" y="35" width="22" height="55" fill="white" />
+            <rect x="28" y="40" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="34" y="40" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="40" y="40" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="28" y="48" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="34" y="48" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="40" y="48" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="28" y="56" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="34" y="56" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="40" y="56" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="28" y="64" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="34" y="64" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="40" y="64" width="3" height="4" fill="#26A69A" opacity="0.4" />
+
+            {/* B4 - Short squat block */}
+            <rect x="50" y="52" width="14" height="38" fill="white" />
+            <rect x="52" y="57" width="3" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="58" y="57" width="3" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="52" y="64" width="3" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="58" y="64" width="3" height="3" fill="#26A69A" opacity="0.4" />
+
+            {/* B5 - Medium stepped tower */}
+            <rect x="66" y="42" width="12" height="48" fill="white" />
+            <rect x="68" y="36" width="8" height="8" fill="white" />
+            <rect x="70" y="32" width="4" height="6" fill="white" />
+            <rect x="67" y="47" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="72" y="47" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="67" y="54" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="72" y="54" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="67" y="61" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="72" y="61" width="2" height="3" fill="#26A69A" opacity="0.4" />
+
+            {/* B6 - Tiny filler block */}
+            <rect x="80" y="60" width="10" height="30" fill="white" opacity="0.8" />
+            <rect x="82" y="64" width="2" height="3" fill="#26A69A" opacity="0.35" />
+            <rect x="86" y="64" width="2" height="3" fill="#26A69A" opacity="0.35" />
+
+            {/* B7 - Another narrow accent */}
+            <rect x="92" y="50" width="8" height="40" fill="white" opacity="0.75" />
+            <rect x="93" y="55" width="2" height="3" fill="#26A69A" opacity="0.35" />
+            <rect x="97" y="55" width="2" height="3" fill="#26A69A" opacity="0.35" />
+            <rect x="93" y="62" width="2" height="3" fill="#26A69A" opacity="0.35" />
+            <rect x="97" y="62" width="2" height="3" fill="#26A69A" opacity="0.35" />
+          </svg>
+
+          {/* ── RIGHT SIDE BUILDINGS (white, decorative) ── */}
+          <svg
+            className="absolute bottom-0 right-0 pointer-events-none"
+            width="160"
+            height="90"
+            viewBox="0 0 160 90"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* B1 - Tallest skyscraper far right */}
+            <rect x="147" y="10" width="13" height="80" fill="white" />
+            <polygon points="153.5,4 147,10 160,10" fill="white" />
+            <rect x="148" y="15" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="152" y="15" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="156" y="15" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="148" y="22" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="152" y="22" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="156" y="22" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="148" y="29" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="152" y="29" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="156" y="29" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="148" y="36" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="152" y="36" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="156" y="36" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="148" y="43" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="152" y="43" width="2" height="3" fill="#26A69A" opacity="0.5" />
+            <rect x="156" y="43" width="2" height="3" fill="#26A69A" opacity="0.5" />
+
+            {/* B2 - Narrow tower with antenna */}
+            <rect x="136" y="28" width="9" height="62" fill="white" />
+            <rect x="138" y="22" width="3" height="8" fill="white" />
+            <rect x="139" y="18" width="1" height="6" fill="white" />
+            <rect x="137" y="33" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="141" y="33" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="137" y="40" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="141" y="40" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="137" y="47" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="141" y="47" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="137" y="54" width="2" height="3" fill="#26A69A" opacity="0.45" />
+            <rect x="141" y="54" width="2" height="3" fill="#26A69A" opacity="0.45" />
+
+            {/* B3 - Wide office block */}
+            <rect x="112" y="35" width="22" height="55" fill="white" />
+            <rect x="114" y="40" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="120" y="40" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="126" y="40" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="114" y="48" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="120" y="48" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="126" y="48" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="114" y="56" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="120" y="56" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="126" y="56" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="114" y="64" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="120" y="64" width="3" height="4" fill="#26A69A" opacity="0.4" />
+            <rect x="126" y="64" width="3" height="4" fill="#26A69A" opacity="0.4" />
+
+            {/* B4 - Short squat block */}
+            <rect x="96" y="52" width="14" height="38" fill="white" />
+            <rect x="98" y="57" width="3" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="104" y="57" width="3" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="98" y="64" width="3" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="104" y="64" width="3" height="3" fill="#26A69A" opacity="0.4" />
+
+            {/* B5 - Medium stepped tower */}
+            <rect x="82" y="42" width="12" height="48" fill="white" />
+            <rect x="84" y="36" width="8" height="8" fill="white" />
+            <rect x="86" y="32" width="4" height="6" fill="white" />
+            <rect x="83" y="47" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="88" y="47" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="83" y="54" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="88" y="54" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="83" y="61" width="2" height="3" fill="#26A69A" opacity="0.4" />
+            <rect x="88" y="61" width="2" height="3" fill="#26A69A" opacity="0.4" />
+
+            {/* B6 - Tiny filler block */}
+            <rect x="70" y="60" width="10" height="30" fill="white" opacity="0.8" />
+            <rect x="72" y="64" width="2" height="3" fill="#26A69A" opacity="0.35" />
+            <rect x="76" y="64" width="2" height="3" fill="#26A69A" opacity="0.35" />
+
+            {/* B7 - Another narrow accent */}
+            <rect x="60" y="50" width="8" height="40" fill="white" opacity="0.75" />
+            <rect x="61" y="55" width="2" height="3" fill="#26A69A" opacity="0.35" />
+            <rect x="65" y="55" width="2" height="3" fill="#26A69A" opacity="0.35" />
+            <rect x="61" y="62" width="2" height="3" fill="#26A69A" opacity="0.35" />
+            <rect x="65" y="62" width="2" height="3" fill="#26A69A" opacity="0.35" />
+          </svg>
+
           {/* building silhouette bottom */}
           <div
             className="absolute bottom-0 left-0 right-0 h-7 bg-white"
@@ -331,19 +503,66 @@ export default function OwnerFormModal({ isOpen, onClose }) {
           )}
         </div>
 
-        {/* ── FOOTER ── */}
-        <div className="flex gap-2 sm:gap-3 p-3 sm:p-4 border-t bg-white shrink-0 rounded-b-2xl">
-          {step > 0 && (
-            <button className="btn-outline text-sm px-3 py-2" onClick={() => setStep(step - 1)}>
-              ← Back
-            </button>
+        {/* ── ENHANCED FOOTER WITH PROGRESS BAR ── */}
+        <div className="flex flex-col shrink-0 bg-white rounded-b-2xl border-t">
+          {/* Subtle progress bar */}
+          {step < 4 && (
+            <div className="px-3 sm:px-4 pt-3">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-[9px] text-gray-400 font-medium">Form completion</span>
+                <span className="text-[9px] text-[#00695C] font-semibold">
+                  {Math.round(((step + 1) / 5) * 100)}%
+                </span>
+              </div>
+              <div className="h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-[#00695C] to-[#26A69A] rounded-full transition-all duration-300"
+                  style={{ width: `${((step + 1) / 5) * 100}%` }}
+                />
+              </div>
+            </div>
           )}
-          <button
-            className="btn-primary ml-auto text-sm px-4 py-2"
-            onClick={() => (step === 4 ? onClose() : setStep(step + 1))}
-          >
-            {step === 4 ? "✓ Submit Form" : "Continue →"}
-          </button>
+          
+          <div className="flex gap-2 sm:gap-3 p-3 sm:p-4 relative">
+            {/* Subtle gradient overlay matching header */}
+            <div 
+              className="absolute inset-0 opacity-3 pointer-events-none rounded-b-2xl"
+              style={{
+                background: "linear-gradient(135deg, #00695C 0%, #00897B 50%, #26A69A 100%)"
+              }}
+            />
+            
+            {step > 0 && (
+              <button 
+                className="relative px-4 py-2 text-sm font-semibold text-[#00695C] bg-gray-50 hover:bg-gray-100 rounded-lg transition-all duration-200 flex items-center gap-1 border border-gray-200 hover:border-[#00695C]/30"
+                onClick={() => setStep(step - 1)}
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                Back
+              </button>
+            )}
+            
+            <button
+              className={`relative px-5 py-2 text-sm font-semibold text-white rounded-lg transition-all duration-200 flex items-center gap-1 ml-auto shadow-md hover:shadow-lg ${
+                step === 4 
+                  ? "bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700" 
+                  : "bg-gradient-to-r from-[#00695C] to-[#00897B] hover:from-[#005a4f] hover:to-[#00695C]"
+              }`}
+              onClick={() => (step === 4 ? onClose() : setStep(step + 1))}
+            >
+              {step === 4 ? (
+                <>
+                  <span>✓</span>
+                  Submit Form
+                </>
+              ) : (
+                <>
+                  Continue
+                  <span className="text-base ml-0.5">→</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
 
       </div>
