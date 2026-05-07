@@ -75,8 +75,8 @@ const PropertyCard = ({ property, onContactClick }) => {
 
   const getShortDetails = () => {
     if (!property.agentDetails) return '';
-    if (property.agentDetails.length <= 40) return property.agentDetails;
-    return property.agentDetails.substring(0, 40) + '...';
+    if (property.agentDetails.length <= 60) return property.agentDetails;
+    return property.agentDetails.substring(0, 60) + '...';
   };
 
   const imageCount = property.images.length;
@@ -91,87 +91,121 @@ const PropertyCard = ({ property, onContactClick }) => {
 
   return (
     <>
-      <div className="w-full mx-auto bg-gradient-to-br from-teal-50/90 via-emerald-50/90 to-teal-50/90 backdrop-blur-xl rounded-2xl shadow-lg border border-teal-200/30 p-3 lg:p-4 mb-5 overflow-hidden transition-all duration-500 group">
+      <div className="w-full mx-auto bg-gradient-to-br from-teal-50/90 via-emerald-50/90 to-teal-50/90 backdrop-blur-xl rounded-2xl shadow-lg border border-teal-200/30 p-5 lg:p-6 mb-6 overflow-hidden transition-all duration-500 group">
 
-        <div className="flex flex-col lg:flex-row gap-4 items-stretch">
+        <div className="flex flex-col md:flex-row gap-6">
 
-          {/* LEFT: IMAGE SECTION */}
-          <div className="w-full lg:w-[280px] xl:w-[300px] flex flex-row h-[220px] lg:h-[240px] bg-gray-100 rounded-xl overflow-hidden shadow-md flex-shrink-0">
+          {/* LEFT COLUMN: Image + Listed By */}
+          <div className="w-full md:w-[280px] xl:w-[300px] flex-shrink-0 flex flex-col gap-4">
 
-            {/* Main Image */}
-            <div className="flex-1 h-full overflow-hidden relative" onDoubleClick={(e) => handleImageDoubleClick(activeImg, e)}>
-              <img
-                src={property.images[activeImg]}
-                alt={property.title || 'Villa'}
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=450&fit=crop'; }}
-              />
-              <div className="absolute bottom-1 right-1 bg-black/50 text-white text-[7px] px-1.5 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                Double click for gallery
-              </div>
-              <div className="absolute top-2 left-2 z-10">
-                <div className={`${statusStyle.bg} text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-xl backdrop-blur-sm flex items-center gap-1 ${statusStyle.animation}`}>
-                  <span className="text-[9px]">{statusStyle.icon}</span>
-                  <span className="uppercase tracking-wider">{property.status}</span>
+            {/* Image Section */}
+            <div className="flex flex-row h-[220px] md:h-[240px] bg-gray-100 rounded-xl overflow-hidden shadow-md">
+              {/* Main Image */}
+              <div className="flex-1 h-full overflow-hidden relative" onDoubleClick={(e) => handleImageDoubleClick(activeImg, e)}>
+                <img
+                  src={property.images[activeImg]}
+                  alt={property.title || 'Villa'}
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                  onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=450&fit=crop'; }}
+                />
+                <div className="absolute bottom-1 right-1 bg-black/50 text-white text-[7px] px-1.5 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                  Double click for gallery
                 </div>
+                <div className="absolute top-2 left-2 z-10">
+                  <div className={`${statusStyle.bg} text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-xl backdrop-blur-sm flex items-center gap-1 ${statusStyle.animation}`}>
+                    <span className="text-[9px]">{statusStyle.icon}</span>
+                    <span className="uppercase tracking-wider">{property.status}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Thumbnail Strip */}
+              <div
+                className="h-full overflow-y-auto p-1.5 bg-white flex flex-col gap-1.5 flex-shrink-0"
+                style={{ width: getThumbnailWidth() }}
+              >
+                {property.images.map((img, idx) => (
+                  <div
+                    key={idx}
+                    className={`relative overflow-hidden rounded-md cursor-pointer transition-all duration-300 flex-shrink-0 w-full ${activeImg === idx ? 'ring-2 ring-[#26A69A] shadow-sm' : 'hover:shadow-sm'}`}
+                    style={{ height: `calc((100% - ${(imageCount - 1) * 6}px) / ${imageCount})`, minHeight: '32px' }}
+                    onClick={() => setActiveImg(idx)}
+                    onDoubleClick={(e) => handleImageDoubleClick(idx, e)}
+                  >
+                    <img
+                      src={img}
+                      className="w-full h-full object-cover"
+                      alt="thumb"
+                      onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=100&h=100&fit=crop'; }}
+                    />
+                    {imageCount > 6 && idx === 2 && (
+                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-bold text-xs">
+                        +{imageCount - 2}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Thumbnail Strip */}
-            <div
-              className="h-full overflow-y-auto p-1.5 bg-white flex flex-col gap-1.5 flex-shrink-0"
-              style={{ width: getThumbnailWidth() }}
-            >
-              {property.images.map((img, idx) => (
-                <div
-                  key={idx}
-                  className={`relative overflow-hidden rounded-md cursor-pointer transition-all duration-300 flex-shrink-0 w-full ${activeImg === idx ? 'ring-2 ring-[#26A69A] shadow-sm' : 'hover:shadow-sm'}`}
-                  style={{ height: `calc((100% - ${(imageCount - 1) * 6}px) / ${imageCount})`, minHeight: '32px' }}
-                  onClick={() => setActiveImg(idx)}
-                  onDoubleClick={(e) => handleImageDoubleClick(idx, e)}
-                >
-                  <img
-                    src={img}
-                    className="w-full h-full object-cover"
-                    alt="thumb"
-                    onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=100&h=100&fit=crop'; }}
-                  />
-                  {imageCount > 6 && idx === 2 && (
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-bold text-xs">
-                      +{imageCount - 2}
-                    </div>
+            {/* Listed By Section - COMPACT with reduced height */}
+            <div className="bg-white/80 rounded-xl p-2.5 border border-teal-100 shadow-sm">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00695C] to-[#26A69A] flex items-center justify-center text-white font-black shadow-md text-base shrink-0 overflow-hidden">
+                  {property.logo && !logoError ? (
+                    <img src={property.logo} alt="logo" className="w-full h-full object-cover" onError={() => setLogoError(true)} />
+                  ) : (
+                    <span>{property.postedBy.charAt(0)}</span>
                   )}
                 </div>
-              ))}
+                <div className="flex-1 min-w-0">
+                  <p className="text-[9px] text-[#00695C] font-bold uppercase tracking-wider">{getListedByText()}</p>
+                  <p className="text-sm font-black text-slate-800 truncate">{property.postedBy}</p>
+                  <div className="flex items-center gap-1.5 flex-wrap mt-0.5">
+                    <span className="text-[9px] text-teal-600 font-medium">{getRoleTitle()}</span>
+                    {property.agentDetails && (
+                      <button
+                        onClick={() => setShowAgentModal(true)}
+                        className="text-[9px] text-teal-500 hover:text-teal-700 font-medium underline flex items-center gap-0.5"
+                      >
+                        📖 Details →
+                      </button>
+                    )}
+                  </div>
+                  {property.agentDetails && (
+                    <p className="text-[9px] text-gray-500 mt-1 leading-tight line-clamp-1">{getShortDetails()}</p>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* RIGHT: CONTENT SECTION */}
-          <div className="flex-1 min-w-0 flex flex-col justify-between text-left">
+          {/* RIGHT COLUMN: Property Details + Contact Button at bottom */}
+          <div className="flex-1 min-w-0 flex flex-col h-full">
 
             {/* Price + Badge row */}
-            <div className="flex justify-between items-start gap-2 w-full">
+            <div className="flex justify-between items-start gap-2 w-full flex-wrap">
               <div className="min-w-0 flex-1">
-                <h2 className="font-black text-slate-900 tracking-tight mb-1 flex flex-nowrap items-baseline gap-x-1.5">
-                  <span className="text-xl md:text-2xl leading-none whitespace-nowrap">{priceNum}</span>
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 mb-1">
+                  <span className="text-2xl md:text-3xl leading-none whitespace-nowrap font-black text-slate-900">{priceNum}</span>
                   {priceUnit && (
-                    <span className="text-xs font-bold text-slate-600 leading-none whitespace-nowrap">{priceUnit}</span>
+                    <span className="text-sm font-bold text-slate-600 leading-none whitespace-nowrap">{priceUnit}</span>
                   )}
                   {bhk && (
-                    <span className="text-lg md:text-xl leading-none text-[#00695C] whitespace-nowrap font-black">({bhk})</span>
+                    <span className="text-xl md:text-2xl leading-none text-[#00695C] whitespace-nowrap font-black">({bhk})</span>
                   )}
-                </h2>
+                </div>
 
-                <div className="flex flex-nowrap items-center gap-2 mt-0.5">
-                  <span className="text-[#00695C] font-bold text-xs bg-teal-50 px-2 py-0.5 rounded-md whitespace-nowrap">{property.sqftPrice}</span>
-                  <span className="h-3 w-[1px] bg-gray-300 shrink-0"></span>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
+                  <span className="text-[#00695C] font-bold text-xs bg-teal-50 px-2.5 py-1 rounded-md whitespace-nowrap">{property.sqftPrice}</span>
+                  <span className="h-3 w-[1px] bg-gray-300 hidden sm:block"></span>
                   <span className="text-slate-600 font-semibold text-xs flex items-center gap-1 whitespace-nowrap">📐 {property.totalSqft}</span>
-                  <span className="text-slate-500 text-xs bg-gray-100 px-2 py-0.5 rounded-md whitespace-nowrap">🏗️ {property.builtUp}</span>
+                  <span className="text-slate-500 text-xs bg-gray-100 px-2.5 py-1 rounded-md whitespace-nowrap">🏗️ {property.builtUp}</span>
                 </div>
               </div>
 
               <div className="flex flex-col items-end gap-1.5 shrink-0">
-                <div className="flex items-center gap-1 text-[8px] font-bold text-slate-400 uppercase tracking-widest">
+                <div className="flex items-center gap-1 text-[8px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">
                   <span className="w-3 h-[1px] bg-slate-300"></span>
                   <span>{PAGE_NAME}</span>
                 </div>
@@ -203,7 +237,7 @@ const PropertyCard = ({ property, onContactClick }) => {
             </div>
 
             {/* Location */}
-            <div className="mt-2 flex items-center gap-2">
+            <div className="mt-3 flex items-center gap-2">
               <div className="bg-teal-100 p-1.5 rounded-lg text-[#00695C] shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -214,7 +248,7 @@ const PropertyCard = ({ property, onContactClick }) => {
             </div>
 
             {/* Property Highlights */}
-            <div className="mt-2">
+            <div className="mt-3">
               <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.18em] mb-1.5 flex items-center gap-1.5">
                 <span className="w-4 h-[2px] bg-[#26A69A]"></span>
                 Property Highlights
@@ -229,50 +263,21 @@ const PropertyCard = ({ property, onContactClick }) => {
               </div>
             </div>
 
-            {/* Posted By */}
-            <div className="mt-3 pt-3 border-t border-teal-100">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 flex-1 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00695C] to-[#26A69A] flex items-center justify-center text-white font-black shadow-md text-base shrink-0 overflow-hidden">
-                    {property.logo && !logoError ? (
-                      <img src={property.logo} alt="logo" className="w-full h-full object-cover" onError={() => setLogoError(true)} />
-                    ) : (
-                      <span>{property.postedBy.charAt(0)}</span>
-                    )}
-                  </div>
-                  <div className="text-left min-w-0">
-                    <p className="text-[9px] text-[#00695C] font-bold uppercase tracking-wider">{getListedByText()}</p>
-                    <div className="flex flex-wrap items-baseline gap-x-1.5">
-                      <p className="text-sm font-black text-slate-800">{property.postedBy}</p>
-                      {property.agentDetails && (
-                        <span className="text-[9px] text-gray-500">( {getShortDetails()} )</span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[9px] text-teal-600 font-medium">{getRoleTitle()}</span>
-                      {property.agentDetails && (
-                        <button
-                          onClick={() => setShowAgentModal(true)}
-                          className="text-[9px] text-teal-500 hover:text-teal-700 font-medium underline flex items-center gap-0.5"
-                        >
-                          📖 View Complete Details →
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
+            {/* Spacer to push button to bottom */}
+            <div className="flex-1"></div>
 
-                <button
-                  onClick={onContactClick}
-                  className="bg-gradient-to-r from-[#00695C] to-[#26A69A] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg text-xs font-black flex items-center gap-1.5 uppercase tracking-wider shrink-0 transition-all duration-300"
-                  style={{ boxShadow: '0 0 20px rgba(0,105,92,0.5)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 0 30px rgba(0,105,92,0.8)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(0,105,92,0.5)'; }}
-                >
-                  <span>📞</span>
-                  Contact
-                </button>
-              </div>
+            {/* Contact Button - Fixed at bottom of right column */}
+            <div className="mt-16 pt-3 border-t border-teal-100 flex justify-end">
+              <button
+                onClick={onContactClick}
+                className="bg-gradient-to-r from-[#00695C] to-[#26A69A] text-white px-5 md:px-6 py-2.5 rounded-lg text-xs font-black flex items-center gap-2 uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl"
+                style={{ boxShadow: '0 0 20px rgba(0,105,92,0.4)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 0 30px rgba(0,105,92,0.7)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(0,105,92,0.4)'; }}
+              >
+                <span className="text-sm">📞</span>
+                Contact Agent
+              </button>
             </div>
           </div>
         </div>
@@ -409,8 +414,8 @@ const IndependentVilla = () => {
   const handleLogin = () => { setShowLoginModal(false); setShowContactInfo(true); setTimeout(() => setShowContactInfo(false), 5000); };
 
   return (
-    <div className="w-full px-4 md:px-6 lg:px-12 py-5 min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-teal-50/30">
-      <div className="max-w-[960px] mx-auto">
+    <div className="w-full px-2 sm:px-4 md:px-6 py-5 min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-teal-50/30">
+      <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col">
           {VillaData.map((item) => (
             <PropertyCard key={item.id} property={item} onContactClick={() => handleContactClick(item)} />
