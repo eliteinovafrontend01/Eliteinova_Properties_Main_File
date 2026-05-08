@@ -269,7 +269,7 @@ const IndividualPage = () => {
                     }`}
                     style={{
                   background: isActive 
-                    ? "#dafff0" 
+                    ? "#ebfff7" 
                     : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
                   backgroundSize: "200% 200%",
                   outline: isActive ? "3px solid #00695C" : "none",

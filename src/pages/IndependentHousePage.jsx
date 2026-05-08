@@ -223,16 +223,19 @@ const IndependentHousePage = () => {
                       onClick={() => handleNavigation(type.path, type.name)}
                       className={`group relative px-3 py-1.5 rounded-lg font-semibold text-sm shadow-xl transition-all duration-500 whitespace-nowrap transform hover:-translate-y-1 hover:scale-105 overflow-hidden ${
                         isActive 
-                          ? "text-white shadow-[0_0_30px_rgba(0,105,92,0.6)]" 
+                          ? "text-teal-800 shadow-none" 
                           : "text-white/90 hover:text-white"
                       }`}
                       style={{
-                        background: isActive 
-                          ? "linear-gradient(135deg, #004D40, #00695C, #00897B)" 
-                          : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
-                        backgroundSize: "200% 200%",
-                        border: isActive ? "2px solid rgba(255,255,255,0.3)" : "none"
-                      }}
+                      background: isActive 
+                        ? "#ebfff7" 
+                        : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
+                      backgroundSize: "200% 200%",
+                      outline: isActive ? "3px solid #00695C" : "none",
+                      outlineOffset: "-3px",
+                      border: "none",
+                      boxShadow: isActive ? "0 0 18px 4px rgba(0, 105, 92, 0.45)" : "none"
+                    }}
                     >
                       <div className={`absolute inset-0 animate-gradient-shift-slow ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-500'}`}></div>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>

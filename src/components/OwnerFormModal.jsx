@@ -36,7 +36,7 @@ export default function OwnerFormModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-2 sm:p-4">
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center pt-8 px-2 pb-2 sm:p-4">
       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
 
         {/* ── HERO HEADER ── */}
@@ -282,7 +282,7 @@ export default function OwnerFormModal({ isOpen, onClose }) {
         </div>
 
         {/* ── STEP TITLE BAND ── */}
-        <div className="text-center px-4 py-2 bg-gradient-to-r from-green-50 to-teal-50 border-b border-green-100 shrink-0">
+        <div className="text-center px-4 py-2 bg-gradient-to-r from-teal-100 to-emerald-100 border-b border-teal-200 shrink-0">
           <h2 className="text-sm sm:text-base font-bold text-[#00695C]">{steps[step]}</h2>
           <p className="text-[10px] sm:text-xs text-green-500 mt-0.5">
             Step {step + 1} of {steps.length} — {subtitles[step]}
