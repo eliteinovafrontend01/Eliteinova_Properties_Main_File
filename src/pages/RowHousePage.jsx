@@ -221,34 +221,31 @@ const RowHousePage = () => {
                     <button
                       key={type.name}
                       onClick={() => handleNavigation(type.path, type.name)}
-                      className={`group relative px-3 py-1.5 rounded-lg font-semibold text-sm shadow-xl transition-all duration-500 whitespace-nowrap transform hover:-translate-y-1 hover:scale-105 overflow-hidden ${
-                        isActive 
-                          ? "text-teal-800 shadow-none" 
+                      className={`group relative px-3 py-1.5 rounded-lg font-semibold text-sm transition-all duration-500 whitespace-nowrap transform hover:-translate-y-1 hover:scale-105 overflow-hidden ${
+                        isActive
+                          ? "text-teal-700"
                           : "text-white/90 hover:text-white"
                       }`}
                       style={{
-                      background: isActive 
-                        ? "#ebfff7" 
-                        : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
-                      backgroundSize: "200% 200%",
-                      outline: isActive ? "3px solid #00695C" : "none",
-                      outlineOffset: "-3px",
-                      border: "none",
-                      boxShadow: isActive ? "0 0 18px 4px rgba(0, 105, 92, 0.45)" : "none"
-                    }}
+                        background: isActive
+                          ? "#E8F5F2"
+                          : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
+                        backgroundSize: "200% 200%",
+                        border: isActive ? "3px solid #00695C" : "none",
+                        boxShadow: isActive
+                          ? "0 0 18px rgba(0,105,92,0.45)"
+                          : "none",
+                      }}
                     >
                       <div className={`absolute inset-0 animate-gradient-shift-slow ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-500'}`}></div>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                       {isActive && (
-                        <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur-xl opacity-60"></div>
+                        <div className="absolute inset-0 rounded-lg bg-white/10"></div>
                       )}
                       <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
                       <span className="relative z-10 flex items-center gap-3">
                         <Home className={`w-4 h-4 transition-transform duration-300 ${isActive ? 'rotate-12' : 'group-hover:rotate-12'}`} />
                         {type.name}
-                        {isActive && (
-                          <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                        )}
                       </span>
                     </button>
                   );

@@ -287,9 +287,6 @@ const IndividualPage = () => {
                       <span className="relative z-10 flex items-center gap-3">
                         <Home className={`w-4 h-4 transition-transform duration-300 ${isActive ? 'rotate-12' : 'group-hover:rotate-12'}`} />
                         {type.name}
-                        {isActive && (
-                          <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                        )}
                       </span>
                     </button>
                   );

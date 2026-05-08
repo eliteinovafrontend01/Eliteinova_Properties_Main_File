@@ -8,8 +8,8 @@ import {
   Filter, X
 } from "lucide-react";
 
-const IndependentHouseFilter = ({ activeTab = "Rent", onFilterChange, onClose }) => {
-  const [activePropertyType, setActivePropertyType] = useState(activeTab);
+const IndependentHouseFilter = ({ activeTab = "Buy", onFilterChange, onClose }) => {
+  const [activePropertyType, setActivePropertyType] = useState("Buy");
   
   // Common states for all tabs
   const [bedrooms, setBedrooms] = useState([]);
