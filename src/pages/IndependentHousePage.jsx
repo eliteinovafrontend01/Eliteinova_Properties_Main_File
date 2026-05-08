@@ -90,7 +90,7 @@ const IndependentHousePage = () => {
       </div>
 
       <div className="relative z-10">
-        <section className="w-full h-[200px] md:h-[240px] relative flex items-center justify-center overflow-hidden group py-4">
+        <section className="w-full h-[150px] md:h-[200px] relative flex items-center justify-center overflow-hidden group pb-6">
           <div className="absolute inset-0 bg-gradient-to-b animate-gradient-slow"></div>
           
           <div className="max-w-none mx-auto px-6 relative z-10 text-center w-full flex flex-col items-center justify-center gap-1">
