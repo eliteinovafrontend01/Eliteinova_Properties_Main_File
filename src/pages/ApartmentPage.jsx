@@ -1,52 +1,69 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2 } from "lucide-react";
+import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Grid3X3, LayoutGrid, Hotel, HomeIcon, Building as BuildingIcon, Castle, Crown } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import backgroundImage from "../assets/ind1.jpg"
+import backgroundImage from "../assets/ind1.jpg";
 
-const IndividualPage = () => {
+const ApartmentPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeButton, setActiveButton] = useState("Rent");
-  const [activeHouseType, setActiveHouseType] = useState("All");
+  const [activeApartmentType, setActiveApartmentType] = useState("All");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [hoveredFilter, setHoveredFilter] = useState(null);
 
   const propertyCategories = [
-    { name: "Apartment", path: "/apartment", icon: <Building className="w-4 h-4" /> },
+    { name: "Individual", path: "/individual", icon: <Building className="w-4 h-4" /> },
     { name: "Commercial", path: "/commercial", icon: <Landmark className="w-4 h-4" /> },
     { name: "Land & Plots", path: "/land-plots", icon: <Warehouse className="w-4 h-4" /> },
     { name: "Hostel", path: "/hostel", icon: <Building2 className="w-4 h-4" /> }
   ];
 
-  const houseTypes = [
-    { name: "All", path: "/individual", component: "IndividualPage" },
-    { name: "Independent House", path: "/individual/independent-house", component: "IndependentHousePage" },
-    { name: "Independent Villa", path: "/individual/independent-villa", component: "IndependentVillaPage" },
-    { name: "Residential Apartment", path: "/individual/residential-apartment", component: "ResidentialApartmentPage" },
-    { name: "Duplex Residential Unit", path: "/individual/duplex-residential-unit", component: "DuplexResidentialUnitPage" },
-    { name: "Row House", path: "/individual/row-house", component: "RowHousePage" }
+  // Apartment types based on the image provided
+  const apartmentTypes = [
+    { name: "All", path: "/apartment", component: "ApartmentPage" },
+    { name: "Rental Apartment", path: "/apartment/rental-apartment", component: "RentalApartmentPage" },
+    { name: "Serviced Apartment", path: "/apartment/serviced-apartment", component: "ServicedApartmentPage" },
+    { name: "Lease Apartment", path: "/apartment/lease-apartment", component: "LeaseApartmentPage" },
+    { name: "Residential Apartment", path: "/apartment/residential-apartment", component: "ResidentialApartmentPage" },
+    { name: "Gated Community Apartment", path: "/apartment/gated-community-apartment", component: "GatedCommunityApartmentPage" },
+    { name: "Studio Apartment", path: "/apartment/studio-apartment", component: "StudioApartmentPage" },
+    { name: "Duplex Apartment", path: "/apartment/duplex-apartment", component: "DuplexApartmentPage" },
+    { name: "Luxury Apartment", path: "/apartment/luxury-apartment", component: "LuxuryApartmentPage" },
+    { name: "Condominium (Condo)", path: "/apartment/condominium", component: "CondominiumPage" },
+    { name: "Penthouse Apartment", path: "/apartment/penthouse-apartment", component: "PenthouseApartmentPage" }
   ];
 
   useEffect(() => {
     const currentPath = location.pathname;
-    const activeType = houseTypes.find(type => type.path === currentPath);
+    const activeType = apartmentTypes.find(type => type.path === currentPath);
     if (activeType) {
-      setActiveHouseType(activeType.name);
-    } else if (currentPath === "/individual" || currentPath === "/individual/") {
-      setActiveHouseType("All");
+      setActiveApartmentType(activeType.name);
+    } else if (currentPath === "/apartment" || currentPath === "/apartment/") {
+      setActiveApartmentType("All");
     }
   }, [location.pathname]);
 
   const handleNavigation = (path, typeName = null) => {
     if (typeName) {
-      setActiveHouseType(typeName);
+      setActiveApartmentType(typeName);
     }
     navigate(path);
   };
 
   const handlePropertyCategoryNavigation = (path) => {
     navigate(path);
+  };
+
+  // Helper function to get appropriate icon for apartment type
+  const getApartmentIcon = (typeName) => {
+    if (typeName === "All") return <Home className="w-3.5 h-3.5" />;
+    if (typeName.includes("Luxury")) return <Crown className="w-3.5 h-3.5" />;
+    if (typeName.includes("Studio")) return <LayoutGrid className="w-3.5 h-3.5" />;
+    if (typeName.includes("Duplex")) return <Grid3X3 className="w-3.5 h-3.5" />;
+    if (typeName.includes("Penthouse")) return <Castle className="w-3.5 h-3.5" />;
+    if (typeName.includes("Gated")) return <Hotel className="w-3.5 h-3.5" />;
+    return <BuildingIcon className="w-3.5 h-3.5" />;
   };
 
   return (
@@ -124,16 +141,16 @@ const IndividualPage = () => {
             <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
               <Star className="w-4 h-4 text-teal-300 animate-spin-slow" fill="currentColor" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300 text-sm font-medium">
-                Premium Properties
+                Premium Apartments
               </span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
-              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Individual Property</span>
+              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Apartment</span>
             </h1>
             
             <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed ">
-              Browse through our verified individual properties with premium amenities
+              Explore a wide range of apartments from rental to luxury penthouses
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 px-4 animate-fade-in-up delay-200">
@@ -256,8 +273,8 @@ const IndividualPage = () => {
               </div>
 
               <div className="flex flex-wrap gap-3">
-                {houseTypes.map((type, index) => {
-                  const isActive = activeHouseType === type.name;
+                {apartmentTypes.map((type, index) => {
+                  const isActive = activeApartmentType === type.name;
                   return (
                     <button
                       key={type.name}
@@ -285,7 +302,7 @@ const IndividualPage = () => {
                       )}
                       <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
                       <span className="relative z-10 flex items-center gap-2">
-                        <Home className={`w-3.5 h-3.5 transition-transform duration-300 ${isActive ? 'rotate-12' : 'group-hover:rotate-12'}`} />
+                        {getApartmentIcon(type.name)}
                         {type.name}
                       </span>
                     </button>
@@ -296,8 +313,8 @@ const IndividualPage = () => {
 
             <div className="md:hidden space-y-4">
               <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-                {houseTypes.map((type, index) => {
-                  const isActive = activeHouseType === type.name;
+                {apartmentTypes.map((type, index) => {
+                  const isActive = activeApartmentType === type.name;
                   return (
                     <button
                       key={type.name}
@@ -329,7 +346,7 @@ const IndividualPage = () => {
                   <div className="mb-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-teal-100 to-emerald-100 border border-teal-200">
                     <span className="text-sm font-medium text-teal-700">Active Filter:</span>
                     <span className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                      {activeHouseType}
+                      {activeApartmentType}
                     </span>
                   </div>
                   
@@ -342,18 +359,18 @@ const IndividualPage = () => {
                   >
                     <div className="absolute inset-0 animate-gradient-shift-slow rounded-3xl"></div>
                     <div className="absolute -inset-4 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-3xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-700"></div>
-                    <Home className="w-12 h-12 text-white group-hover:rotate-12 transition-transform duration-700 relative z-10" />
+                    <Building className="w-12 h-12 text-white group-hover:rotate-12 transition-transform duration-700 relative z-10" />
                   </div>
                   
                   <h2 className="text-3xl md:text-4xl font-bold text-teal-900 mb-4 group-hover:text-teal-950 transition-colors duration-300">
-                    {activeHouseType === "All" ? "Premium Properties" : `${activeHouseType} Properties`}
+                    {activeApartmentType === "All" ? "Premium Apartments" : `${activeApartmentType} Properties`}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 animate-gradient-text-slow"> Coming Soon</span>
                   </h2>
                   
                   <p className="text-teal-800 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed group-hover:text-teal-900 transition-colors duration-300 backdrop-blur-sm bg-teal-100/30 rounded-2xl p-6 border border-teal-200/20">
-                    {activeHouseType === "All" 
-                      ? "We're currently adding exclusive individual properties to our database."
-                      : `We're currently adding exclusive ${activeHouseType.toLowerCase()} properties to our database.`}
+                    {activeApartmentType === "All" 
+                      ? "We're currently adding exclusive apartment listings to our database."
+                      : `We're currently adding exclusive ${activeApartmentType.toLowerCase()} listings to our database.`}
                     <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 font-semibold text-xl">
                       Check back soon for amazing deals!
                     </span>
@@ -383,17 +400,17 @@ const IndividualPage = () => {
                 <div className="max-w-2xl mx-auto">
                   <div className="w-20 h-20 rounded-3xl bg-gradient-to-r from-teal-500/10 to-emerald-500/10 mx-auto mb-6 flex items-center justify-center relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-3xl animate-pulse-slow"></div>
-                    <Home className="w-10 h-10 text-teal-600 animate-bounce-slow relative z-10" />
+                    <Building className="w-10 h-10 text-teal-600 animate-bounce-slow relative z-10" />
                   </div>
                   
                   <h3 className="text-2xl font-bold text-teal-900 mb-4">
-                    No {activeHouseType !== "All" ? `${activeHouseType} ` : ""}Properties Found
+                    No {activeApartmentType !== "All" ? `${activeApartmentType} ` : ""}Apartments Found
                   </h3>
                   
                   <p className="text-teal-800 mb-6 backdrop-blur-sm bg-teal-100/30 rounded-xl p-4 border border-teal-200/20">
-                    {activeHouseType !== "All"
-                      ? `We don't have any ${activeHouseType.toLowerCase()} properties available at the moment.`
-                      : "Use the filters on the right to find properties that match your criteria."}
+                    {activeApartmentType !== "All"
+                      ? `We don't have any ${activeApartmentType.toLowerCase()} available at the moment.`
+                      : "Use the filters on the right to find apartments that match your criteria."}
                   </p>
                   
                   <div className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-100">
@@ -405,9 +422,9 @@ const IndividualPage = () => {
                       ></div>
                     ))}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 font-medium">
-                      {activeHouseType !== "All" 
-                        ? `Check back later for ${activeHouseType.toLowerCase()} listings` 
-                        : "Adjust your filters to see matching properties"}
+                      {activeApartmentType !== "All" 
+                        ? `Check back later for ${activeApartmentType.toLowerCase()} listings` 
+                        : "Adjust your filters to see matching apartments"}
                     </span>
                   </div>
                 </div>
@@ -474,6 +491,52 @@ const IndividualPage = () => {
                           />
                           <span className="text-sm text-teal-800 group-hover:text-teal-900 group-hover:font-medium transition-all duration-300">
                             {bhk}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mb-6 animate-fade-in-up delay-300">
+                    <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
+                      <span className="text-xl animate-bounce-slow">📐</span>
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
+                        Area (sq ft)
+                      </span>
+                    </label>
+                    <div className="flex gap-3">
+                      <input
+                        type="number"
+                        placeholder="Min"
+                        className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+                      />
+                      <input
+                        type="number"
+                        placeholder="Max"
+                        className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-6 animate-fade-in-up delay-400">
+                    <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
+                      <span className="text-xl animate-bounce-slow">🏢</span>
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
+                        Amenities
+                      </span>
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {["Parking", "Gym", "Swimming Pool", "Security", "Elevator", "Balcony"].map((amenity, index) => (
+                        <label 
+                          key={amenity} 
+                          className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 hover:border-teal-300 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r from-teal-50/50 to-emerald-50/50 group"
+                        >
+                          <input 
+                            type="checkbox" 
+                            className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30 transition-all duration-300" 
+                          />
+                          <span className="text-sm text-teal-800 group-hover:text-teal-900 group-hover:font-medium transition-all duration-300">
+                            {amenity}
                           </span>
                         </label>
                       ))}
@@ -639,6 +702,8 @@ const IndividualPage = () => {
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
@@ -666,4 +731,5 @@ const IndividualPage = () => {
   );
 };
 
-export default IndividualPage;
+export default ApartmentPage;
+

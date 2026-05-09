@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { VillaData } from '../data/VillaData';
+import { IndependentHouseData } from "../../components/data/IndependentHouseData";
 
-const PAGE_NAME = "Independent Villa";
+const PAGE_NAME = "Independent House";
 
 // Helper: split price into amount + unit
 const splitPrice = (price) => {
@@ -609,11 +609,11 @@ const PropertyCard = ({ property, onContactClick }) => {
   );
 };
 
-const IndependentVilla = () => {
+const IndependentHouse = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showContactInfo, setShowContactInfo] = useState(false);
-  const [filteredProperties, setFilteredProperties] = useState(VillaData);
+  const [filteredProperties, setFilteredProperties] = useState(IndependentHouseData);
 
   const handleContactClick = (property) => {
     setSelectedProperty(property);
@@ -779,4 +779,4 @@ const IndependentVilla = () => {
   );
 };
 
-export default IndependentVilla;
+export default IndependentHouse;

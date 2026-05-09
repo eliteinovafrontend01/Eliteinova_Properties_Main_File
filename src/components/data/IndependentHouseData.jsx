@@ -1,4 +1,4 @@
-// Import all images from assets
+// Import all images from assets (update these paths to your actual independent villa images)
 import villa1_logo from "../../assets/Villa/villa1_logo.png";
 import villa1_1 from "../../assets/Villa/villa1_1.png";
 import villa1_2 from "../../assets/Villa/villa1_2.png";
@@ -54,18 +54,18 @@ import villa10_1 from "../../assets/Villa/villa10_1.png";
 import villa10_2 from "../../assets/Villa/villa10_2.png";
 import villa10_3 from "../../assets/Villa/villa10_3.png";
 
-export const VillaData = [
-  // BUY - Luxury Villa (Posted by OWNER)
+export const IndependentHouseData = [
+  // BUY - Luxury Independent Villa (Posted by OWNER)
   {
     id: 1,
     tag: "BUY",
     status: "NEW",
-    price: "₹15.0 Crores",
-    sqftPrice: "₹7,500 per sqft",
-    totalSqft: "20,000 sqft Area",
-    builtUp: "18,500 sqft (Built Up area)",
+    price: "₹12.0 Crores",
+    sqftPrice: "₹6,000 per sqft",
+    totalSqft: "20,000 sqft Land",
+    builtUp: "16,000 sqft (Built Up area)",
     location: "Ashok Nagar, Chennai-600091, Tamil Nadu",
-    highlights: "Fully Furnished | 5+ BHK | Ready to Move | Luxury Villa",
+    highlights: "Fully Furnished | 5+ BHK | Ready to Move | Luxury Independent",
     postedBy: "Priya Sharma",
     postedAs: "Owner",
     logo: villa1_logo,
@@ -74,20 +74,20 @@ export const VillaData = [
     contactEmail: "priya.sharma@example.com",
     contactPhone: "+91 98765 43210",
     experience: "12+ years in real estate",
-    achievements: "Successfully sold 50+ luxury properties"
+    achievements: "Successfully sold 50+ properties"
   },
   
-  // RENT - Sea View Villa (Posted by OWNER)
+  // RENT - Sea View Independent Villa (Posted by OWNER)
   {
     id: 2,
     tag: "RENT",
     status: "RE-SALE",
-    price: "₹1.5 Lakh/month",
-    sqftPrice: "₹40 per sqft",
-    totalSqft: "3,750 sqft Area",
-    builtUp: "3,500 sqft (Built Up area)",
+    price: "₹1.2 Lakh/month",
+    sqftPrice: "₹35 per sqft",
+    totalSqft: "3,500 sqft Land",
+    builtUp: "3,200 sqft (Built Up area)",
     location: "Besant Nagar, Chennai-600090, Tamil Nadu",
-    highlights: "Fully Furnished | 3 BHK | Sea View | Beach Villa",
+    highlights: "Fully Furnished | 3 BHK | Sea View | Beach ",
     postedBy: "Anaya Dev",
     postedAs: "Owner",
     logo: "", // No logo for this one
@@ -99,17 +99,17 @@ export const VillaData = [
     achievements: "100% tenant satisfaction"
   },
   
-  // SELL - Premium Villa (Posted by SELLER)
+  // SELL - Premium Independent Villa (Posted by SELLER)
   {
     id: 3,
     tag: "SELL",
     status: "RE-SALE",
-    price: "₹2.8 Crores",
-    sqftPrice: "₹5,600 per sqft",
-    totalSqft: "5,000 sqft Area",
-    builtUp: "4,500 sqft (Built Up area)",
+    price: "₹2.5 Crores",
+    sqftPrice: "₹5,000 per sqft",
+    totalSqft: "5,000 sqft Land",
+    builtUp: "4,200 sqft (Built Up area)",
     location: "Ekkaduthangal, Chennai-600032, Tamil Nadu",
-    highlights: "Unfurnished | 4 BHK | Gym | Spacious Villa",
+    highlights: "Unfurnished | 4 BHK | Garden | Spacious Independent",
     postedBy: "Manickam",
     postedAs: "Seller",
     logo: "",
@@ -121,15 +121,15 @@ export const VillaData = [
     achievements: "Property maintained for 10 years"
   },
   
-  // LEASE - Corporate Villa (Posted by LESSOR/OWNER)
+  // LEASE - Corporate Independent Villa (Posted by LESSOR/OWNER)
   {
     id: 4,
     tag: "LEASE",
     status: "NEW",
-    price: "₹50.0 Lakhs",
+    price: "₹45.0 Lakhs",
     sqftPrice: "For 3 Years",
-    totalSqft: "2,500 sqft Area",
-    builtUp: "2,300 sqft (Built Up area)",
+    totalSqft: "2,200 sqft Land",
+    builtUp: "2,000 sqft (Built Up area)",
     location: "Velachery, Chennai-600042, Tamil Nadu",
     highlights: "Unfurnished | 3 BHK | Near IT Park | Corporate Villa",
     postedBy: "Suresh",
@@ -143,17 +143,17 @@ export const VillaData = [
     achievements: "50+ corporate clients"
   },
   
-  // BUY - Premium Resale (Posted by REAL ESTATE AGENT)
+  // BUY - Premium Resale Independent Villa (Posted by REAL ESTATE AGENT)
   {
     id: 5,
     tag: "BUY",
     status: "RE-SALE",
-    price: "₹8.5 Crores",
-    sqftPrice: "₹12,000 per sqft",
-    totalSqft: "7,000 sqft Area",
-    builtUp: "6,200 sqft (Built Up area)",
+    price: "₹7.2 Crores",
+    sqftPrice: "₹10,500 per sqft",
+    totalSqft: "6,800 sqft Land",
+    builtUp: "5,800 sqft (Built Up area)",
     location: "Adyar, Chennai-600020, Tamil Nadu",
-    highlights: "Semi-Furnished | 4 BHK | Private Pool | Premium Villa",
+    highlights: "Semi-Furnished | 4 BHK | Private Garden | Premium Independent",
     postedBy: "Agni Realtors",
     postedAs: "Agent",
     logo: "",
@@ -165,17 +165,17 @@ export const VillaData = [
     achievements: "1000+ successful deals | RERA certified"
   },
   
-  // RENT - Budget Villa (Posted by OWNER)
+  // RENT - Budget Independent Villa (Posted by OWNER)
   {
     id: 6,
     tag: "RENT",
     status: "NEW",
-    price: "₹45,000/month",
-    sqftPrice: "₹25 per sqft",
-    totalSqft: "1,800 sqft Area",
-    builtUp: "1,650 sqft (Built Up area)",
+    price: "₹38,000/month",
+    sqftPrice: "₹22 per sqft",
+    totalSqft: "1,700 sqft Land",
+    builtUp: "1,500 sqft (Built Up area)",
     location: "Anna Nagar, Chennai-600040, Tamil Nadu",
-    highlights: "Semi-Furnished | 2 BHK | Close to Metro | Budget Villa",
+    highlights: "Semi-Furnished | 2 BHK | Close to Metro | Budget Independent",
     postedBy: "Rajesh V",
     postedAs: "Owner",
     logo: "",
@@ -187,17 +187,17 @@ export const VillaData = [
     achievements: "Well-maintained property"
   },
   
-  // SELL - Affordable Villa (Posted by SELLER)
+  // SELL - Affordable Independent Villa (Posted by SELLER)
   {
     id: 7,
     tag: "SELL",
     status: "NEW",
-    price: "₹1.2 Crores",
-    sqftPrice: "₹4,800 per sqft",
-    totalSqft: "2,500 sqft Area",
-    builtUp: "2,200 sqft (Built Up area)",
+    price: "₹1.0 Crore",
+    sqftPrice: "₹4,500 per sqft",
+    totalSqft: "2,200 sqft Land",
+    builtUp: "1,900 sqft (Built Up area)",
     location: "Madipakkam, Chennai-600091, Tamil Nadu",
-    highlights: "Semi-Furnished | 3 BHK | 2nd Floor | Affordable Villa",
+    highlights: "Semi-Furnished | 3 BHK | Ground Floor | Affordable Independent",
     postedBy: "Deepak",
     postedAs: "Seller",
     logo: "",
@@ -209,17 +209,17 @@ export const VillaData = [
     achievements: "Brand new construction"
   },
   
-  // LEASE - Compact Villa (Posted by OWNER)
+  // LEASE - Compact Independent Villa (Posted by OWNER)
   {
     id: 8,
     tag: "LEASE",
     status: "RE-SALE",
-    price: "₹35.0 Lakhs",
+    price: "₹30.0 Lakhs",
     sqftPrice: "For 2 Years",
-    totalSqft: "1,500 sqft Area",
-    builtUp: "1,400 sqft (Built Up area)",
+    totalSqft: "1,300 sqft Land",
+    builtUp: "1,200 sqft (Built Up area)",
     location: "Nungambakkam, Chennai-600034, Tamil Nadu",
-    highlights: "Semi-Furnished | 2 BHK | Gated Community | Compact Villa",
+    highlights: "Semi-Furnished | 2 BHK | Quiet Lane | Compact Independent Villa",
     postedBy: "Redlay",
     postedAs: "Owner",
     logo: "",
@@ -231,17 +231,17 @@ export const VillaData = [
     achievements: "Fully secured property"
   },
   
-  // BUY - Modern Villa (Posted by BUILDER/DEVELOPER)
+  // BUY - Modern Independent Villa (Posted by BUILDER/DEVELOPER)
   {
     id: 9,
     tag: "BUY",
     status: "NEW",
-    price: "₹4.2 Crores",
-    sqftPrice: "₹6,000 per sqft",
-    totalSqft: "7,000 sqft Area",
-    builtUp: "5,500 sqft (Built Up area)",
+    price: "₹3.8 Crores",
+    sqftPrice: "₹5,500 per sqft",
+    totalSqft: "6,900 sqft Land",
+    builtUp: "5,200 sqft (Built Up area)",
     location: "OMR, Thoraipakkam, Chennai-600097, Tamil Nadu",
-    highlights: "Unfurnished | 3 BHK | Garden Facing | Modern Villa",
+    highlights: "Unfurnished | 3 BHK | Garden Facing | Modern Independent Villa",
     postedBy: "Siva Kumar",
     postedAs: "Builder",
     logo: "",
@@ -253,15 +253,15 @@ export const VillaData = [
     achievements: "50+ projects completed"
   },
   
-  // RENT - Heritage Villa (Posted by AGENT)
+  // RENT - Heritage Independent Villa (Posted by AGENT)
   {
     id: 10,
     tag: "RENT",
     status: "RE-SALE",
-    price: "₹85,000/month",
-    sqftPrice: "₹30 per sqft",
-    totalSqft: "2,800 sqft Area",
-    builtUp: "2,600 sqft (Built Up area)",
+    price: "₹75,000/month",
+    sqftPrice: "₹28 per sqft",
+    totalSqft: "2,600 sqft Land",
+    builtUp: "2,400 sqft (Built Up area)",
     location: "Mylapore, Chennai-600004, Tamil Nadu",
     highlights: "Semi-Furnished | 3 BHK | Traditional Style | Heritage Villa",
     postedBy: "Priya Realty",

@@ -14,7 +14,7 @@ import BuyPage from "./pages/BuyPage";
 import LeasePage from "./pages/LeasePage";
 // import RentPage from "./pages/RentPage";
 // import SellPage from "./pages/SellPage";
-// import ApartmentPage from "./pages/ApartmentPage";
+import ApartmentPage from "./pages/ApartmentPage";
 // import CommercialPage from "./pages/CommercialPage";
 // import LandPlotsPage from "./pages/LandPlotsPage";
 // import HostelPage from "./pages/HostelPage";
@@ -109,6 +109,7 @@ function AppLayout() {
           
           {/* Customer Portal Routes */}
           <Route path="/individual" element={<IndividualPage />} />
+          <Route path="/apartment" element={<ApartmentPage />} />
           {/* <Route path="/rent" element={<RentPage />} />
           <Route path="/buy" element={<BuyPage />} />
           <Route path="/lease" element={<LeasePage />} />
