@@ -47,7 +47,7 @@ const BuyPage = () => {
 </section>
 
 
-      {/* Filter Section */}
+      {/* Filter Section Code */}
       <section className="max-w-6xl mx-auto px-4 py-4 md:py-6">
         <div className="flex flex-wrap gap-2 items-center">
           {/* Buy/Rent/Lease Toggle Dropdown */}
