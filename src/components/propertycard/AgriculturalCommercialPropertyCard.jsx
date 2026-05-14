@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { OfficeSpaceData } from "../data/OfficeSpaceData";
+import { AgriculturalCommercialData } from "../data/AgriculturalCommercialData";
 
-const PAGE_NAME = "Office Space";
+const PAGE_NAME = "Agricultural Commercial";
 
 // Helper: split price into amount + unit
 const splitPrice = (price) => {
@@ -11,18 +11,19 @@ const splitPrice = (price) => {
   return { num: match[1].trim(), unit: match[2].trim() };
 };
 
-// Helper: extract BHK from highlights
-const extractBHK = (highlights) => {
+// Helper: extract land size from highlights
+const extractLandSize = (highlights) => {
   if (!highlights) return '';
-  const match = highlights.match(/(\d+\s*\+?\s*BHK)/i);
+  const match = highlights.match(/(\d+(?:\.\d+)?\s*(?:Acres|Guntas|Hectares|sq\.ft))/i);
   return match ? match[1].trim() : '';
 };
 
-// Helper: format price with crores/lakhs - preserves month units
+// Helper: format price with crores/lakhs - preserves month/acre units
 const formatPriceAmount = (priceNum, originalUnit) => {
   if (!priceNum) return { amount: priceNum, unit: '' };
   
   const hasMonth = originalUnit && originalUnit.toLowerCase().includes('month');
+  const hasPerAcre = originalUnit && originalUnit.toLowerCase().includes('acre');
   
   const numeric = parseFloat(priceNum.replace(/[^0-9.-]/g, ''));
   if (isNaN(numeric)) return { amount: priceNum, unit: originalUnit || '' };
@@ -30,11 +31,15 @@ const formatPriceAmount = (priceNum, originalUnit) => {
   if (numeric >= 10000000) {
     const crores = (numeric / 10000000).toFixed(2);
     const formatted = crores.endsWith('.00') ? crores.slice(0, -3) : crores;
-    return { amount: `₹${formatted}`, unit: hasMonth ? 'Cr/month' : 'Cr' };
+    if (hasPerAcre) return { amount: `₹${formatted}`, unit: 'Cr/acre' };
+    if (hasMonth) return { amount: `₹${formatted}`, unit: 'Cr/month' };
+    return { amount: `₹${formatted}`, unit: 'Cr' };
   } else if (numeric >= 100000) {
     const lakhs = (numeric / 100000).toFixed(2);
     const formatted = lakhs.endsWith('.00') ? lakhs.slice(0, -3) : lakhs;
-    return { amount: `₹${formatted}`, unit: hasMonth ? 'Lakh/month' : 'L' };
+    if (hasPerAcre) return { amount: `₹${formatted}`, unit: 'L/acre' };
+    if (hasMonth) return { amount: `₹${formatted}`, unit: 'L/month' };
+    return { amount: `₹${formatted}`, unit: 'L' };
   }
   return { amount: priceNum, unit: originalUnit || '' };
 };
@@ -107,15 +112,15 @@ const PropertyCard = ({ property, onContactClick }) => {
   const formattedPrice = formatPriceAmount(priceNumRaw, priceUnit);
   const priceAmount = formattedPrice.amount || priceNumRaw;
   const priceUnitSuffix = formattedPrice.unit || priceUnit;
-  const bhk = extractBHK(property.highlights);
+  const landSize = extractLandSize(property.highlights);
 
   const getRoleTitle = () => {
-    if (property.postedAs === 'Agent') return 'Real Estate Agent';
-    if (property.postedAs === 'Builder') return 'Builder / Developer';
-    if (property.postedAs === 'Seller') return 'Property Seller';
-    if (property.tag === 'BUY') return 'Property Owner';
-    if (property.tag === 'SELL') return 'Property Seller';
-    if (property.tag === 'RENT') return 'Property Owner';
+    if (property.postedAs === 'Agent') return 'Agricultural Land Agent';
+    if (property.postedAs === 'Builder') return 'Developer / Aggregator';
+    if (property.postedAs === 'Seller') return 'Land Seller';
+    if (property.tag === 'BUY') return 'Land Owner';
+    if (property.tag === 'SELL') return 'Land Seller';
+    if (property.tag === 'RENT') return 'Farm Owner';
     if (property.tag === 'LEASE') return 'Property Lessor';
     return 'Listed By';
   };
@@ -156,11 +161,11 @@ const PropertyCard = ({ property, onContactClick }) => {
                 <div className="flex-1 h-full overflow-hidden relative cursor-pointer" onDoubleClick={(e) => handleImageDoubleClick(activeImg, e)}>
                   <img
                     src={property.images[activeImg]}
-                    alt="Property"
+                    alt="Agricultural Property"
                     className="w-full h-full object-cover"
                     style={{ height: '100%', width: '100%', objectFit: 'cover' }}
                     onError={(e) => {
-                      e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=450&fit=crop';
+                      e.target.src = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop';
                     }}
                   />
                   <div className="absolute bottom-2 right-2 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
@@ -198,7 +203,7 @@ const PropertyCard = ({ property, onContactClick }) => {
                           alt="thumb"
                           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                           onError={(e) => {
-                            e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=100&h=100&fit=crop';
+                            e.target.src = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=100&h=100&fit=crop';
                           }}
                         />
                         {imageCount > 5 && idx === 3 && (
@@ -233,15 +238,15 @@ const PropertyCard = ({ property, onContactClick }) => {
                         )}
                       </>
                     )}
-                    {bhk && <span className="font-bold text-[#00695C] text-base md:text-lg ml-1">({bhk})</span>}
+                    {landSize && <span className="font-bold text-[#00695C] text-base md:text-lg ml-1">({landSize})</span>}
                   </div>
                   
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
-                    <span className="text-[#00695C] font-bold bg-teal-50 px-2 py-1 rounded-md text-xs md:text-sm shadow-sm">{property.sqftPrice}</span>
+                    <span className="text-[#00695C] font-bold bg-teal-50 px-2 py-1 rounded-md text-xs md:text-sm shadow-sm">{property.perAcrePrice}</span>
                     <span className="text-[#00695C] font-bold flex items-center gap-1 text-xs md:text-sm">
-                      <span className="text-[#26A69A] text-sm">🟩</span> {property.totalSqft}
+                      <span className="text-[#26A69A] text-sm">🌾</span> {property.totalLandArea}
                     </span>
-                    <span className="text-[#00695C] font-bold bg-teal-50 px-2 py-1 rounded-md text-xs md:text-sm shadow-sm">🏗️ {property.builtUp}</span>
+                    <span className="text-[#00695C] font-bold bg-teal-50 px-2 py-1 rounded-md text-xs md:text-sm shadow-sm">{property.irrigationStatus}</span>
                   </div>
                 </div>
                 
@@ -297,7 +302,7 @@ const PropertyCard = ({ property, onContactClick }) => {
               <div>
                 <p className="font-black text-[#004D40] uppercase tracking-wider mb-1.5 flex items-center gap-3 text-[10px] md:text-[11px]">
                   <span className="w-5 h-px bg-[#004D40]"></span>
-                  Property Highlights
+                  Land Highlights
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {property.highlights.split('|').map((h, i) => (
@@ -366,8 +371,14 @@ const PropertyCard = ({ property, onContactClick }) => {
 
       {/* AGENT DETAILS MODAL */}
       {showAgentModal && (
-      <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[9999] flex items-start justify-center pt-[140px] p-4 animate-fadeIn" onClick={() => setShowAgentModal(false)}>
-        <div className="bg-white rounded-2xl max-w-[95%] sm:max-w-lg md:max-w-2xl w-full max-h-[82vh] overflow-y-auto shadow-2xl animate-scale-in"  onClick={(e) => e.stopPropagation()}>
+  <div 
+    className="fixed inset-0 bg-black/70 backdrop-blur-md z-[9999] flex items-start justify-center pt-[140px] p-4 animate-fadeIn" 
+    onClick={() => setShowAgentModal(false)}
+  >
+    <div 
+      className="bg-white rounded-2xl max-w-[95%] sm:max-w-lg md:max-w-2xl w-full max-h-[82vh] overflow-y-auto shadow-2xl animate-scale-in" 
+      onClick={(e) => e.stopPropagation()}
+    >
             <div className="bg-gradient-to-r from-[#00695C] to-[#26A69A] p-5 rounded-t-2xl flex justify-between items-center sticky top-0 z-10">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl">
@@ -403,12 +414,12 @@ const PropertyCard = ({ property, onContactClick }) => {
               <div className="mb-4">
                 <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                   <span className="w-3 h-3 bg-teal-500 rounded-full"></span>
-                  Property Information
+                  Land Information
                 </h4>
                 <div className="bg-teal-50/50 rounded-xl p-4 space-y-2">
                   <p className="text-sm"><strong>Property ID:</strong> {property.id}</p>
-                  <p className="text-sm"><strong>Listed Price:</strong> {property.price} {bhk && `(${bhk})`}</p>
-                  <p className="text-sm"><strong>{property.sqftPrice}</strong> • 🟩 {property.totalSqft} • 🏗️ {property.builtUp}</p>
+                  <p className="text-sm"><strong>Listed Price:</strong> {property.price} {landSize && `(${landSize})`}</p>
+                  <p className="text-sm"><strong>{property.perAcrePrice}</strong> • 🌾 {property.totalLandArea}  {property.irrigationStatus}</p>
                   <p className="text-sm"><strong>📍 Location:</strong> {property.location}</p>
                 </div>
               </div>
@@ -416,7 +427,7 @@ const PropertyCard = ({ property, onContactClick }) => {
               <div className="mb-4">
                 <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                   <span className="w-3 h-3 bg-teal-500 rounded-full"></span>
-                  Property Highlights
+                  Land Highlights
                 </h4>
                 <div className="bg-teal-50/50 rounded-xl p-4">
                   <div className="flex flex-wrap gap-2">
@@ -481,10 +492,10 @@ const PropertyCard = ({ property, onContactClick }) => {
                       >
                         <img 
                           src={img} 
-                          alt={`property-photo-${idx + 1}`}
+                          alt={`land-photo-${idx + 1}`}
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                            e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=200&h=200&fit=crop';
+                            e.target.src = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&h=200&fit=crop';
                           }}
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -510,7 +521,9 @@ const PropertyCard = ({ property, onContactClick }) => {
 
       {/* FULL GALLERY MODAL */}
       {showFullGallery && (
-        <div className="fixed inset-0 bg-black/95 z-[9999] flex flex-col animate-fadeIn" onClick={() => setShowFullGallery(false)}>
+  <div 
+    className="fixed inset-0 bg-black/95 z-[9999] flex flex-col animate-fadeIn" 
+    onClick={() => setShowFullGallery(false)}>
           <div className="bg-gradient-to-r from-[#00695C] to-[#26A69A] p-3 md:p-4 flex justify-between items-center px-4 md:px-6">
             <div className="pr-2">
               <h3 className="text-white font-bold text-sm md:text-lg truncate max-w-[180px] md:max-w-none">{property.location.split(',')[0]}</h3>
@@ -521,7 +534,7 @@ const PropertyCard = ({ property, onContactClick }) => {
           <div className="flex-1 flex flex-col items-center justify-center p-3 md:p-6 pb-2" onClick={(e) => e.stopPropagation()}>
             <div className="relative w-full max-w-4xl">
               <div className="relative rounded-xl overflow-hidden shadow-2xl bg-black/50">
-                <img src={property.images[galleryActiveImg]} alt="Gallery main" className="w-full h-auto max-h-[50vh] md:max-h-[60vh] object-contain" onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop'; }} />
+                <img src={property.images[galleryActiveImg]} alt="Gallery main" className="w-full h-auto max-h-[50vh] md:max-h-[60vh] object-contain" onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop'; }} />
               </div>
               <button onClick={prevGalleryImg} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-10 md:h-10 rounded-full transition-all text-sm md:text-xl flex items-center justify-center backdrop-blur hover:scale-110 shadow-lg">❮</button>
               <button onClick={nextGalleryImg} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-10 md:h-10 rounded-full transition-all text-sm md:text-xl flex items-center justify-center backdrop-blur hover:scale-110 shadow-lg">❯</button>
@@ -531,7 +544,7 @@ const PropertyCard = ({ property, onContactClick }) => {
               <div className="flex gap-2 md:gap-3 overflow-x-auto pb-2 justify-center flex-wrap">
                 {property.images.map((img, idx) => (
                   <div key={idx} className={`w-12 h-12 md:w-16 md:h-16 flex-shrink-0 rounded-lg overflow-hidden cursor-pointer transition-all ${galleryActiveImg === idx ? 'ring-2 ring-[#26A69A] shadow-xl scale-105' : 'opacity-70 hover:opacity-100 hover:scale-105 shadow-md'}`} onClick={() => handleGalleryThumbnailClick(idx)}>
-                    <img src={img} alt="thumb" className="w-full h-full object-cover" onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=100&h=100&fit=crop'; }} />
+                    <img src={img} alt="thumb" className="w-full h-full object-cover" onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=100&h=100&fit=crop'; }} />
                   </div>
                 ))}
               </div>
@@ -543,7 +556,9 @@ const PropertyCard = ({ property, onContactClick }) => {
 
       {/* SINGLE CLICK MODAL */}
       {showImageModal && (
-        <div className="fixed inset-0 bg-black/95 z-[9999] flex flex-col animate-fadeIn" onClick={() => setShowImageModal(false)}>
+  <div 
+    className="fixed inset-0 bg-black/95 z-[9999] flex flex-col animate-fadeIn" 
+    onClick={() => setShowImageModal(false)}>
           <div className="bg-gradient-to-r from-[#00695C] to-[#26A69A] p-3 md:p-5 flex justify-between items-center px-4 md:px-8">
             <div>
               <h3 className="text-white font-bold text-sm md:text-xl truncate max-w-[150px] sm:max-w-[300px]">{property.location.split(',')[0]}</h3>
@@ -554,7 +569,7 @@ const PropertyCard = ({ property, onContactClick }) => {
           <div className="flex-1 flex flex-col items-center justify-center p-3 md:p-8" onClick={(e) => e.stopPropagation()}>
             <div className="relative w-full max-w-4xl">
               <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-black/50">
-                <img src={property.images[activeImg]} alt="Gallery" className="w-full h-auto max-h-[50vh] md:max-h-[65vh] object-contain" onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop'; }} />
+                <img src={property.images[activeImg]} alt="Gallery" className="w-full h-auto max-h-[50vh] md:max-h-[65vh] object-contain" onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop'; }} />
               </div>
               <button onClick={prevImg} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-12 md:h-12 rounded-full transition-all text-sm md:text-2xl flex items-center justify-center backdrop-blur hover:scale-110 shadow-lg">❮</button>
               <button onClick={nextImg} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-12 md:h-12 rounded-full transition-all text-sm md:text-2xl flex items-center justify-center backdrop-blur hover:scale-110 shadow-lg">❯</button>
@@ -563,7 +578,7 @@ const PropertyCard = ({ property, onContactClick }) => {
             <div className="flex gap-2 md:gap-3 mt-6 md:mt-12 overflow-x-auto pb-2 justify-center flex-wrap max-w-full">
               {property.images.map((img, idx) => (
                 <div key={idx} className={`w-12 h-12 md:w-20 md:h-20 flex-shrink-0 rounded-lg md:rounded-xl overflow-hidden cursor-pointer transition-all ${activeImg === idx ? 'ring-2 ring-[#26A69A] shadow-xl scale-105' : 'opacity-60 hover:opacity-100 hover:scale-105 shadow-md'}`} onClick={() => setActiveImg(idx)}>
-                  <img src={img} alt="thumb" className="w-full h-full object-cover" onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=100&h=100&fit=crop'; }} />
+                  <img src={img} alt="thumb" className="w-full h-full object-cover" onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=100&h=100&fit=crop'; }} />
                 </div>
               ))}
             </div>
@@ -574,11 +589,11 @@ const PropertyCard = ({ property, onContactClick }) => {
   );
 };
 
-const OfficeSpace = () => {
+const AgriculturalCommercialPropertyCard = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showContactInfo, setShowContactInfo] = useState(false);
-  const [filteredProperties, setFilteredProperties] = useState(OfficeSpaceData);
+  const [filteredProperties, setFilteredProperties] = useState(AgriculturalCommercialData);
 
   const handleContactClick = (property) => {
     setSelectedProperty(property);
@@ -604,7 +619,7 @@ const OfficeSpace = () => {
               <div className="w-full bg-white rounded-2xl shadow-2xl border border-teal-100 p-8 text-center">
                 <div className="text-5xl mb-3">🔍</div>
                 <h3 className="text-lg font-bold text-slate-800 mb-1">No Properties Found</h3>
-                <p className="text-xs text-slate-500">No OfficeSpace apartments available at the moment.</p>
+                <p className="text-xs text-slate-500">No agricultural commercial properties available at the moment.</p>
               </div>
             )}
           </div>
@@ -613,13 +628,13 @@ const OfficeSpace = () => {
 
       {/* LOGIN MODAL */}
       {showLoginModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[9999] flex items-start justify-center pt-[140px] p-4 animate-fadeIn">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl">
+      <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[9999] flex items-start justify-center pt-[140px] p-4 animate-fadeIn">
+        <div className="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl">
             <div className="w-14 h-14 bg-gradient-to-br from-[#00695C] to-[#26A69A] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
               <span className="text-xl text-white">🔒</span>
             </div>
             <h3 className="text-lg font-bold text-slate-800 text-center mb-1">Unlock Contact</h3>
-            <p className="text-gray-500 text-xs text-center mb-4">Login to view contact details</p>
+            <p className="text-gray-500 text-xs text-center mb-4">Login to view land owner contact details</p>
             <button onClick={handleLogin} className="w-full bg-gradient-to-r from-[#00695C] to-[#26A69A] text-white py-2 rounded-lg font-bold text-sm shadow-lg hover:shadow-xl transition">Continue to Login</button>
             <button onClick={() => setShowLoginModal(false)} className="w-full mt-2 text-gray-500 text-xs py-1.5">Cancel</button>
           </div>
@@ -743,4 +758,4 @@ const OfficeSpace = () => {
   );
 };
 
-export default OfficeSpace;
+export default AgriculturalCommercialPropertyCard;

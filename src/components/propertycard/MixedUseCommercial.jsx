@@ -1,7 +1,8 @@
+// MixedUseCommercial.jsx
 import React, { useState, useEffect } from 'react';
-import { OfficeSpaceData } from "../data/OfficeSpaceData";
+import { MixedUseCommercialData } from "../data/MixedUseCommercialData";
 
-const PAGE_NAME = "Office Space";
+const PAGE_NAME = "Mixed-Use Commercial";
 
 // Helper: split price into amount + unit
 const splitPrice = (price) => {
@@ -574,11 +575,11 @@ const PropertyCard = ({ property, onContactClick }) => {
   );
 };
 
-const OfficeSpace = () => {
+const MixedUseCommercial = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showContactInfo, setShowContactInfo] = useState(false);
-  const [filteredProperties, setFilteredProperties] = useState(OfficeSpaceData);
+  const [filteredProperties, setFilteredProperties] = useState(MixedUseCommercialData);
 
   const handleContactClick = (property) => {
     setSelectedProperty(property);
@@ -604,7 +605,7 @@ const OfficeSpace = () => {
               <div className="w-full bg-white rounded-2xl shadow-2xl border border-teal-100 p-8 text-center">
                 <div className="text-5xl mb-3">🔍</div>
                 <h3 className="text-lg font-bold text-slate-800 mb-1">No Properties Found</h3>
-                <p className="text-xs text-slate-500">No OfficeSpace apartments available at the moment.</p>
+                <p className="text-xs text-slate-500">No Mixed-Use Commercial properties available at the moment.</p>
               </div>
             )}
           </div>
@@ -743,4 +744,4 @@ const OfficeSpace = () => {
   );
 };
 
-export default OfficeSpace;
+export default MixedUseCommercial;

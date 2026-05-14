@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Briefcase, Users, Wifi, Coffee, Car, Clock, Shield } from "lucide-react";
+import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Briefcase, Users, Wifi, Coffee, Car, Clock, Shield, Sprout, Tractor, Droplets, Trees } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import backgroundImage from "../assets/house1.png";
-import OfficeSpaceFilter from "../components/filters/OfficeSpaceFilter";
-import OfficeSpace from "../components/propertycard/OfficeSpace";
+import AgriculturalCommercialPropertyFilter from "../components/filters/AgriculturalCommercialPropertyFilter";
+import AgriculturalCommercialPropertyCard from "../components/propertycard/AgriculturalCommercialPropertyCard";
 
-const OfficeSpacePage = () => {
+const AgriculturalCommercialPropertyPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeButton, setActiveButton] = useState("Rent");
-  const [activeOfficeType, setActiveOfficeType] = useState("Office Space");
+  const [activeOfficeType, setActiveOfficeType] = useState("Agricultural Commercial Property");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState(null);
@@ -21,7 +21,7 @@ const OfficeSpacePage = () => {
     { name: "Hostel", path: "/hostel", icon: <Building2 className="w-4 h-4" /> }
   ];
 
-  const officeTypes = [
+  const agriculturalTypes = [
     { name: "All", path: "/commercial" },
     { name: "Office Space", path: "/commercial/office-space"},
     { name: "Retail Shop", path: "/commercial/retail-shop" },
@@ -47,7 +47,7 @@ const OfficeSpacePage = () => {
 
   useEffect(() => {
     const currentPath = location.pathname;
-    const activeType = officeTypes.find(type => type.path === currentPath);
+    const activeType = agriculturalTypes.find(type => type.path === currentPath);
     if (activeType) {
       setActiveOfficeType(activeType.name);
     }
@@ -110,18 +110,18 @@ const OfficeSpacePage = () => {
           
           <div className="max-w-none mx-auto px-6 relative z-10 text-center w-full flex flex-col items-center justify-center gap-2">
             <div className="mb-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
-              <Briefcase className="w-4 h-4 text-teal-300 animate-spin-slow" />
+              <Sprout className="w-4 h-4 text-teal-300 animate-spin-slow" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300 text-sm font-medium">
-                Premium Office Spaces
+                Premium Agricultural Properties
               </span>
             </div>
             
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
-              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Office Space</span>
+              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Agricultural Property</span>
             </h1>
             
             <p className="text-base md:text-lg text-white/90 mb-3 max-w-3xl mx-auto leading-relaxed">
-              Discover modern office spaces with world-class amenities and prime business locations
+              Discover fertile farmlands, commercial agricultural spaces, and agri-business opportunities
             </p>
 
             <div className="flex flex-wrap justify-center gap-2 px-4 animate-fade-in-up delay-200">
@@ -209,10 +209,10 @@ const OfficeSpacePage = () => {
                   <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-teal-400 group-hover:text-teal-600 transition-all duration-300 z-10" />
                   <input
                     type="text"
-                    placeholder="Search office spaces by city, locality, or business park"
+                    placeholder="Search agricultural land, farms, or commercial plots by location"
                     className="w-full pl-10 pr-5 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/90 text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-xl text-teal-900 placeholder-teal-400 transition-all duration-500"
                   />
-                  <MapPin className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
+                  <Tractor className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
                 </div>
 
                 {/* Advanced Filter Button */}
@@ -233,9 +233,9 @@ const OfficeSpacePage = () => {
                 </button>
               </div>
 
-              {/* Office Type Tabs */}
+              {/* Property Type Tabs */}
               <div className="flex flex-wrap gap-1.5 max-h-auto overflow-y-auto scrollbar-thin w-full">
-                {officeTypes.map((type) => {
+                {agriculturalTypes.map((type) => {
                   const isActive = activeOfficeType === type.name;
                   return (
                     <button
@@ -260,7 +260,7 @@ const OfficeSpacePage = () => {
                       <div className={`absolute inset-0 animate-gradient-shift-slow ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-500'}`}></div>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                       <span className="relative z-10 flex items-center gap-2">
-                        <Briefcase className={`w-3.5 h-3.5 transition-transform duration-300 ${isActive ? 'rotate-12' : 'group-hover:rotate-12'}`} />
+                        <Sprout className={`w-3.5 h-3.5 transition-transform duration-300 ${isActive ? 'rotate-12' : 'group-hover:rotate-12'}`} />
                         {type.name}
                       </span>
                     </button>
@@ -272,7 +272,7 @@ const OfficeSpacePage = () => {
             {/* Mobile View */}
             <div className="md:hidden space-y-3">
               <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-                {officeTypes.map((type) => {
+                {agriculturalTypes.map((type) => {
                   const isActive = activeOfficeType === type.name;
                   return (
                     <button
@@ -296,7 +296,7 @@ const OfficeSpacePage = () => {
                 className="w-full py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg"
               >
                 <Filter className="w-4 h-4" />
-                Filter Office Spaces
+                Filter Agricultural Properties
               </button>
             </div>
           </div>
@@ -306,7 +306,7 @@ const OfficeSpacePage = () => {
         {showFilterModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
             <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-              <OfficeSpaceFilter 
+              <AgriculturalCommercialPropertyFilter 
                 activeTab={activeButton}
                 onFilterChange={handleFilterChange}
                 onClose={() => setShowFilterModal(false)}
@@ -320,14 +320,14 @@ const OfficeSpacePage = () => {
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* Property Cards Section */}
             <div className="lg:w-2/3">
-              <OfficeSpace />
+              <AgriculturalCommercialPropertyCard />
             </div>
 
             {/* Sidebar Filters - Desktop */}
             <div className="lg:w-1/3 lg:relative">
               <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:scrollbar-hide animate-slide-in-right">
                 <div className="hidden lg:block">
-                  <OfficeSpaceFilter 
+                  <AgriculturalCommercialPropertyFilter 
                     activeTab={activeButton}
                     onFilterChange={handleFilterChange}
                   />
@@ -447,5 +447,4 @@ const OfficeSpacePage = () => {
   );
 };
 
-export default OfficeSpacePage;
-
+export default AgriculturalCommercialPropertyPage;

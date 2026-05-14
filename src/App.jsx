@@ -45,6 +45,8 @@ import OfficeSpacePage from "./pages/OfficeSpacePage";
 // import IndustrialSpacePage from "./pages/IndustrialSpacePage";
 // import HotelCommercialPage from "./pages/HotelCommercialPage";
 // import CoWorkingSpacePage from "./pages/CoWorkingSpacePage";
+import MixedUseCommercialPage from "./pages/MixedUseCommercialPage";
+import AgriculturalCommercialPropertyPage from "./pages/AgriculturalCommercialPropertyPage";
 
 // Import all form modals
 import OwnerFormModal from "./components/OwnerFormModal";
@@ -171,6 +173,8 @@ function AppLayout() {
           <Route path="/commercial/commercial-complex" element={<CommercialComplexPage />} />
           <Route path="/commercial/restaurant-cafe-space" element={<RestaurantCafeSpacePage />} />
           <Route path="/commercial/hotel-lodge-resort-property" element={<HotelCommercialPage />} /> */}
+          <Route path="/commercial/mixed-use-commercial-property" element={<MixedUseCommercialPage />} />
+          <Route path="/commercial/agricultural-commercial-property" element={<AgriculturalCommercialPropertyPage />} /> 
 
           <Route 
             path="/post-property" 
