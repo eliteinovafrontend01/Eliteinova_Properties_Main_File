@@ -1,83 +1,101 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Grid3X3, LayoutGrid, Hotel, HomeIcon, Building as BuildingIcon, Castle, Crown } from "lucide-react";
+import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Store, Factory, Hotel, Briefcase } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import backgroundImage from "../assets/apartment/mainbg.png";
+import backgroundImage from "../assets/house1.png";
 
-
-const ApartmentPage = () => {
+const CommercialPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeButton, setActiveButton] = useState("Rent");
-  const [activeApartmentType, setActiveApartmentType] = useState("All");
+  const [activeCommercialType, setActiveCommercialType] = useState("All");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [hoveredFilter, setHoveredFilter] = useState(null);
 
-
   const propertyCategories = [
     { name: "Individual", path: "/individual", icon: <Building className="w-4 h-4" /> },
-    { name: "Commercial", path: "/commercial", icon: <Landmark className="w-4 h-4" /> },
+    { name: "Apartment", path: "/apartment", icon: <Landmark className="w-4 h-4" /> },
     { name: "Land & Plots", path: "/land-plots", icon: <Warehouse className="w-4 h-4" /> },
     { name: "Hostel", path: "/hostel", icon: <Building2 className="w-4 h-4" /> }
   ];
 
-
-  // Apartment types based on the image provided
-  const apartmentTypes = [
-    { name: "All", path: "/apartment", component: "ApartmentPage" },
-    { name: "Rental Apartment", path: "/apartment/rental-apartment", component: "RentalApartmentPage" },
-    { name: "Serviced Apartment", path: "/apartment/serviced-apartment", component: "ServicedApartmentPage" },
-    { name: "Lease Apartment", path: "/apartment/lease-apartment", component: "LeaseApartmentPage" },
-    { name: "Residential Apartment", path: "/apartment/residential-apartments", component: "ResidentialApartmentsPage" },
-    { name: "Gated Community Apartment", path: "/apartment/gated-community-apartment", component: "GatedCommunityApartmentPage" },
-    { name: "Studio Apartment", path: "/apartment/studio-apartment", component: "StudioApartmentPage" },
-    { name: "Duplex Apartment", path: "/apartment/duplex-apartment", component: "DuplexApartmentPage" },
-    { name: "Luxury Apartment", path: "/apartment/luxury-apartment", component: "LuxuryApartmentPage" },
-    { name: "Condominium (Condo)", path: "/apartment/condominium", component: "CondominiumPage" },
-    { name: "Penthouse Apartment", path: "/apartment/penthouse-apartment", component: "PenthouseApartmentPage" }
+  const commercialTypes = [
+    { name: "All", path: "/commercial", component: "CommercialPage" },
+    { name: "Office Space", path: "/commercial/office-space", component: "OfficeSpacePage" },
+    { name: "Retail Shop", path: "/commercial/retail-shop", component: "RetailShopPage" },
+    { name: "Showroom", path: "/commercial/showroom", component: "ShowroomPage" },
+    { name: "Commercial Land / Plot", path: "/commercial/commercial-land-plot", component: "CommercialLandPlotPage" },
+    { name: "Warehouse / Godown", path: "/commercial/warehouse-godown", component: "WarehouseGodownPage" },
+    { name: "Industrial Property / Factory", path: "/commercial/industrial-property-factory", component: "IndustrialPropertyFactoryPage" },
+    { name: "Co-working Space", path: "/commercial/coworking-space", component: "CoworkingSpacePage" },
+    { name: "Business Center", path: "/commercial/business-center", component: "BusinessCenterPage" },
+    { name: "Shopping Mall Space", path: "/commercial/shopping-mall-space", component: "ShoppingMallSpacePage" },
+    { name: "Commercial Complex", path: "/commercial/commercial-complex", component: "CommercialComplexPage" },
+    { name: "Restaurant / Café Space", path: "/commercial/restaurant-cafe-space", component: "RestaurantCafeSpacePage" },
+    { name: "Hotel / Lodge / Resort Property", path: "/commercial/hotel-lodge-resort-property", component: "HotelLodgeResortPropertyPage" },
+    { name: "Clinic / Hospital Space", path: "/commercial/clinic-hospital-space", component: "ClinicHospitalSpacePage" },
+    { name: "Educational Institution Property", path: "/commercial/educational-institution-property", component: "EducationalInstitutionPropertyPage" },
+    { name: "IT Park / Tech Park Space", path: "/commercial/it-park-tech-park-space", component: "ITParkTechParkSpacePage" },
+    { name: "Multiplex / Entertainment Space", path: "/commercial/multiplex-entertainment-space", component: "MultiplexEntertainmentSpacePage" },
+    { name: "Petrol Bunk / Fuel Station", path: "/commercial/petrol-bunk-fuel-station", component: "PetrolBunkFuelStationPage" },
+    { name: "Cold Storage / Logistics Hub", path: "/commercial/cold-storage-logistics-hub", component: "ColdStorageLogisticsHubPage" },
+    { name: "Mixed-use Commercial Property", path: "/commercial/mixed-use-commercial-property", component: "MixedUseCommercialPropertyPage" },
+    { name: "Agricultural Commercial Property", path: "/commercial/agricultural-commercial-property", component: "AgriculturalCommercialPropertyPage" }
   ];
-
 
   useEffect(() => {
     const currentPath = location.pathname;
-    const activeType = apartmentTypes.find(type => type.path === currentPath);
+    const activeType = commercialTypes.find(type => type.path === currentPath);
     if (activeType) {
-      setActiveApartmentType(activeType.name);
-    } else if (currentPath === "/apartment" || currentPath === "/apartment/") {
-      setActiveApartmentType("All");
+      setActiveCommercialType(activeType.name);
+    } else if (currentPath === "/commercial" || currentPath === "/commercial/") {
+      setActiveCommercialType("All");
     }
   }, [location.pathname]);
 
-
   const handleNavigation = (path, typeName = null) => {
     if (typeName) {
-      setActiveApartmentType(typeName);
+      setActiveCommercialType(typeName);
     }
     navigate(path);
   };
-
 
   const handlePropertyCategoryNavigation = (path) => {
     navigate(path);
   };
 
-
-  // Helper function to get appropriate icon for apartment type
-  const getApartmentIcon = (typeName) => {
-    if (typeName === "All") return <Home className="w-3.5 h-3.5" />;
-    if (typeName.includes("Luxury")) return <Crown className="w-3.5 h-3.5" />;
-    if (typeName.includes("Studio")) return <LayoutGrid className="w-3.5 h-3.5" />;
-    if (typeName.includes("Duplex")) return <Grid3X3 className="w-3.5 h-3.5" />;
-    if (typeName.includes("Penthouse")) return <Castle className="w-3.5 h-3.5" />;
-    if (typeName.includes("Gated")) return <Hotel className="w-3.5 h-3.5" />;
-    return <BuildingIcon className="w-3.5 h-3.5" />;
+  // Get icon for commercial type
+  const getCommercialIcon = (typeName) => {
+    const iconMap = {
+      "Office Space": <Briefcase className="w-3.5 h-3.5" />,
+      "Retail Shop": <Store className="w-3.5 h-3.5" />,
+      "Showroom": <Store className="w-3.5 h-3.5" />,
+      "Commercial Land / Plot": <Landmark className="w-3.5 h-3.5" />,
+      "Warehouse / Godown": <Warehouse className="w-3.5 h-3.5" />,
+      "Industrial Property / Factory": <Factory className="w-3.5 h-3.5" />,
+      "Co-working Space": <Briefcase className="w-3.5 h-3.5" />,
+      "Business Center": <Building className="w-3.5 h-3.5" />,
+      "Shopping Mall Space": <Building2 className="w-3.5 h-3.5" />,
+      "Commercial Complex": <Building2 className="w-3.5 h-3.5" />,
+      "Restaurant / Café Space": <Store className="w-3.5 h-3.5" />,
+      "Hotel / Lodge / Resort Property": <Hotel className="w-3.5 h-3.5" />,
+      "Clinic / Hospital Space": <Building className="w-3.5 h-3.5" />,
+      "Educational Institution Property": <Building className="w-3.5 h-3.5" />,
+      "IT Park / Tech Park Space": <Building className="w-3.5 h-3.5" />,
+      "Multiplex / Entertainment Space": <Building2 className="w-3.5 h-3.5" />,
+      "Petrol Bunk / Fuel Station": <Landmark className="w-3.5 h-3.5" />,
+      "Cold Storage / Logistics Hub": <Warehouse className="w-3.5 h-3.5" />,
+      "Mixed-use Commercial Property": <Building2 className="w-3.5 h-3.5" />,
+      "Agricultural Commercial Property": <Landmark className="w-3.5 h-3.5" />,
+      "All": <Building className="w-3.5 h-3.5" />
+    };
+    return iconMap[typeName] || <Building className="w-3.5 h-3.5" />;
   };
-
 
   return (
     <div className="w-full min-h-screen relative">
       {/* Background and other content same as before */}
-      <div
+      <div 
         className="fixed inset-0 z-0"
         style={{
           backgroundImage: `url(${backgroundImage})`,
@@ -87,7 +105,7 @@ const ApartmentPage = () => {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-teal-900/30 via-emerald-900/20 to-teal-900/40 animate-gradient-flow"></div>
-       
+        
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(25)].map((_, i) => (
             <div
@@ -105,7 +123,7 @@ const ApartmentPage = () => {
               }}
             ></div>
           ))}
-         
+          
           {[...Array(12)].map((_, i) => (
             <div
               key={`shape-${i}`}
@@ -126,11 +144,10 @@ const ApartmentPage = () => {
         </div>
       </div>
 
-
       <div className="relative z-10">
         <section className="w-full h-[300px] md:h-[400px] relative flex items-center overflow-hidden group">
           <div className="absolute inset-0 bg-gradient-to-b animate-gradient-slow"></div>
-         
+          
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(15)].map((_, i) => (
               <div
@@ -145,33 +162,36 @@ const ApartmentPage = () => {
               ></div>
             ))}
           </div>
-         
+          
           <div className="max-w-none mx-auto px-6 relative z-10 text-center w-full">
             <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
               <Star className="w-4 h-4 text-teal-300 animate-spin-slow" fill="currentColor" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300 text-sm font-medium">
-                Premium Apartments
+                Premium Commercial Properties
               </span>
             </div>
-           
+            
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
-              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Apartment</span>
+              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Commercial Space</span>
             </h1>
-           
+            
             <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed ">
-              Explore a wide range of apartments from rental to luxury penthouses
+              Browse through our verified commercial properties for your business needs
             </p>
-
 
             <div className="flex flex-wrap justify-center gap-4 px-4 animate-fade-in-up delay-200">
               {propertyCategories.map((category, index) => (
                 <button
                   key={category.name}
                   onClick={() => handlePropertyCategoryNavigation(category.path)}
-                  className="group relative px-7 py-3.5 rounded-xl text-white font-semibold text-base shadow-2xl hover:shadow-[0_0_40px_rgba(0,105,92,0.5)] transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 overflow-hidden animate-slide-up"
+                  className={`group relative px-7 py-3.5 rounded-xl text-white font-semibold text-base shadow-2xl hover:shadow-[0_0_40px_rgba(0,105,92,0.5)] transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 overflow-hidden animate-slide-up ${
+                    category.name === "Commercial" ? "ring-2 ring-teal-300 ring-offset-2 ring-offset-teal-900/30" : ""
+                  }`}
                   style={{
                     animationDelay: `${index * 100}ms`,
-                    background: "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
+                    background: category.name === "Commercial" 
+                      ? "linear-gradient(135deg, #004D40, #00695C, #00897B)"
+                      : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
                     backgroundSize: "200% 200%"
                   }}
                 >
@@ -187,7 +207,6 @@ const ApartmentPage = () => {
             </div>
           </div>
         </section>
-
 
         <div className="bg-gradient-to-r from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl shadow-2xl sticky top-0 z-40 border-b border-teal-200/30 transition-all duration-500 animate-slide-down">
           <div className="max-w-none mx-auto px-6 py-4">
@@ -208,7 +227,6 @@ const ApartmentPage = () => {
                     <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${openDropdown === "toggle" ? 'rotate-180' : ''} relative z-10`} />
                     <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
                   </button>
-
 
                   {openDropdown === "toggle" && (
                     <div className="absolute top-full left-0 mt-2 bg-teal-50/95 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden z-50 min-w-[180px] border border-teal-200/30 animate-slide-down-fast">
@@ -268,14 +286,13 @@ const ApartmentPage = () => {
                           Sell
                         </div>
                       </button>
-                    </div>  
+                    </div>   
                   )}
                 </div>
 
-
                 <div className="relative flex-1 group">
                   <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-emerald-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-                  <Search className="absolute left-3.5 top-1/2  transform -translate-y-1/2 w-4 h-4 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
+                  <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
                   <input
                     type="text"
                     placeholder="Search by city, locality, or landmark"
@@ -285,29 +302,28 @@ const ApartmentPage = () => {
                 </div>
               </div>
 
-
-              <div className="flex flex-wrap gap-3">
-                {apartmentTypes.map((type, index) => {
-                  const isActive = activeApartmentType === type.name;
+              <div className="flex flex-wrap gap-1.5 max-h-auto overflow-y-auto scrollbar-thin">
+                {commercialTypes.map((type, index) => {
+                  const isActive = activeCommercialType === type.name;
                   return (
                     <button
                       key={type.name}
                       onClick={() => handleNavigation(type.path, type.name)}
-                      className={`group relative px-4 py-2 rounded-lg font-semibold text-sm shadow-xl transition-all duration-500 whitespace-nowrap transform hover:-translate-y-1 hover:scale-105 overflow-hidden ${
-                      isActive
-                        ? "text-teal-800 shadow-none"
-                        : "text-white/90 hover:text-white"
-                    }`}
-                    style={{
-                  background: isActive
-                    ? "#ebfff7"
-                    : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
-                  backgroundSize: "200% 200%",
-                  outline: isActive ? "3px solid #00695C" : "none",
-                  outlineOffset: "-3px",
-                  border: "none",
-                  boxShadow: isActive ? "0 0 18px 4px rgba(0, 105, 92, 0.45)" : "none"
-                }}
+                      className={`group relative px-1.5 py-2 rounded-md font-medium text-xs shadow-md transition-all duration-300 whitespace-nowrap transform hover:-translate-y-0.5 hover:scale-102 overflow-hidden ${
+                        isActive 
+                          ? "text-teal-800 shadow-none" 
+                          : "text-white/90 hover:text-white"
+                      }`}
+                      style={{
+                        background: isActive 
+                          ? "#ebfff7" 
+                          : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
+                        backgroundSize: "200% 200%",
+                        outline: isActive ? "3px solid #00695C" : "none",
+                        outlineOffset: "-3px",
+                        border: "none",
+                        boxShadow: isActive ? "0 0 18px 4px rgba(0, 105, 92, 0.45)" : "none"
+                      }}
                     >
                       <div className={`absolute inset-0 animate-gradient-shift-slow ${isActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-500'}`}></div>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -316,7 +332,7 @@ const ApartmentPage = () => {
                       )}
                       <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
                       <span className="relative z-10 flex items-center gap-2">
-                        {getApartmentIcon(type.name)}
+                        {getCommercialIcon(type.name)}
                         {type.name}
                       </span>
                     </button>
@@ -325,11 +341,10 @@ const ApartmentPage = () => {
               </div>
             </div>
 
-
             <div className="md:hidden space-y-4">
               <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-                {apartmentTypes.map((type, index) => {
-                  const isActive = activeApartmentType === type.name;
+                {commercialTypes.map((type, index) => {
+                  const isActive = activeCommercialType === type.name;
                   return (
                     <button
                       key={type.name}
@@ -349,7 +364,6 @@ const ApartmentPage = () => {
           </div>
         </div>
 
-
         <div className="max-w-none mx-auto px-6 py-8 lg:py-12">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             <div className="lg:w-2/3">
@@ -358,14 +372,14 @@ const ApartmentPage = () => {
                   <div className="absolute inset-0 opacity-[0.03] rounded-3xl overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-500/20 to-transparent animate-shimmer"></div>
                   </div>
-                 
+                  
                   <div className="mb-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-teal-100 to-emerald-100 border border-teal-200">
                     <span className="text-sm font-medium text-teal-700">Active Filter:</span>
                     <span className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                      {activeApartmentType}
+                      {activeCommercialType}
                     </span>
                   </div>
-                 
+                  
                   <div
                     className="w-24 h-24 md:w-28 md:h-28 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-2xl group-hover:shadow-[0_0_50px_rgba(0,105,92,0.5)] transition-all duration-700 transform group-hover:scale-110 group-hover:rotate-3 relative"
                     style={{
@@ -375,29 +389,29 @@ const ApartmentPage = () => {
                   >
                     <div className="absolute inset-0 animate-gradient-shift-slow rounded-3xl"></div>
                     <div className="absolute -inset-4 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-3xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-700"></div>
-                    <Building className="w-12 h-12 text-white group-hover:rotate-12 transition-transform duration-700 relative z-10" />
+                    <Landmark className="w-12 h-12 text-white group-hover:rotate-12 transition-transform duration-700 relative z-10" />
                   </div>
-                 
+                  
                   <h2 className="text-3xl md:text-4xl font-bold text-teal-900 mb-4 group-hover:text-teal-950 transition-colors duration-300">
-                    {activeApartmentType === "All" ? "Premium Apartments" : `${activeApartmentType} Properties`}
+                    {activeCommercialType === "All" ? "Premium Commercial Properties" : `${activeCommercialType} Properties`}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 animate-gradient-text-slow"> Coming Soon</span>
                   </h2>
-                 
+                  
                   <p className="text-teal-800 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed group-hover:text-teal-900 transition-colors duration-300 backdrop-blur-sm bg-teal-100/30 rounded-2xl p-6 border border-teal-200/20">
-                    {activeApartmentType === "All"
-                      ? "We're currently adding exclusive apartment listings to our database."
-                      : `We're currently adding exclusive ${activeApartmentType.toLowerCase()} listings to our database.`}
+                    {activeCommercialType === "All" 
+                      ? "We're currently adding exclusive commercial properties to our database."
+                      : `We're currently adding exclusive ${activeCommercialType.toLowerCase()} properties to our database.`}
                     <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 font-semibold text-xl">
                       Check back soon for amazing deals!
                     </span>
                   </p>
-                 
+                  
                   <div className="mt-8 flex justify-center gap-4">
                     <button className="group relative px-6 py-3 rounded-xl border-2 border-teal-500 text-teal-600 font-semibold hover:bg-gradient-to-r from-teal-50 to-emerald-50 transition-all duration-500 transform hover:scale-105 overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-100 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                       <span className="relative z-10">Get Notified</span>
                     </button>
-                    <button
+                    <button 
                       className="group relative px-6 py-3 rounded-xl text-white font-semibold shadow-xl hover:shadow-[0_0_30px_rgba(0,105,92,0.5)] transition-all duration-500 transform hover:scale-105 overflow-hidden"
                       style={{
                         background: "linear-gradient(135deg, #00695C, #26A69A)",
@@ -412,24 +426,23 @@ const ApartmentPage = () => {
                 </div>
               </section>
 
-
               <div className="mt-8 bg-gradient-to-br from-teal-50/90 via-emerald-50/90 to-teal-50/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 lg:p-12 text-center border border-teal-200/30 animate-fade-in-up delay-300">
                 <div className="max-w-2xl mx-auto">
                   <div className="w-20 h-20 rounded-3xl bg-gradient-to-r from-teal-500/10 to-emerald-500/10 mx-auto mb-6 flex items-center justify-center relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-3xl animate-pulse-slow"></div>
-                    <Building className="w-10 h-10 text-teal-600 animate-bounce-slow relative z-10" />
+                    <Landmark className="w-10 h-10 text-teal-600 animate-bounce-slow relative z-10" />
                   </div>
-                 
+                  
                   <h3 className="text-2xl font-bold text-teal-900 mb-4">
-                    No {activeApartmentType !== "All" ? `${activeApartmentType} ` : ""}Apartments Found
+                    No {activeCommercialType !== "All" ? `${activeCommercialType} ` : ""}Commercial Properties Found
                   </h3>
-                 
+                  
                   <p className="text-teal-800 mb-6 backdrop-blur-sm bg-teal-100/30 rounded-xl p-4 border border-teal-200/20">
-                    {activeApartmentType !== "All"
-                      ? `We don't have any ${activeApartmentType.toLowerCase()} available at the moment.`
-                      : "Use the filters on the right to find apartments that match your criteria."}
+                    {activeCommercialType !== "All"
+                      ? `We don't have any ${activeCommercialType.toLowerCase()} properties available at the moment.`
+                      : "Use the filters on the right to find commercial properties that match your criteria."}
                   </p>
-                 
+                  
                   <div className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-100">
                     {[0, 150, 300].map((delay) => (
                       <div
@@ -439,15 +452,14 @@ const ApartmentPage = () => {
                       ></div>
                     ))}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 font-medium">
-                      {activeApartmentType !== "All"
-                        ? `Check back later for ${activeApartmentType.toLowerCase()} listings`
-                        : "Adjust your filters to see matching apartments"}
+                      {activeCommercialType !== "All" 
+                        ? `Check back later for ${activeCommercialType.toLowerCase()} listings` 
+                        : "Adjust your filters to see matching properties"}
                     </span>
                   </div>
                 </div>
               </div>
             </div>
-
 
             <div className="lg:w-1/3 lg:relative">
               <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:scrollbar-hide animate-slide-in-right">
@@ -461,12 +473,11 @@ const ApartmentPage = () => {
                     </span>
                   </h3>
 
-
                   <div className="mb-6 animate-fade-in-up delay-100">
                     <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
-                      <span className="text-xl animate-bounce-slow">💰</span>
+                      <span className="text-xl animate-bounce-slow">💰</span> 
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                        Price Range
+                        Price / Rent Range
                       </span>
                     </label>
                     <div className="flex gap-3">
@@ -486,85 +497,79 @@ const ApartmentPage = () => {
                     </div>
                   </div>
 
-
                   <div className="mb-6 animate-fade-in-up delay-200">
-                    <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
-                      <span className="text-xl animate-bounce-slow">🏠</span>
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                        BHK Type
-                      </span>
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {["1 BHK", "2 BHK", "3 BHK", "4 BHK", "5+ BHK"].map((bhk, index) => (
-                        <label
-                          key={bhk}
-                          onMouseEnter={() => setHoveredFilter(`bhk-${index}`)}
-                          onMouseLeave={() => setHoveredFilter(null)}
-                          className={`flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 hover:border-teal-300 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r from-teal-50/50 to-emerald-50/50 group animate-fade-in-up ${
-                            hoveredFilter === `bhk-${index}` ? 'scale-[1.02]' : ''
-                          }`}
-                          style={{ animationDelay: `${index * 50}ms` }}
-                        >
-                          <input
-                            type="checkbox"
-                            className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
-                          />
-                          <span className="text-sm text-teal-800 group-hover:text-teal-900 group-hover:font-medium transition-all duration-300">
-                            {bhk}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-
-                  <div className="mb-6 animate-fade-in-up delay-300">
                     <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
                       <span className="text-xl animate-bounce-slow">📐</span>
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                        Area (sq ft)
+                        Area (sq. ft.)
                       </span>
                     </label>
                     <div className="flex gap-3">
                       <input
                         type="number"
-                        placeholder="Min"
+                        placeholder="Min Area"
                         className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
                       />
                       <input
                         type="number"
-                        placeholder="Max"
+                        placeholder="Max Area"
                         className="w-1/2 px-4 py-3 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-lg text-teal-900 placeholder-teal-400 transition-all duration-300 hover:shadow-xl"
                       />
                     </div>
                   </div>
 
-
-                  <div className="mb-6 animate-fade-in-up delay-400">
+                  <div className="mb-6 animate-fade-in-up delay-300">
                     <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
                       <span className="text-xl animate-bounce-slow">🏢</span>
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                        Amenities
+                        Property Type
                       </span>
                     </label>
                     <div className="grid grid-cols-2 gap-2">
-                      {["Parking", "Gym", "Swimming Pool", "Security", "Elevator", "Balcony"].map((amenity, index) => (
-                        <label
-                          key={amenity}
-                          className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 hover:border-teal-300 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r from-teal-50/50 to-emerald-50/50 group"
+                      {["Office", "Retail", "Industrial", "Warehouse", "Land", "Mixed-use"].map((type, index) => (
+                        <label 
+                          key={type} 
+                          onMouseEnter={() => setHoveredFilter(`type-${index}`)}
+                          onMouseLeave={() => setHoveredFilter(null)}
+                          className={`flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200/50 hover:border-teal-300 cursor-pointer transition-all duration-300 hover:bg-gradient-to-r from-teal-50/50 to-emerald-50/50 group animate-fade-in-up ${
+                            hoveredFilter === `type-${index}` ? 'scale-[1.02]' : ''
+                          }`}
+                          style={{ animationDelay: `${index * 50}ms` }}
                         >
-                          <input
-                            type="checkbox"
-                            className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30 transition-all duration-300"
+                          <input 
+                            type="checkbox" 
+                            className="w-4 h-4 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30 transition-all duration-300" 
                           />
                           <span className="text-sm text-teal-800 group-hover:text-teal-900 group-hover:font-medium transition-all duration-300">
-                            {amenity}
+                            {type}
                           </span>
                         </label>
                       ))}
                     </div>
                   </div>
 
+                  <div className="mb-6 animate-fade-in-up delay-400">
+                    <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
+                      <span className="text-xl animate-bounce-slow">📍</span>
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
+                        Amenities
+                      </span>
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {["Parking", "24/7 Security", "Power Backup", "Elevator", "Wifi", "CCTV"].map((amenity, index) => (
+                        <label 
+                          key={amenity} 
+                          className="flex items-center gap-3 p-2 rounded-lg border border-teal-200/50 hover:border-teal-300 cursor-pointer transition-all duration-300 hover:bg-teal-50/50"
+                        >
+                          <input 
+                            type="checkbox" 
+                            className="w-3.5 h-3.5 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30" 
+                          />
+                          <span className="text-xs text-teal-700">{amenity}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
 
                   <div className="flex gap-3 pt-6 border-t border-teal-200/30 animate-fade-in-up delay-500">
                     <button
@@ -594,7 +599,6 @@ const ApartmentPage = () => {
           </div>
         </div>
       </div>
-
 
       <style jsx>{`
         /* Keep all existing styles */
@@ -735,6 +739,17 @@ const ApartmentPage = () => {
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
+        .scrollbar-thin::-webkit-scrollbar {
+          height: 4px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-track {
+          background: rgba(0, 105, 92, 0.1);
+          border-radius: 10px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+          background: linear-gradient(to right, #00695C, #26A69A);
+          border-radius: 10px;
+        }
         .lg\:custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }
@@ -755,6 +770,5 @@ const ApartmentPage = () => {
   );
 };
 
-
-export default ApartmentPage;
+export default CommercialPage;
 
