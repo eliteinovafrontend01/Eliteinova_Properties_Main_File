@@ -5,55 +5,55 @@ import {
   Route,
 } from "react-router-dom";
 
-import Header from "./components/Header";
+import Header from "./components/common/Header";
 import HomePage from "./pages/HomePage";
 import PostPropertyPage from "./pages/PostPropertyPage";
 import CustomerPortalPage from "./pages/CustomerPortalPage";
-import IndividualPage from "./pages/IndividualPage";
+import IndividualPage from "./pages/Individual/IndividualPage";
 import BuyPage from "./pages/BuyPage";
 import LeasePage from "./pages/LeasePage";
 // import RentPage from "./pages/RentPage";
 // import SellPage from "./pages/SellPage";
-import ApartmentPage from "./pages/ApartmentPage";
-import CommercialPage from "./pages/CommercialPage";
+import ApartmentPage from "./pages/Apartment/ApartmentPage";
+import CommercialPage from "./pages/Commercial/CommercialPage";
 // import LandPlotsPage from "./pages/LandPlotsPage";
 // import HostelPage from "./pages/HostelPage";
 
 // Import all house type pages
-import IndependentHousePage from "./pages/IndependentHousePage";
-import IndependentVillaPage from "./pages/IndependentVillaPage";
-import ResidentialApartmentPage from "./pages/ResidentialApartmentPage";
-import DuplexResidentialUnitPage from "./pages/DuplexResidentialUnitPage";
-import RowHousePage from "./pages/RowHousePage";
+import IndependentHousePage from "./pages/Individual/IndependentHousePage";
+import IndependentVillaPage from "./pages/Individual/IndependentVillaPage";
+import ResidentialApartmentPage from "./pages/Individual/ResidentialApartmentPage";
+import DuplexResidentialUnitPage from "./pages/Individual/DuplexResidentialUnitPage";
+import RowHousePage from "./pages/Individual/RowHousePage";
 
 // Import all apartment type pages
-import RentalApartmentPage from './pages/RentalApartmentPage';
-import ServicedApartmentPage from './pages/ServicedApartmentPage';
-import LeaseApartmentPage from './pages/LeaseApartmentPage';
-import ResidentialApartmentsPage from './pages/ResidentialApartmentsPage';
-import GatedCommunityApartmentPage from './pages/GatedCommunityApartmentPage';
-import StudioApartmentPage from './pages/StudioApartmentPage';
-import DuplexApartmentPage from './pages/DuplexApartmentPage';
-import LuxuryApartmentPage from './pages/LuxuryApartmentPage';
-import CondominiumApartmentPage from './pages/CondominiumApartmentPage';
-import PentHouseApartmentPage from './pages/PentHouseApartmentPage';
+import RentalApartmentPage from './pages/Apartment/RentalApartmentPage';
+import ServicedApartmentPage from './pages/Apartment/ServicedApartmentPage';
+import LeaseApartmentPage from './pages/Apartment/LeaseApartmentPage';
+import ResidentialApartmentsPage from './pages/Apartment/ResidentialApartmentsPage';
+import GatedCommunityApartmentPage from './pages/Apartment/GatedCommunityApartmentPage';
+import StudioApartmentPage from './pages/Apartment/StudioApartmentPage';
+import DuplexApartmentPage from './pages/Apartment/DuplexApartmentPage';
+import LuxuryApartmentPage from './pages/Apartment/LuxuryApartmentPage';
+import CondominiumApartmentPage from './pages/Apartment/CondominiumApartmentPage';
+import PentHouseApartmentPage from './pages/Apartment/PentHouseApartmentPage';
 
 //Import all commercial type pages
-import OfficeSpacePage from "./pages/OfficeSpacePage";
+import OfficeSpacePage from "./pages/Commercial/OfficeSpacePage";
 // import RetailSpacePage from "./pages/RetailSpacePage";
 // import WarehousePage from "./pages/WarehousePage";
 // import IndustrialSpacePage from "./pages/IndustrialSpacePage";
 // import HotelCommercialPage from "./pages/HotelCommercialPage";
 // import CoWorkingSpacePage from "./pages/CoWorkingSpacePage";
-import MixedUseCommercialPage from "./pages/MixedUseCommercialPage";
-import AgriculturalCommercialPropertyPage from "./pages/AgriculturalCommercialPropertyPage";
+import MixedUseCommercialPage from "./pages/Commercial/MixedUseCommercialPage";
+import AgriculturalCommercialPropertyPage from "./pages/Commercial/AgriculturalCommercialPropertyPage";
 
 // Import all form modals
-import OwnerFormModal from "./components/OwnerFormModal";
-import AgentFormModal from "./components/AgentFormModal";
-import BuilderFormModal from "./components/BuilderFormModal";
-import HostelFormModal from "./components/HostelFormModal";
-import PropertyManagementFormModal from "./components/PropertyManagementFormModal";
+import OwnerFormModal from "./components/Forms/OwnerFormModal";
+import AgentFormModal from "./components/Forms/AgentFormModal";
+import BuilderFormModal from "./components/Forms/BuilderFormModal";
+import HostelFormModal from "./components/Forms/HostelFormModal";
+import PropertyManagementFormModal from "./components/Forms/PropertyManagementFormModal";
 
 function AppLayout() {
   const [openOwnerForm, setOpenOwnerForm] = useState(false);
