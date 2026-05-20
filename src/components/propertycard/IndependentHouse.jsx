@@ -21,12 +21,9 @@ const extractBHK = (highlights) => {
 // Helper: format price with crores/lakhs - preserves month units
 const formatPriceAmount = (priceNum, originalUnit) => {
   if (!priceNum) return { amount: priceNum, unit: '' };
-  
   const hasMonth = originalUnit && originalUnit.toLowerCase().includes('month');
-  
   const numeric = parseFloat(priceNum.replace(/[^0-9.-]/g, ''));
   if (isNaN(numeric)) return { amount: priceNum, unit: originalUnit || '' };
-  
   if (numeric >= 10000000) {
     const crores = (numeric / 10000000).toFixed(2);
     const formatted = crores.endsWith('.00') ? crores.slice(0, -3) : crores;
@@ -48,6 +45,11 @@ const PropertyCard = ({ property, onContactClick }) => {
   const [showAgentModal, setShowAgentModal] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isContactHovered, setIsContactHovered] = useState(false);
+  const [mapConfirm, setMapConfirm] = useState({ show: false, location: '' });
+
+  const openInMaps = (location) => {
+    setMapConfirm({ show: true, location });
+  };
 
   const nextImg = (e) => {
     e.stopPropagation();
@@ -80,29 +82,12 @@ const PropertyCard = ({ property, onContactClick }) => {
   };
 
   const getStatusStyle = (status) => {
-    if (status === 'NEW') {
-      return {
-        bg: 'bg-gradient-to-r from-green-500 to-emerald-600',
-        icon: '✨',
-        animation: 'pulse-green'
-      };
-    }
-    if (status === 'RE-SALE') {
-      return {
-        bg: 'bg-gradient-to-r from-indigo-500 to-purple-500',
-        icon: '🔄',
-        animation: 'rotate-slow'
-      };
-    }
-    return {
-      bg: 'bg-gradient-to-r from-gray-500 to-gray-600',
-      icon: '🏷️',
-      animation: ''
-    };
+    if (status === 'NEW') return { bg: 'bg-gradient-to-r from-green-500 to-emerald-600', icon: '✨', animation: 'pulse-green' };
+    if (status === 'RE-SALE') return { bg: 'bg-gradient-to-r from-indigo-500 to-purple-500', icon: '🔄', animation: 'rotate-slow' };
+    return { bg: 'bg-gradient-to-r from-gray-500 to-gray-600', icon: '🏷️', animation: '' };
   };
 
   const statusStyle = getStatusStyle(property.status);
-
   const { num: priceNumRaw, unit: priceUnit } = splitPrice(property.price);
   const formattedPrice = formatPriceAmount(priceNumRaw, priceUnit);
   const priceAmount = formattedPrice.amount || priceNumRaw;
@@ -135,39 +120,37 @@ const PropertyCard = ({ property, onContactClick }) => {
 
   return (
     <>
-      <div 
+      <div
         className="w-full bg-white rounded-2xl shadow-2xl border border-teal-100 overflow-hidden transition-all duration-500 hover:shadow-3xl mb-6 hover:-translate-y-1"
         style={{
           transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: isHovered 
-            ? '0 25px 40px -12px rgba(0,105,92,0.4), 0 0 0 1px rgba(0,105,92,0.1)' 
+          boxShadow: isHovered
+            ? '0 25px 40px -12px rgba(0,105,92,0.4), 0 0 0 1px rgba(0,105,92,0.1)'
             : '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02)'
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        
         <div className="p-4 md:p-5">
-          
-          <div className="flex flex-col lg:flex-row gap-5">
-            
+          <div className="flex flex-col lg:flex-row gap-5 items-stretch">
+
             {/* IMAGE SECTION */}
-            <div className="w-full lg:w-[35%] xl:w-[32%]">
-              <div className="flex flex-row bg-gray-100 rounded-xl overflow-hidden shadow-lg" style={{ height: '260px', minHeight: '260px', flexShrink: 0 }}>
-                
-                <div className="flex-1 h-full overflow-hidden relative cursor-pointer" onDoubleClick={(e) => handleImageDoubleClick(activeImg, e)}>
+            <div className="w-full lg:w-[35%] xl:w-[32%]" style={{ position: 'relative', minHeight: '260px' }}>
+              <div
+                className="flex flex-row bg-gray-100 rounded-xl overflow-hidden shadow-lg"
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+              >
+                {/* Main Image */}
+                <div
+                  className="relative cursor-pointer overflow-hidden flex-1"
+                  onDoubleClick={(e) => handleImageDoubleClick(activeImg, e)}
+                >
                   <img
                     src={property.images[activeImg]}
-                    alt="Villa"
-                    className="w-full h-full object-cover"
-                    style={{ height: '100%', width: '100%', objectFit: 'cover' }}
-                    onError={(e) => {
-                      e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=450&fit=crop';
-                    }}
+                    alt="Property"
+                    style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                    onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=450&fit=crop'; }}
                   />
-                  <div className="absolute bottom-2 right-2 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                    Double click
-                  </div>
                   <div className="absolute top-2 left-2 z-10">
                     <div className={`${statusStyle.bg} text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow-lg flex items-center gap-1 ${statusStyle.animation}`}>
                       <span className="text-[10px]">{statusStyle.icon}</span>
@@ -175,49 +158,40 @@ const PropertyCard = ({ property, onContactClick }) => {
                     </div>
                   </div>
                 </div>
-                
-                <div 
-                  className="h-full overflow-y-auto bg-white flex flex-col gap-1 p-1"
-                  style={{ width: imageCount <= 2 ? '70px' : imageCount <= 3 ? '75px' : imageCount <= 4 ? '80px' : '85px', height: '100%' }}
+
+                {/* Thumbnails */}
+                <div
+                  className="overflow-y-auto bg-white flex flex-col gap-1 p-1"
+                  style={{ width: imageCount <= 2 ? '70px' : imageCount <= 3 ? '75px' : imageCount <= 4 ? '80px' : '85px' }}
                 >
-                  {property.images.map((img, idx) => {
-                    const gapTotal = (imageCount - 1) * 4;
-                    const itemHeight = `calc((100% - ${gapTotal}px) / ${imageCount})`;
-                    
-                    return (
-                      <div
-                        key={idx}
-                        className={`relative overflow-hidden rounded cursor-pointer transition-all duration-200 flex-shrink-0 ${
-                          activeImg === idx ? 'ring-2 ring-[#26A69A] shadow-md' : 'hover:shadow-md'
-                        }`}
-                        style={{ height: itemHeight, minHeight: '40px' }}
-                        onClick={() => setActiveImg(idx)}
-                        onDoubleClick={(e) => handleImageDoubleClick(idx, e)}
-                      >
-                        <img
-                          src={img}
-                          className="w-full h-full object-cover"
-                          alt="thumb"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          onError={(e) => {
-                            e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=100&h=100&fit=crop';
-                          }}
-                        />
-                        {imageCount > 5 && idx === 3 && (
-                          <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-bold text-[10px]">
-                            +{imageCount - 3}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+                  {property.images.map((img, idx) => (
+                    <div
+                      key={idx}
+                      className={`relative overflow-hidden rounded cursor-pointer transition-all duration-200 flex-shrink-0 ${activeImg === idx ? 'ring-2 ring-[#26A69A] shadow-md' : 'hover:shadow-md'}`}
+                      style={{ height: `calc(100% / ${imageCount})`, minHeight: '50px' }}
+                      onClick={() => setActiveImg(idx)}
+                      onDoubleClick={(e) => handleImageDoubleClick(idx, e)}
+                    >
+                      <img
+                        src={img}
+                        className="w-full h-full object-cover"
+                        alt="thumb"
+                        onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=100&h=100&fit=crop'; }}
+                      />
+                      {imageCount > 5 && idx === 3 && (
+                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-bold text-[10px]">
+                          +{imageCount - 3}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
             {/* CONTENT SECTION */}
             <div className="flex-1 flex flex-col gap-2">
-              
+
               {/* PRICE AND HEADER */}
               <div className="flex flex-wrap justify-between items-start gap-2">
                 <div className="flex-1">
@@ -237,7 +211,7 @@ const PropertyCard = ({ property, onContactClick }) => {
                     )}
                     {bhk && <span className="font-bold text-[#00695C] text-base md:text-lg ml-1">({bhk})</span>}
                   </div>
-                  
+
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
                     <span className="text-[#00695C] font-bold bg-teal-50 px-2 py-1 rounded-md text-xs md:text-sm shadow-sm">{property.sqftPrice}</span>
                     <span className="text-[#00695C] font-bold flex items-center gap-1 text-xs md:text-sm">
@@ -246,25 +220,18 @@ const PropertyCard = ({ property, onContactClick }) => {
                     <span className="text-[#00695C] font-bold bg-teal-50 px-2 py-1 rounded-md text-xs md:text-sm shadow-sm">🏗️ {property.builtUp}</span>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col items-end gap-1 shrink-0">
-                  {/* Independent Villa text - BLINK ONLY, NO COLOR CHANGE */}
                   <div className="flex items-center gap-2">
-                    <span 
+                    <span
                       className="font-black text-[#00695C] uppercase tracking-wide blink-text"
-                      style={{
-                         fontSize: '13px',
-                         letterSpacing: '0.7px',
-                         whiteSpace: 'nowrap',
-                         WebkitFontSmoothing: 'antialiased',
-                      }}
+                      style={{ fontSize: '13px', letterSpacing: '0.7px', whiteSpace: 'nowrap', WebkitFontSmoothing: 'antialiased' }}
                     >
                       {PAGE_NAME}
                     </span>
                   </div>
-                  
-                  {/* TAG with Animation */}
-                  <div 
+
+                  <div
                     className="bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-black tracking-wider uppercase flex items-center justify-center gap-1 whitespace-nowrap text-[10px] md:text-xs tag-animation"
                     style={{
                       clipPath: 'polygon(0% 0%, 100% 0%, 92% 50%, 100% 100%, 0% 100%, 8% 50%)',
@@ -286,15 +253,21 @@ const PropertyCard = ({ property, onContactClick }) => {
                 </div>
               </div>
 
-              {/* LOCATION */}
-              <div className="flex items-start gap-2">
-                <div className="bg-teal-100 p-1.5 rounded-lg text-[#00695C] shrink-0 shadow-sm">
+              {/* LOCATION - Clickable to open maps */}
+              <div
+                className="flex items-start gap-2 cursor-pointer group"
+                onClick={() => openInMaps(property.location)}
+                title="View on Google Maps"
+              >
+                <div className="bg-teal-100 p-1.5 rounded-lg text-[#00695C] shrink-0 shadow-sm group-hover:bg-teal-300 transition-colors duration-200">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <p className="text-slate-800 font-bold text-sm md:text-base leading-tight">{property.location}</p>
+                <p className="text-slate-800 font-bold text-sm md:text-base leading-tight group-hover:text-[#00695C] group-hover:underline transition-colors duration-200">
+                  {property.location}
+                </p>
               </div>
 
               {/* HIGHLIGHTS */}
@@ -316,10 +289,14 @@ const PropertyCard = ({ property, onContactClick }) => {
               {/* POSTED BY SECTION */}
               <div className="pt-2 border-t border-gray-100">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  
+
                   <div className="flex items-center gap-3 flex-1 min-w-[180px]">
-                    {/* Avatar */}
-                    <div className="rounded-xl bg-gradient-to-br from-[#00695C] to-[#26A69A] flex items-center justify-center text-white font-black shadow-lg overflow-hidden shrink-0 w-10 h-10 md:w-12 md:h-12 text-base md:text-lg">
+                    {/* LOGO — click to open Google Maps */}
+                    <div
+                      className="rounded-xl bg-gradient-to-br from-[#00695C] to-[#26A69A] flex items-center justify-center text-white font-black shadow-lg overflow-hidden shrink-0 w-10 h-10 md:w-12 md:h-12 text-base md:text-lg cursor-pointer hover:scale-110 hover:shadow-xl transition-all duration-200"
+                      onClick={() => openInMaps(property.location)}
+                      title="View on Google Maps"
+                    >
                       {property.logo && !logoError ? (
                         <img src={property.logo} alt="logo" className="w-full h-full object-cover" onError={() => setLogoError(true)} />
                       ) : (
@@ -327,13 +304,12 @@ const PropertyCard = ({ property, onContactClick }) => {
                       )}
                     </div>
 
-                    {/* Name block */}
                     <div className="flex flex-col min-w-0">
                       <p className="text-[#00695C] font-bold uppercase tracking-wider text-[8px] md:text-[9px] leading-tight">{getListedByText()}</p>
                       <div className="flex items-baseline gap-4.5 flex-wrap">
                         <p className="font-black text-slate-800 text-sm md:text-base leading-snug">{property.postedBy}</p>
-                        <button 
-                          onClick={() => setShowAgentModal(true)} 
+                        <button
+                          onClick={() => setShowAgentModal(true)}
                           className="text-teal-500 hover:text-teal-700 underline flex items-center gap-0.7 transition-all duration-300 hover:translate-x-1 text-sm font-medium whitespace-nowrap"
                         >
                           📖 View Details →
@@ -343,7 +319,6 @@ const PropertyCard = ({ property, onContactClick }) => {
                     </div>
                   </div>
 
-                  {/* Contact Button */}
                   <button
                     onClick={onContactClick}
                     onMouseEnter={() => setIsContactHovered(true)}
@@ -352,8 +327,8 @@ const PropertyCard = ({ property, onContactClick }) => {
                     style={{
                       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                       transform: isContactHovered ? 'translateY(-2px) scale(1.02)' : 'translateY(0) scale(1)',
-                      boxShadow: isContactHovered 
-                        ? '0 12px 30px rgba(0,105,92,0.5), 0 0 0 3px rgba(38,166,154,0.3)' 
+                      boxShadow: isContactHovered
+                        ? '0 12px 30px rgba(0,105,92,0.5), 0 0 0 3px rgba(38,166,154,0.3)'
                         : '0 8px 20px rgba(0,105,92,0.3)',
                       animation: 'contactPulse 2s ease-in-out infinite'
                     }}
@@ -371,21 +346,50 @@ const PropertyCard = ({ property, onContactClick }) => {
         </div>
       </div>
 
-      {/* =============================================
-          COMPLETE DETAILS MODAL - Photos at the bottom
-      ============================================= */}
-      {/* COMPLETE DETAILS MODAL - was z-[200], push to z-[9999] with top padding */}
-{showAgentModal && (
-  <div 
-    className="fixed inset-0 bg-black/70 backdrop-blur-md z-[9999] flex items-start justify-center pt-[140px] p-4 animate-fadeIn" 
-    onClick={() => setShowAgentModal(false)}
-  >
-    <div 
-      className="bg-white rounded-2xl max-w-[95%] sm:max-w-lg md:max-w-2xl w-full max-h-[82vh] overflow-y-auto shadow-2xl animate-scale-in" 
-      onClick={(e) => e.stopPropagation()}
-    >
-      {/* rest of modal content unchanged */}
-            {/* Modal Header */}
+      {/* MAP CONFIRM MODAL */}
+      {mapConfirm.show && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[300] flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setMapConfirm({ show: false, location: '' })}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-14 h-14 bg-gradient-to-br from-[#00695C] to-[#26A69A] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-black text-slate-800 text-center mb-1">Open in Maps?</h3>
+            <p className="text-sm text-slate-500 text-center mb-5 leading-relaxed px-2">{mapConfirm.location}</p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setMapConfirm({ show: false, location: '' })}
+                className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-2.5 rounded-xl text-sm transition-all duration-200"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  const query = encodeURIComponent(mapConfirm.location);
+                  window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+                  setMapConfirm({ show: false, location: '' });
+                }}
+                className="flex-1 bg-gradient-to-r from-[#00695C] to-[#26A69A] hover:opacity-90 text-white font-bold py-2.5 rounded-xl text-sm transition-all duration-200 shadow-lg"
+              >
+                Open
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* AGENT DETAILS MODAL */}
+      {showAgentModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-start justify-center p-4 pt-16 md:pt-20 animate-fadeIn" onClick={() => setShowAgentModal(false)}>
+          <div className="bg-white rounded-2xl max-w-[95%] sm:max-w-lg md:max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl animate-scale-in mt-16 md:mt-20" onClick={(e) => e.stopPropagation()}>
             <div className="bg-gradient-to-r from-[#00695C] to-[#26A69A] p-5 rounded-t-2xl flex justify-between items-center sticky top-0 z-10">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl">
@@ -403,7 +407,6 @@ const PropertyCard = ({ property, onContactClick }) => {
             </div>
 
             <div className="p-5">
-              {/* Posted By */}
               <div className="flex items-center gap-4 pb-4 border-b border-teal-100 mb-4">
                 <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#00695C] to-[#26A69A] flex items-center justify-center text-white font-black shadow-lg text-xl overflow-hidden">
                   {property.logo && !logoError ? (
@@ -419,7 +422,6 @@ const PropertyCard = ({ property, onContactClick }) => {
                 </div>
               </div>
 
-              {/* Property Information */}
               <div className="mb-4">
                 <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                   <span className="w-3 h-3 bg-teal-500 rounded-full"></span>
@@ -429,11 +431,16 @@ const PropertyCard = ({ property, onContactClick }) => {
                   <p className="text-sm"><strong>Property ID:</strong> {property.id}</p>
                   <p className="text-sm"><strong>Listed Price:</strong> {property.price} {bhk && `(${bhk})`}</p>
                   <p className="text-sm"><strong>{property.sqftPrice}</strong> • 🟩 {property.totalSqft} • 🏗️ {property.builtUp}</p>
-                  <p className="text-sm"><strong>📍 Location:</strong> {property.location}</p>
+                  <p
+                    className="text-sm flex items-center gap-1 cursor-pointer hover:text-[#00695C] hover:underline transition-colors duration-200 w-fit"
+                    onClick={() => openInMaps(property.location)}
+                    title="View on Google Maps"
+                  >
+                    <strong>📍 Location:</strong> {property.location}
+                  </p>
                 </div>
               </div>
 
-              {/* Property Highlights */}
               <div className="mb-4">
                 <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                   <span className="w-3 h-3 bg-teal-500 rounded-full"></span>
@@ -448,7 +455,6 @@ const PropertyCard = ({ property, onContactClick }) => {
                 </div>
               </div>
 
-              {/* About Agent/Owner */}
               <div className="mb-4">
                 <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                   <span className="w-3 h-3 bg-teal-500 rounded-full"></span>
@@ -459,7 +465,6 @@ const PropertyCard = ({ property, onContactClick }) => {
                 </div>
               </div>
 
-              {/* Contact Information */}
               <div className="mb-4">
                 <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                   <span className="w-3 h-3 bg-teal-500 rounded-full"></span>
@@ -468,11 +473,16 @@ const PropertyCard = ({ property, onContactClick }) => {
                 <div className="bg-gray-50 rounded-xl p-4 space-y-2">
                   <p className="text-sm flex items-center gap-2 break-all"><span className="text-teal-600">📧</span><span>{property.contactEmail || property.postedBy.toLowerCase().replace(/\s/g, '') + '@example.com'}</span></p>
                   <p className="text-sm flex items-center gap-2"><span className="text-teal-600">📞</span><span>{property.contactPhone || '+91 98765 43210'}</span></p>
-                  <p className="text-sm flex items-center gap-2"><span className="text-teal-600">📍</span><span>{property.location}</span></p>
+                  <p
+                    className="text-sm flex items-center gap-2 cursor-pointer hover:text-[#00695C] hover:underline transition-colors duration-200 w-fit"
+                    onClick={() => openInMaps(property.location)}
+                    title="View on Google Maps"
+                  >
+                    <span className="text-teal-600">📍</span><span>{property.location}</span>
+                  </p>
                 </div>
               </div>
 
-              {/* Additional Info */}
               {(property.experience || property.achievements) && (
                 <div className="mb-4">
                   <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
@@ -486,10 +496,6 @@ const PropertyCard = ({ property, onContactClick }) => {
                 </div>
               )}
 
-              {/* =============================================
-                  PHOTO SECTION - Right below Additional Information
-                  All photos as thumbnails - NO "View All" button
-              ============================================= */}
               <div className="mb-4">
                 <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                   <span className="w-3 h-3 bg-teal-500 rounded-full"></span>
@@ -498,8 +504,8 @@ const PropertyCard = ({ property, onContactClick }) => {
                 <div className="bg-teal-50/40 rounded-xl p-4">
                   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
                     {property.images.map((img, idx) => (
-                      <div 
-                        key={idx} 
+                      <div
+                        key={idx}
                         className="relative aspect-square rounded-lg overflow-hidden cursor-pointer group shadow-md hover:shadow-xl transition-all hover:scale-105"
                         onClick={() => {
                           setGalleryActiveImg(idx);
@@ -507,13 +513,11 @@ const PropertyCard = ({ property, onContactClick }) => {
                           setShowAgentModal(false);
                         }}
                       >
-                        <img 
-                          src={img} 
+                        <img
+                          src={img}
                           alt={`property-photo-${idx + 1}`}
                           className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=200&h=200&fit=crop';
-                          }}
+                          onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=200&h=200&fit=crop'; }}
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
                           <span className="text-white text-[10px] bg-black/60 px-2 py-0.5 rounded-full">Click</span>
@@ -527,7 +531,6 @@ const PropertyCard = ({ property, onContactClick }) => {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex gap-3 mt-5 pt-4 border-t border-teal-100">
                 <button onClick={() => { setShowAgentModal(false); onContactClick(); }} className="flex-1 bg-gradient-to-r from-[#00695C] to-[#26A69A] text-white py-2.5 rounded-xl font-bold text-sm transition-all hover:scale-105 shadow-lg">📞 Contact Now</button>
                 <button onClick={() => setShowAgentModal(false)} className="flex-1 bg-gray-100 text-gray-600 py-2.5 rounded-xl font-bold text-sm transition-all hover:bg-gray-200 shadow-sm">Close</button>
@@ -539,10 +542,7 @@ const PropertyCard = ({ property, onContactClick }) => {
 
       {/* FULL GALLERY MODAL */}
       {showFullGallery && (
-  <div 
-    className="fixed inset-0 bg-black/95 z-[9999] flex flex-col animate-fadeIn" 
-    onClick={() => setShowFullGallery(false)}
-  >
+        <div className="fixed inset-0 bg-black/95 z-[150] flex flex-col animate-fadeIn" onClick={() => setShowFullGallery(false)}>
           <div className="bg-gradient-to-r from-[#00695C] to-[#26A69A] p-3 md:p-4 flex justify-between items-center px-4 md:px-6">
             <div className="pr-2">
               <h3 className="text-white font-bold text-sm md:text-lg truncate max-w-[180px] md:max-w-none">{property.location.split(',')[0]}</h3>
@@ -575,10 +575,7 @@ const PropertyCard = ({ property, onContactClick }) => {
 
       {/* SINGLE CLICK MODAL */}
       {showImageModal && (
-  <div 
-    className="fixed inset-0 bg-black/95 z-[9999] flex flex-col animate-fadeIn" 
-    onClick={() => setShowImageModal(false)}
-  >
+        <div className="fixed inset-0 bg-black/95 z-[100] flex flex-col animate-fadeIn" onClick={() => setShowImageModal(false)}>
           <div className="bg-gradient-to-r from-[#00695C] to-[#26A69A] p-3 md:p-5 flex justify-between items-center px-4 md:px-8">
             <div>
               <h3 className="text-white font-bold text-sm md:text-xl truncate max-w-[150px] sm:max-w-[300px]">{property.location.split(',')[0]}</h3>
@@ -639,7 +636,7 @@ const IndependentHouse = () => {
               <div className="w-full bg-white rounded-2xl shadow-2xl border border-teal-100 p-8 text-center">
                 <div className="text-5xl mb-3">🔍</div>
                 <h3 className="text-lg font-bold text-slate-800 mb-1">No Properties Found</h3>
-                <p className="text-xs text-slate-500">No villas available at the moment.</p>
+                <p className="text-xs text-slate-500">No independent houses available at the moment.</p>
               </div>
             )}
           </div>
@@ -648,7 +645,7 @@ const IndependentHouse = () => {
 
       {/* LOGIN MODAL */}
       {showLoginModal && (
-  <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[9999] flex items-start justify-center pt-[140px] p-4 animate-fadeIn">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center animate-fadeIn">
           <div className="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl">
             <div className="w-14 h-14 bg-gradient-to-br from-[#00695C] to-[#26A69A] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
               <span className="text-xl text-white">🔒</span>
@@ -663,7 +660,7 @@ const IndependentHouse = () => {
 
       {/* CONTACT TOAST */}
       {showContactInfo && selectedProperty && (
-      <div className="fixed bottom-4 right-4 bg-gradient-to-r from-[#00695C] to-[#26A69A] text-white rounded-xl shadow-2xl p-2.5 z-[9999] animate-slideIn max-w-[260px] sm:max-w-sm">
+        <div className="fixed bottom-4 right-4 bg-gradient-to-r from-[#00695C] to-[#26A69A] text-white rounded-xl shadow-2xl p-2.5 z-[200] animate-slideIn max-w-[260px] sm:max-w-sm">
           <div className="flex items-center gap-2">
             <div className="bg-white/20 p-1 rounded-full text-xs">📞</div>
             <div className="flex-1 min-w-0">
@@ -676,105 +673,33 @@ const IndependentHouse = () => {
         </div>
       )}
 
-            <style>{`
-  @keyframes fadeIn { 
-    from { opacity: 0; } 
-    to { opacity: 1; } 
-  }
-  
-  @keyframes slideIn { 
-    from { opacity: 0; transform: translateX(50px); } 
-    to { opacity: 1; transform: translateX(0); } 
-  }
-  
-  @keyframes scale-in { 
-    from { transform: scale(0.95); opacity: 0; } 
-    to { transform: scale(1); opacity: 1; } 
-  }
-  
-  @keyframes pulse-green { 
-    0%, 100% { box-shadow: 0 0 5px rgba(34,197,94,0.5); transform: rotate(0deg); } 
-    50% { box-shadow: 0 0 20px rgba(34,197,94,0.8); transform: rotate(5deg); } 
-  }
-  
-  @keyframes rotate-slow { 
-    0%, 100% { transform: rotate(0deg); } 
-    50% { transform: rotate(5deg); } 
-  }
-  
-  /* FIXED: Only blinking effect - NO color change, NO opacity change */
-  @keyframes blinkText {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(0.97);
-    }
-  }
-  
-  .blink-text {
-    animation: blinkText 0.8s ease-in-out infinite;
-    display: inline-block;
-  }
-  
-  @keyframes tagJump {
-    0%, 100% {
-      transform: translateY(0px) scale(1);
-      box-shadow: 0 0 20px rgba(0,0,0,0.4), 0 0 10px rgba(0,105,92,0.8);
-    }
-    50% {
-      transform: translateY(-7px) scale(1.05);
-      box-shadow: 0 0 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,105,92,1), 0 5px 15px rgba(0,0,0,0.5);
-    }
-  }
-  
-  @keyframes contactPulse {
-    0%, 100% {
-      box-shadow: 0 8px 20px rgba(0,105,92,0.3);
-    }
-    50% {
-      box-shadow: 0 8px 25px rgba(0,105,92,0.5), 0 0 0 3px rgba(38,166,154,0.2);
-    }
-  }
-  
-  .tag-animation {
-    animation: tagJump 1.5s ease-in-out infinite;
-  }
-  
-  .contact-button {
-    animation: contactPulse 2s ease-in-out infinite;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .contact-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-  }
-  
-  .contact-button:hover::before {
-    width: 300px;
-    height: 300px;
-  }
-  
-  .contact-button:hover {
-    animation: none;
-  }
-  
-  .pulse-green { animation: pulse-green 2s infinite; }
-  .rotate-slow { animation: rotate-slow 3s infinite; }
-  .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
-  .animate-slideIn { animation: slideIn 0.3s ease-out; }
-  .animate-scale-in { animation: scale-in 0.2s ease-out; }
-`}</style>
+      <style>{`
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes scale-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes pulse-green { 0%, 100% { box-shadow: 0 0 5px rgba(34,197,94,0.5); transform: rotate(0deg); } 50% { box-shadow: 0 0 20px rgba(34,197,94,0.8); transform: rotate(5deg); } }
+        @keyframes rotate-slow { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
+        @keyframes blinkText { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.97); } }
+        .blink-text { animation: blinkText 0.8s ease-in-out infinite; display: inline-block; }
+        @keyframes tagJump {
+          0%, 100% { transform: translateY(0px) scale(1); box-shadow: 0 0 20px rgba(0,0,0,0.4), 0 0 10px rgba(0,105,92,0.8); }
+          50% { transform: translateY(-7px) scale(1.05); box-shadow: 0 0 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,105,92,1), 0 5px 15px rgba(0,0,0,0.5); }
+        }
+        @keyframes contactPulse {
+          0%, 100% { box-shadow: 0 8px 20px rgba(0,105,92,0.3); }
+          50% { box-shadow: 0 8px 25px rgba(0,105,92,0.5), 0 0 0 3px rgba(38,166,154,0.2); }
+        }
+        .tag-animation { animation: tagJump 1.5s ease-in-out infinite; }
+        .contact-button { animation: contactPulse 2s ease-in-out infinite; position: relative; overflow: hidden; }
+        .contact-button::before { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; border-radius: 50%; background: rgba(255,255,255,0.3); transform: translate(-50%,-50%); transition: width 0.6s, height 0.6s; }
+        .contact-button:hover::before { width: 300px; height: 300px; }
+        .contact-button:hover { animation: none; }
+        .pulse-green { animation: pulse-green 2s infinite; }
+        .rotate-slow { animation: rotate-slow 3s infinite; }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+        .animate-slideIn { animation: slideIn 0.3s ease-out; }
+        .animate-scale-in { animation: scale-in 0.2s ease-out; }
+      `}</style>
     </div>
   );
 };

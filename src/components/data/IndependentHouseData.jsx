@@ -65,7 +65,7 @@ export const IndependentHouseData = [
     totalSqft: "20,000 sqft Land",
     builtUp: "16,000 sqft (Built Up area)",
     location: "Ashok Nagar, Chennai-600091, Tamil Nadu",
-    highlights: "Fully Furnished | 5+ BHK | Ready to Move | Luxury Independent",
+    highlights: "Fully Furnished | 5+ BHK | Ready to Move | Luxury Independent ",
     postedBy: "Priya Sharma",
     postedAs: "Owner",
     logo: villa1_logo,

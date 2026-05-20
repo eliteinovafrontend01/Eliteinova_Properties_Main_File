@@ -28,7 +28,7 @@ const ApartmentPage = () => {
     { name: "Rental Apartment", path: "/apartment/rental-apartment", component: "RentalApartmentPage" },
     { name: "Serviced Apartment", path: "/apartment/serviced-apartment", component: "ServicedApartmentPage" },
     { name: "Lease Apartment", path: "/apartment/lease-apartment", component: "LeaseApartmentPage" },
-    { name: "Residential Apartment", path: "/apartment/residential-apartments", component: "ResidentialApartmentsPage" },
+    { name: "Residential Apartment", path: "/apartment/residential-apartments", component: "ResidentialApartmentPage" },
     { name: "Gated Community Apartment", path: "/apartment/gated-community-apartment", component: "GatedCommunityApartmentPage" },
     { name: "Studio Apartment", path: "/apartment/studio-apartment", component: "StudioApartmentPage" },
     { name: "Duplex Apartment", path: "/apartment/duplex-apartment", component: "DuplexApartmentPage" },

@@ -8,7 +8,7 @@ import {
   Smartphone, Mail, Phone, MessageCircle, Globe,
   Sun, Sunset, Compass, Hash, Box, Scissors,
   ChevronLeft, ChevronRight, Trees, Bike, ParkingMeter,
-  Gauge, Key, Lock, LayoutTemplate, Crown, Gem, Award
+  Gauge, Key, Lock, LayoutTemplate, Crown, Gem, Award, X, RefreshCw
 } from 'lucide-react';
 
 // ── Small Teal Calendar Popup ────────
@@ -98,8 +98,9 @@ const ThemedDatePicker = ({ label }) => {
 };
 
 // ── Main Component ──────────────────────────────────────────────────────────
-const LuxuryApartmentFilter = () => {
-  const [activeTab, setActiveTab] = useState('Rent');
+
+const LuxuryApartmentFilter = ({ activeTab = 'Rent', onFilterChange, onClose }) => {
+  const [currentTab, setCurrentTab] = useState(activeTab);
 
   const tabs = [
     { id: 'Rent', icon: <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4" />, label: 'Rent' },
@@ -436,31 +437,41 @@ const LuxuryApartmentFilter = () => {
 
   return (
     <div className="h-screen flex flex-col bg-emerald-50 rounded-3xl" style={{ overflow: 'hidden' }}>
-      {/* Sticky Header with Crown/Luxury Icon */}
+      {/* Sticky Header with Close Button */}
       <div className="flex-shrink-0 bg-gradient-to-r from-teal-600 to-emerald-600 shadow-sm sticky top-0 z-50">
         <div className="px-3 py-1.5 sm:px-6 sm:py-2">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="p-1 sm:p-1.5 bg-white/20 rounded-lg sm:rounded-xl shadow-lg">
-              <style>{`
-                @keyframes slowSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-                .slow-spin { animation: slowSpin 4s linear infinite; }
-              `}</style>
-              <Gem className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white slow-spin" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="p-1 sm:p-1.5 bg-white/20 rounded-lg sm:rounded-xl shadow-lg">
+                <style>{`
+                  @keyframes slowSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                  .slow-spin { animation: slowSpin 4s linear infinite; }
+                `}</style>
+                <Filter className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white slow-spin" />
+              </div>
+              <h1 className="text-sm sm:text-base md:text-lg font-bold text-white">Luxury Apartment Filters</h1>
             </div>
-            <h1 className="text-sm sm:text-base md:text-lg font-bold text-white">Luxury Apartment Filters</h1>
+            {onClose && (
+              <button 
+                onClick={onClose} 
+                className="text-white/80 hover:text-white transition-all duration-300 hover:rotate-90 hover:scale-110" 
+                type="button"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
           </div>
         </div>
       </div>
-
+      
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: '#0d9488 #e5e7eb', position: 'relative', zIndex: 1 }}>
-        <style>{`.overflow-y-auto::-webkit-scrollbar { width: 6px; }.overflow-y-auto::-webkit-scrollbar-track { background: #e5e7eb; border-radius: 10px; }.overflow-y-auto::-webkit-scrollbar-thumb { background: #0d9488; border-radius: 10px; }.overflow-y-auto::-webkit-scrollbar-thumb:hover { background: #0f766e; }`}</style>
+      <div className="flex-1 overflow-y-auto custom-scroll" style={{ position: 'relative', zIndex: 1 }}>
         <div className="max-w-4xl mx-auto px-3 sm:px-6 py-1.5 sm:py-3 overflow-visible">
           {/* Tabs */}
           <div className="sticky top-0 z-40 bg-emerald-50 pt-1 pb-1.5 -mt-2 mb-2 sm:mb-3 overflow-x-auto">
             <div className="flex flex-nowrap justify-center gap-0.5 sm:gap-1 md:gap-1 min-w-max">
               {tabs.map(tab => (
-                <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1 px-1.5 sm:px-2 md:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl font-bold transition-all duration-300 whitespace-nowrap ${activeTab === tab.id ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md' : 'bg-teal-100 text-teal-700 hover:bg-teal-200 hover:text-teal-800'} text-xs sm:text-sm`}>
+                <button key={tab.id} onClick={() => setCurrentTab(tab.id)} className={`flex items-center gap-1 px-1.5 sm:px-2 md:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl font-bold transition-all duration-300 whitespace-nowrap ${currentTab === tab.id ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md' : 'bg-teal-100 text-teal-700 hover:bg-teal-200 hover:text-teal-800'} text-xs sm:text-sm`}>
                   {tab.icon}
                   <span>{tab.label}</span>
                 </button>
@@ -470,26 +481,46 @@ const LuxuryApartmentFilter = () => {
 
           {/* Dynamic Filter Content */}
           <div className="overflow-visible">
-            {activeTab === 'Rent' && renderRentFilters()}
-            {activeTab === 'Buy' && renderBuyFilters()}
-            {activeTab === 'Sell' && renderSellFilters()}
-            {activeTab === 'Lease' && renderLeaseFilters()}
+            {currentTab === 'Rent' && renderRentFilters()}
+            {currentTab === 'Buy' && renderBuyFilters()}
+            {currentTab === 'Sell' && renderSellFilters()}
+            {currentTab === 'Lease' && renderLeaseFilters()}
           </div>
         </div>
       </div>
 
       {/* Sticky Bottom Buttons */}
-      <div className="flex-shrink-0 bg-gradient-to-br from-teal-50 via-white to-emerald-50 border-t-2 border-teal-100 shadow-lg py-1 sm:py-1.5 relative z-10">
-        <div className="max-w-4xl mx-auto px-3 sm:px-6 flex gap-2 sm:gap-3">
-          <button className="flex-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg sm:rounded-xl bg-white border-2 border-teal-200 text-teal-700 font-semibold hover:bg-teal-600 hover:text-white hover:border-teal-600 transition-all duration-300 text-xs sm:text-sm">
-            Clear All
+      <div className="sticky bottom-0 p-2 border-t-2 border-teal-100 bg-gradient-to-r from-teal-50 to-emerald-50">
+        <div className="flex gap-2">
+          <button 
+            onClick={() => {
+              if (onFilterChange) onFilterChange({});
+            }}
+            className="flex-1 px-2 py-1.5 rounded-xl border-2 border-teal-300 text-teal-700 font-semibold text-xs hover:bg-teal-100 transition-all flex items-center justify-center gap-1.5" 
+            type="button"
+          >
+            <RefreshCw className="w-3.5 h-3.5" /> Reset All
           </button>
-          <button className="flex-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg sm:rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-semibold hover:shadow-lg hover:scale-105 hover:brightness-110 transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-            <Search className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-            Apply Filters
+          <button 
+            onClick={() => {
+              if (onFilterChange) onFilterChange({ activeTab: currentTab });
+              if (onClose) onClose();
+            }}
+            className="flex-1 px-2 py-1.5 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-semibold text-xs hover:shadow-lg transition-all flex items-center justify-center gap-1.5" 
+            type="button"
+          >
+            <CheckCircle className="w-3.5 h-3.5" /> Apply Filters
           </button>
         </div>
       </div>
+      
+      {/* Theme Scrollbar Styles */}
+      <style jsx>{`
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #E6FFFA; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #00695C, #26A69A); border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #004D40, #00796B); box-shadow: 0 0 10px rgba(0,105,92,0.5); }
+      `}</style>
     </div>
   );
 };
