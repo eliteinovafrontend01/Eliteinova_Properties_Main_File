@@ -16,7 +16,7 @@ import LeasePage from "./pages/LeasePage";
 // import SellPage from "./pages/SellPage";
 import ApartmentPage from "./pages/Apartment/ApartmentPage";
 import CommercialPage from "./pages/Commercial/CommercialPage";
-// import LandPlotsPage from "./pages/LandPlotsPage";
+import LandPlotsPage from "./pages/LandAndPlots/LandAndPlotsPage";
 // import HostelPage from "./pages/HostelPage";
 
 // Import all house type pages
@@ -145,6 +145,7 @@ function AppLayout() {
           <Route path="/individual" element={<IndividualPage />} />
           <Route path="/apartment" element={<ApartmentPage />} />
           <Route path="/commercial" element={<CommercialPage />} />
+          <Route path="/land-plots" element={<LandPlotsPage />} />
           {/* <Route path="/rent" element={<RentPage />} />
           <Route path="/buy" element={<BuyPage />} />
           <Route path="/lease" element={<LeasePage />} />
