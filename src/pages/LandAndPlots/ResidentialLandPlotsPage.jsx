@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Store, Factory, Hotel, Briefcase, Trees, Sprout, Heart, School, Layers, ChevronRight, Compass } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import backgroundImage from "../assets/landandplots/mainbg.png";
+import backgroundImage from "../../assets/landandplots/mainbg.png";
 
 const ResidentialLandPlotsPage = () => {
   const navigate = useNavigate();
@@ -147,7 +147,7 @@ const ResidentialLandPlotsPage = () => {
     { name: "Gated Community Plot", path: "/land-plots/residential-land-plots/gated-community-plot", parent: "Residential Land / Plots" },
     { name: "Villa Plot", path: "/land-plots/residential-land-plots/villa-plot", parent: "Residential Land / Plots" },
     { name: "Farm House Plot", path: "/land-plots/residential-land-plots/farm-house-plot", parent: "Residential Land / Plots" },
-    { name: "Commercial Plot", path: "/land-plots/commercial-plot", parent: "Residential Land / Plots" },
+    { name: "Commercial Plot", path: "/land-plots/residential-land-plots/commercial-plot", parent: "Residential Land / Plots" },
     { name: "Independent House Plot", path: "/land-plots/independent-house-plot", parent: "Residential Land / Plots" },
     { name: "Duplex House Plot", path: "/land-plots/duplex-house-plot", parent: "Residential Land / Plots" },
     { name: "Row House Plot", path: "/land-plots/residential-land-plots/row-house-plot", parent: "Residential Land / Plots" },

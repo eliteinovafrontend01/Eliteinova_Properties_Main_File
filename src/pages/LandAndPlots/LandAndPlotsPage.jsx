@@ -148,9 +148,9 @@ const LandAndPlotsPage = () => {
     { name: "Gated Community Plot", path: "/land-plots/residential-land-plots/gated-community-plot", parent: "Residential Land / Plots" },
     { name: "Villa Plot", path: "/land-plots/residential-land-plots/villa-plot", parent: "Residential Land / Plots" },
     { name: "Farm House Plot", path: "/land-plots/residential-land-plots/farm-house-plot", parent: "Residential Land / Plots" },
-    { name: "Commercial Plot", path: "/land-plots/commercial-plot", parent: "Residential Land / Plots" },
-    { name: "Independent House Plot", path: "/land-plots/independent-house-plot", parent: "Residential Land / Plots" },
-    { name: "Duplex House Plot", path: "/land-plots/duplex-house-plot", parent: "Residential Land / Plots" },
+    { name: "Commercial Plot", path: "/land-plots/residential-land-plots/commercial-plot", parent: "Residential Land / Plots" },
+    { name: "Independent House Plot", path: "/land-plots/residential-land-plots/independent-house-plot", parent: "Residential Land / Plots" },
+    { name: "Duplex House Plot", path: "/land-plots/residential-land-plots/duplex-house-plot", parent: "Residential Land / Plots" },
     { name: "Row House Plot", path: "/land-plots/residential-land-plots/row-house-plot", parent: "Residential Land / Plots" },
     // Commercial submenus
     { name: "Commercial Plot", path: "/land-plots/commercial-plot", parent: "Commercial Land / Plots" },

@@ -60,6 +60,18 @@ import ColdStoragePage from './pages/Commercial/ColdStoragePage';
 import MixedUsePage from './pages/Commercial/MixedUsePage';
 import AgriculturalPage from './pages/Commercial/AgriculturalPage';
 
+// Import all land and plot type pages
+import ResidentialLandPlotsPage from './pages/LandAndPlots/ResidentialLandPlotsPage';
+import ResidentialPlotPage from './pages/LandAndPlots/ResidentialPlotPage';
+import DTCPPlotPage from './pages/LandAndPlots/DTCPPlotPage';
+import GatedCommunityPlotPage from './pages/LandAndPlots/GatedCommunityPlotPage';
+import VillaPlotPage from './pages/LandAndPlots/VillaPlotPage';
+import FarmHousePlotPage from './pages/LandAndPlots/FarmHousePlotPage';
+import CommercialPlotPage from './pages/LandAndPlots/CommercialPlotPage';
+import DuplexHousePlotPage from './pages/LandAndPlots/DuplexHousePlotPage';
+import IndependentHousePlotPage from './pages/LandAndPlots/IndependentHousePlotPage';
+import RowHousePlotPage from './pages/LandAndPlots/RowHousePlotPage';
+
 // Import all form modals
 import OwnerFormModal from "./components/Forms/OwnerFormModal";
 import AgentFormModal from "./components/Forms/AgentFormModal";
@@ -194,6 +206,18 @@ function AppLayout() {
           <Route path="/commercial/cold-storage-logistics-hub" element={<ColdStoragePage />} />
           <Route path="/commercial/mixed-use-commercial-property" element={<MixedUsePage/>} />
           <Route path="/commercial/agricultural-commercial-property" element={<AgriculturalPage/>} />
+
+          {/* Land and Plots Type Routes */}
+          <Route path="/land-plots/residential-land-plots" element={<ResidentialLandPlotsPage/>} />
+          <Route path="/land-plots/residential-land-plots/residential-plot" element={<ResidentialPlotPage/>} />
+          <Route path="/land-plots/residential-land-plots/dtcp-cmda-approved-plot" element={<DTCPPlotPage/>} />
+          <Route path="/land-plots/residential-land-plots/gated-community-plot" element={<GatedCommunityPlotPage/>} />
+          <Route path="/land-plots/residential-land-plots/villa-plot" element={<VillaPlotPage/>} />
+          <Route path="/land-plots/residential-land-plots/farm-house-plot" element={<FarmHousePlotPage/>} />
+          <Route path="/land-plots/residential-land-plots/commercial-plot" element={<CommercialPlotPage/>} />
+          <Route path="/land-plots/residential-land-plots/row-house-plot" element={<RowHousePlotPage/>} />
+          <Route path="/land-plots/residential-land-plots/duplex-house-plot" element={<DuplexHousePlotPage/>} />
+          <Route path="/land-plots/residential-land-plots/independent-house-plot" element={<IndependentHousePlotPage/>} />
 
           <Route 
             path="/post-property" 
