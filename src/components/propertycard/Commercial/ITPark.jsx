@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { OfficeSpaceData } from "../../data/Commercial/OfficeSpaceData";
+import { ITParkData } from "../../data/Commercial/ITParkData";
 
-const PAGE_NAME = "Office Space";
+const PAGE_NAME = "IT-Park";
 
 // Helper: split price into amount + unit
 const splitPrice = (price) => {
@@ -606,11 +606,11 @@ const PropertyCard = ({ property, onContactClick }) => {
   );
 };
 
-const OfficeSpace = () => {
+const ITPark = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showContactInfo, setShowContactInfo] = useState(false);
-  const [filteredProperties, setFilteredProperties] = useState(OfficeSpaceData);
+  const [filteredProperties, setFilteredProperties] = useState(ITParkData);
 
   const handleContactClick = (property) => {
     setSelectedProperty(property);
@@ -636,7 +636,7 @@ const OfficeSpace = () => {
               <div className="w-full bg-white rounded-2xl shadow-2xl border border-teal-100 p-8 text-center">
                 <div className="text-5xl mb-3">🔍</div>
                 <h3 className="text-lg font-bold text-slate-800 mb-1">No Properties Found</h3>
-                <p className="text-xs text-slate-500">No OfficeSpace apartments available at the moment.</p>
+                <p className="text-xs text-slate-500">No ITPark apartments available at the moment.</p>
               </div>
             )}
           </div>
@@ -645,7 +645,7 @@ const OfficeSpace = () => {
 
       {/* LOGIN MODAL */}
       {showLoginModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center animate-fadeIn">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center  animate-fadeIn">
           <div className="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl">
             <div className="w-14 h-14 bg-gradient-to-br from-[#00695C] to-[#26A69A] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
               <span className="text-xl text-white">🔒</span>
@@ -704,4 +704,4 @@ const OfficeSpace = () => {
   );
 };
 
-export default OfficeSpace;
+export default ITPark;

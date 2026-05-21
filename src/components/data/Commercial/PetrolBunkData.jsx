@@ -54,7 +54,7 @@ import villa10_1 from "../../../assets/Villa/villa10_1.png";
 import villa10_2 from "../../../assets/Villa/villa10_2.png";
 import villa10_3 from "../../../assets/Villa/villa10_3.png";
 
-export const OfficeSpaceData = [
+export const PetrolBunkData = [
   // BUY - Luxury Villa (Posted by OWNER)
   {
     id: 1,
@@ -65,7 +65,7 @@ export const OfficeSpaceData = [
     totalSqft: "20,000 sqft Area",
     builtUp: "18,500 sqft (Built Up area)",
     location: "Ashok Nagar, Chennai-600091, Tamil Nadu",
-    highlights: "Fully Furnished | 5+ BHK | Ready to Move | Luxury Villa ",
+    highlights: "Fully Furnished | 5+ BHK | Ready to Move | Luxury Villa",
     postedBy: "Priya Sharma",
     postedAs: "Owner",
     logo: villa1_logo,
@@ -263,12 +263,12 @@ export const OfficeSpaceData = [
     totalSqft: "2,800 sqft Area",
     builtUp: "2,600 sqft (Built Up area)",
     location: "Mylapore, Chennai-600004, Tamil Nadu",
-    highlights: "Semi-Furnished | 3 BHK | Traditional Style | Heritage Villa",
+    highlights: "Semi-Furnished | 3 BHK | Traditional Style | Heritage Villa ",
     postedBy: "Priya Realty",
     postedAs: "Agent",
     logo: "",
     images: [villa6_1, villa6_2, villa6_3, villa6_4, villa6_5],
-    agentDetails: "🏛️ Heritage property specialist | Verified agent | Best OfficeSpace deals in Mylapore",
+    agentDetails: "🏛️ Heritage property specialist | Verified agent | Best PetrolBunk deals in Mylapore",
     contactEmail: "priya.realty@example.com",
     contactPhone: "+91 44 9876 5432",
     experience: "10+ years in heritage properties",

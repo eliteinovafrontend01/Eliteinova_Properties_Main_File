@@ -54,7 +54,7 @@ import villa10_1 from "../../../assets/Villa/villa10_1.png";
 import villa10_2 from "../../../assets/Villa/villa10_2.png";
 import villa10_3 from "../../../assets/Villa/villa10_3.png";
 
-export const OfficeSpaceData = [
+export const MultiplexData = [
   // BUY - Luxury Villa (Posted by OWNER)
   {
     id: 1,
@@ -268,7 +268,7 @@ export const OfficeSpaceData = [
     postedAs: "Agent",
     logo: "",
     images: [villa6_1, villa6_2, villa6_3, villa6_4, villa6_5],
-    agentDetails: "🏛️ Heritage property specialist | Verified agent | Best OfficeSpace deals in Mylapore",
+    agentDetails: "🏛️ Heritage property specialist | Verified agent | Best Multiplex deals in Mylapore",
     contactEmail: "priya.realty@example.com",
     contactPhone: "+91 44 9876 5432",
     experience: "10+ years in heritage properties",

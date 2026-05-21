@@ -39,14 +39,26 @@ import CondominiumApartmentPage from './pages/Apartment/CondominiumApartmentPage
 import PentHouseApartmentPage from './pages/Apartment/PentHouseApartmentPage';
 
 //Import all commercial type pages
-import OfficeSpacePage from "./pages/Commercial/OfficeSpacePage";
-// import RetailSpacePage from "./pages/RetailSpacePage";
-// import WarehousePage from "./pages/WarehousePage";
-// import IndustrialSpacePage from "./pages/IndustrialSpacePage";
-// import HotelCommercialPage from "./pages/HotelCommercialPage";
-// import CoWorkingSpacePage from "./pages/CoWorkingSpacePage";
-import MixedUseCommercialPage from "./pages/Commercial/MixedUseCommercialPage";
-import AgriculturalCommercialPropertyPage from "./pages/Commercial/AgriculturalCommercialPropertyPage";
+import OfficeSpacePage from './pages/Commercial/OfficeSpacePage';
+import RetailShopPage from './pages/Commercial/RetailShopPage';
+import ShowroomPage from './pages/Commercial/ShowroomPage';
+import CommercialLandPage from './pages/Commercial/CommercialLandPage';
+import WareHousePage from './pages/Commercial/WareHousePage';
+import IndustrialPropertyPage from './pages/Commercial/IndustrialPropertyPage';
+import CoWorkingSpacePage from './pages/Commercial/CoWorkingSpacePage';
+import BusinessCenterPage from './pages/Commercial/BusinessCenterPage';
+import ShoppingMallSpacePage from './pages/Commercial/ShoppingMallSpacePage';
+import CommercialComplexPage from './pages/Commercial/CommercialComplexPage';
+import RestaurantPage from './pages/Commercial/RestaurantPage';
+import HotelPage from './pages/Commercial/HotelPage';
+import ClinicPage from './pages/Commercial/ClinicPage';
+import EducationalPage from './pages/Commercial/EducationalPage';
+import ITParkPage from './pages/Commercial/ITParkPage';
+import MultiplexPage from './pages/Commercial/MultiplexPage';
+import PertrolBunkPage from './pages/Commercial/PetrolBunkPage';
+import ColdStoragePage from './pages/Commercial/ColdStoragePage';
+import MixedUsePage from './pages/Commercial/MixedUsePage';
+import AgriculturalPage from './pages/Commercial/AgriculturalPage';
 
 // Import all form modals
 import OwnerFormModal from "./components/Forms/OwnerFormModal";
@@ -162,19 +174,25 @@ function AppLayout() {
 
           {/* Commercial Type Routes */}
           <Route path="/commercial/office-space" element={<OfficeSpacePage />} />
-          {/* <Route path="/commercial/retail-shop" element={<RetailSpacePage />} />
+          <Route path="/commercial/retail-shop" element={<RetailShopPage />} />
           <Route path="/commercial/showroom" element={<ShowroomPage />} />
-          <Route path="/commercial/commercial-land-plot" element={<CommercialLandPlotPage />} />
-          <Route path="/commercial/warehouse-godown" element={<WarehousePage />} />
-          <Route path="/commercial/industrial-property-factory" element={<IndustrialSpacePage />} />
+          <Route path="/commercial/commercial-land-plot" element={<CommercialLandPage />} />
+          <Route path="/commercial/warehouse-godown" element={<WareHousePage />} />
+          <Route path="/commercial/industrial-property-factory" element={<IndustrialPropertyPage />} />
           <Route path="/commercial/coworking-space" element={<CoWorkingSpacePage />} />
           <Route path="/commercial/business-center" element={<BusinessCenterPage />} />
           <Route path="/commercial/shopping-mall-space" element={<ShoppingMallSpacePage />} />
           <Route path="/commercial/commercial-complex" element={<CommercialComplexPage />} />
-          <Route path="/commercial/restaurant-cafe-space" element={<RestaurantCafeSpacePage />} />
-          <Route path="/commercial/hotel-lodge-resort-property" element={<HotelCommercialPage />} /> */}
-          <Route path="/commercial/mixed-use-commercial-property" element={<MixedUseCommercialPage />} />
-          <Route path="/commercial/agricultural-commercial-property" element={<AgriculturalCommercialPropertyPage />} /> 
+          <Route path="/commercial/restaurant-cafe-space" element={<RestaurantPage />} />
+          <Route path="/commercial/hotel-lodge-resort-property" element={<HotelPage />} />
+          <Route path="/commercial/clinic-hospital-space" element={<ClinicPage />} />
+          <Route path="/commercial/educational-institution-property" element={<EducationalPage />} />
+          <Route path="/commercial/it-park-tech-park-space" element={<ITParkPage />} />
+          <Route path="/commercial/multiplex-entertainment-space" element={<MultiplexPage />} />
+          <Route path="/commercial/petrol-bunk-fuel-station" element={<PertrolBunkPage />} />
+          <Route path="/commercial/cold-storage-logistics-hub" element={<ColdStoragePage />} />
+          <Route path="/commercial/mixed-use-commercial-property" element={<MixedUsePage/>} />
+          <Route path="/commercial/agricultural-commercial-property" element={<AgriculturalPage/>} />
 
           <Route 
             path="/post-property" 

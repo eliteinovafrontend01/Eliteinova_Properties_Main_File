@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Briefcase } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import backgroundImage from "../../assets/commercial/officespace.png";
-import OfficeSpaceFilter from "../../components/filters/Commercial/OfficeSpaceFilter";
-import OfficeSpace from "../../components/propertycard/Commercial/OfficeSpace";
+import backgroundImage from "../../assets/commercial/mainbg.png";
+import PetrolBunkFilter from "../../components/filters/Commercial/PetrolBunkFilter";
+import PetrolBunk from "../../components/propertycard/Commercial/PetrolBunk";
 
-const OfficeSpacePage = () => {
+const PetrolBunkPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeButton, setActiveButton] = useState("Rent");
-  const [activeOfficeType, setActiveOfficeType] = useState("Office Space");
+  const [activePetrolBunkType, setActivePetrolBunkType] = useState("PetrolBunk");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState(null);
@@ -21,7 +21,7 @@ const OfficeSpacePage = () => {
     { name: "Hostel", path: "/hostel", icon: <Building2 className="w-4 h-4" /> }
   ];
 
-  const officeTypes = [
+  const PetrolBunkTypes = [
     { name: "All", path: "/commercial" },
     { name: "Office Space", path: "/commercial/office-space"},
     { name: "Retail Shop", path: "/commercial/retail-shop" },
@@ -34,7 +34,7 @@ const OfficeSpacePage = () => {
     { name: "Shopping Mall Space", path: "/commercial/shopping-mall-space" },
     { name: "Commercial Complex", path: "/commercial/commercial-complex" },
     { name: "Restaurant / Café Space", path: "/commercial/restaurant-cafe-space" },
-    { name: "Hotel / Lodge / Resort Property", path: "/commercial/hotel-lodge-resort-property" },
+    { name: "PetrolBunk / Lodge / Resort Property", path: "/commercial/PetrolBunk-lodge-resort-property" },
     { name: "Clinic / Hospital Space", path: "/commercial/clinic-hospital-space" },
     { name: "Educational Institution Property", path: "/commercial/educational-institution-property" },
     { name: "IT Park / Tech Park Space", path: "/commercial/it-park-tech-park-space" },
@@ -47,14 +47,14 @@ const OfficeSpacePage = () => {
 
   useEffect(() => {
     const currentPath = location.pathname;
-    const activeType = officeTypes.find(type => type.path === currentPath);
+    const activeType = PetrolBunkTypes.find(type => type.path === currentPath);
     if (activeType) {
-      setActiveOfficeType(activeType.name);
+      setActivePetrolBunkType(activeType.name);
     }
   }, [location.pathname]);
 
   const handleNavigation = (path, typeName = null) => {
-    if (typeName) setActiveOfficeType(typeName);
+    if (typeName) setActivePetrolBunkType(typeName);
     navigate(path);
   };
 
@@ -108,7 +108,7 @@ const OfficeSpacePage = () => {
       <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
       <input
         type="text"
-        placeholder="Search office spaces by city, locality, or business park"
+        placeholder="Search PetrolBunks by city, locality, or business park"
         className="w-full pl-11 pr-11 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/90 text-sm focus:outline-none focus:border-teal-400 transition-all duration-300"
       />
       <MapPin className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
@@ -132,8 +132,8 @@ const OfficeSpacePage = () => {
 
   const HouseTypeButtons = ({ scrollable = false }) => (
     <div className={`flex gap-2 ${scrollable ? "overflow-x-auto scrollbar-hide pb-1 flex-nowrap" : "flex-wrap"}`}>
-      {officeTypes.map((type) => {
-        const isActive = activeOfficeType === type.name;
+      {PetrolBunkTypes.map((type) => {
+        const isActive = activePetrolBunkType === type.name;
         return (
           <button
             key={type.name}
@@ -230,17 +230,17 @@ const OfficeSpacePage = () => {
             <div className="hidden sm:inline-flex mb-1 items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
               <Star className="w-4 h-4 text-teal-300 animate-spin-slow" fill="currentColor" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300 text-sm font-medium">
-                Office Space Properties
+                PetrolBunk Properties
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
               Find Your Perfect{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">
-                Office Space
+                PetrolBunk
               </span>
             </h1>
             <p className="text-sm md:text-base lg:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed px-2">
-              Discover modern office spaces with world-class amenities and prime business locations
+              Discover modern PetrolBunks with world-class amenities and prime business locations
             </p>
             <PropertyCategoryButtons />
           </div>
@@ -293,7 +293,7 @@ const OfficeSpacePage = () => {
         {showFilterModal && (
           <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-[140px] px-4 pb-4 bg-black/50 backdrop-blur-sm animate-fade-in">
             <div className="relative w-full max-w-2xl max-h-[80vh] overflow-y-auto">
-              <OfficeSpaceFilter
+              <PetrolBunkFilter
                 activeTab={activeButton}
                 onFilterChange={handleFilterChange}
                 onClose={() => setShowFilterModal(false)}
@@ -311,14 +311,14 @@ const OfficeSpacePage = () => {
             {/* ── Property Cards ── */}
             <div className="w-full lg:w-2/3">
               <section>
-                <OfficeSpace />
+                <PetrolBunk />
               </section>
             </div>
 
             {/* ── Sidebar Filter (desktop only — on mobile the modal is used) ── */}
             <div className="hidden lg:block lg:w-1/3 lg:relative">
               <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:scrollbar-hide animate-slide-in-right">
-                <OfficeSpaceFilter
+                <PetrolBunkFilter
                   activeTab={activeButton}
                   onFilterChange={handleFilterChange}
                 />
@@ -401,4 +401,4 @@ const OfficeSpacePage = () => {
   );
 };
 
-export default OfficeSpacePage;
+export default PetrolBunkPage;
