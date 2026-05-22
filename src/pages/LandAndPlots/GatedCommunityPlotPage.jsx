@@ -136,7 +136,7 @@ const GatedCommunityPlotPage = () => {
   // Flatten all land types for navigation
   const landTypes = [
     { name: "All", path: "/land-plots", parent: null },
-    { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots/residential plot", parent: null },
+    { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots", parent: null },
     { name: "Commercial Land / Plots", path: "/land-plots/commercial-land-plots", parent: null },
     { name: "Agricultural Land", path: "/land-plots/agricultural-land-plots", parent: null },
     { name: "Industrial Land", path: "/land-plots/industrial-land-plots", parent: null },

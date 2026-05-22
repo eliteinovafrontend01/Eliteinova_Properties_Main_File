@@ -137,12 +137,12 @@ const ShowroomPlotPage = () => {
   // Flatten all land types for navigation
   const landTypes = [
     { name: "All", path: "/land-plots", parent: null },
-    { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots/residential-plot", parent: null },
-    { name: "Commercial Land / Plots", path: "/land-plots/commercial-land-plots/commercial-plot", parent: null },
-    { name: "Agricultural Land", path: "/land-plots/agricultural-land-plots/agricultural-land", parent: null },
-    { name: "Industrial Land", path: "/land-plots/industrial-land-plots/industrial-plot", parent: null },
-    { name: "Mixed-Use Land", path: "/land-plots/mixed-use-land-plots/mixed-use-plot", parent: null },
-    { name: "Institutional Land", path: "/land-plots/institutional-land-plots/institutional-plot", parent: null },
+    { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots", parent: null },
+    { name: "Commercial Land / Plots", path: "/land-plots/commercial-land-plots", parent: null },
+    { name: "Agricultural Land", path: "/land-plots/agricultural-land-plots", parent: null },
+    { name: "Industrial Land", path: "/land-plots/industrial-land-plots", parent: null },
+    { name: "Mixed-Use Land", path: "/land-plots/mixed-use-land-plots", parent: null },
+    { name: "Institutional Land", path: "/land-plots/institutional-land-plots", parent: null },
     { name: "Investment & Special Purpose Land", path: "/land-plots/investment-land-plots", parent: null },
     // Residential submenus
     { name: "Residential Plot", path: "/land-plots/residential-land-plots/residential-plot", parent: "Residential Land / Plots" },
@@ -162,9 +162,9 @@ const ShowroomPlotPage = () => {
     { name: "Shopping Complex Land", path: "/land-plots/commercial-land-plots/shopping-complex-land", parent: "Commercial Land / Plots" },
     { name: "Hotel / Resort Land", path: "/land-plots/commercial-land-plots/hotel-resort-land", parent: "Commercial Land / Plots" },
     { name: "Petrol Bunk Plot", path: "/land-plots/commercial-land-plots/petrol-bunk-plot", parent: "Commercial Land / Plots" },
-    { name: "IT Park Land", path: "/land-plots/it-park-land", parent: "Commercial Land / Plots" },
-    { name: "Warehouse Land", path: "/land-plots/warehouse-land", parent: "Commercial Land / Plots" },
-    { name: "Industrial Commercial Plot", path: "/land-plots/industrial-commercial-plot", parent: "Commercial Land / Plots" },
+    { name: "IT Park Land", path: "/land-plots/commercial-land-plots/it-park-land", parent: "Commercial Land / Plots" },
+    { name: "Warehouse Land", path: "/land-plots/commercial-land-plots/warehouse-land", parent: "Commercial Land / Plots" },
+    { name: "Industrial Commercial Plot", path: "/land-plots/commercial-land-plots/industrial-commercial-plot", parent: "Commercial Land / Plots" },
     // Agricultural submenus
     { name: "Agricultural Land", path: "/land-plots/agricultural-land", parent: "Agricultural Land" },
     { name: "Farm Land", path: "/land-plots/farm-land", parent: "Agricultural Land" },

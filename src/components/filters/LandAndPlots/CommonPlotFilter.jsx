@@ -523,7 +523,9 @@ const CommonPlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabCha
           <div className="md:col-span-2">
             <label className="text-xs text-teal-800 font-semibold block mb-1.5">Listing Type</label>
             <div className="flex gap-4">
-              {['Owner', 'Agent', 'Builder', 'Developer'].map(type => (
+              {['Owner', 'Agent', 'Builder', 'Developer'
+                
+              ].map(type => (
                 <label key={type} className="flex items-center gap-1.5 cursor-pointer group">
                   <input
                     type="checkbox"
