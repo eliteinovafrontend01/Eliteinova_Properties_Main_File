@@ -1,15 +1,16 @@
+// RetailShopPlotPage.jsx
 import React, { useState, useEffect } from "react";
 import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Store, Factory, Hotel, Briefcase, Trees, Sprout, Heart, School, Layers, ChevronRight, Compass } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import backgroundImage from "../../assets/Villa/villa1_1.png";
-import IndependentHousePlotFilter from "../../components/filters/LandAndPlots/IndependentHousePlotFilter";
-import IndependentHousePlot from "../../components/propertycard/LandAndPlots/IndependentHousePlot";
+import backgroundImage from "../../assets/landandplots/mainbg.png";
+import RetailShopPlotFilter from "../../components/filters/LandAndPlots/RetailShopPlotFilter";
+import RetailShopPlot from "../../components/propertycard/LandAndPlots/RetailShopPlot";
 
-const IndependentHousePlotPage = () => {
+const RetailShopPlotPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeButton, setActiveButton] = useState("Buy");
-  const [activeLandType, setActiveLandType] = useState("Independent House Plot");
+  const [activeLandType, setActiveLandType] = useState("Retail Shop Plot");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -22,7 +23,7 @@ const IndependentHousePlotPage = () => {
     { name: "Hostel", path: "/hostel", icon: <Building2 className="w-4 h-4" /> }
   ];
 
-  // Main categories with submenus
+  // Main categories with submenus - Same as LandAndPlotsPage
   const landCategories = [
     {
       name: "All",
@@ -136,12 +137,12 @@ const IndependentHousePlotPage = () => {
   // Flatten all land types for navigation
   const landTypes = [
     { name: "All", path: "/land-plots", parent: null },
-    { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots", parent: null },
-    { name: "Commercial Land / Plots", path: "/land-plots/commercial-land-plots", parent: null },
-    { name: "Agricultural Land", path: "/land-plots/agricultural-land-plots", parent: null },
-    { name: "Industrial Land", path: "/land-plots/industrial-land-plots", parent: null },
-    { name: "Mixed-Use Land", path: "/land-plots/mixed-use-land-plots", parent: null },
-    { name: "Institutional Land", path: "/land-plots/institutional-land-plots", parent: null },
+    { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots/residential-plot", parent: null },
+    { name: "Commercial Land / Plots", path: "/land-plots/commercial-land-plots/commercial-plot", parent: null },
+    { name: "Agricultural Land", path: "/land-plots/agricultural-land-plots/agricultural-land", parent: null },
+    { name: "Industrial Land", path: "/land-plots/industrial-land-plots/industrial-plot", parent: null },
+    { name: "Mixed-Use Land", path: "/land-plots/mixed-use-land-plots/mixed-use-plot", parent: null },
+    { name: "Institutional Land", path: "/land-plots/institutional-land-plots/institutional-plot", parent: null },
     { name: "Investment & Special Purpose Land", path: "/land-plots/investment-land-plots", parent: null },
     // Residential submenus
     { name: "Residential Plot", path: "/land-plots/residential-land-plots/residential-plot", parent: "Residential Land / Plots" },
@@ -161,9 +162,9 @@ const IndependentHousePlotPage = () => {
     { name: "Shopping Complex Land", path: "/land-plots/commercial-land-plots/shopping-complex-land", parent: "Commercial Land / Plots" },
     { name: "Hotel / Resort Land", path: "/land-plots/commercial-land-plots/hotel-resort-land", parent: "Commercial Land / Plots" },
     { name: "Petrol Bunk Plot", path: "/land-plots/commercial-land-plots/petrol-bunk-plot", parent: "Commercial Land / Plots" },
-    { name: "IT Park Land", path: "/land-plots/commercial-land-plots/it-park-land", parent: "Commercial Land / Plots" },
-    { name: "Warehouse Land", path: "/land-plots/commercial-land-plots/warehouse-land", parent: "Commercial Land / Plots" },
-    { name: "Industrial Commercial Plot", path: "/land-plots/commercial-land-plots/industrial-commercial-plot", parent: "Commercial Land / Plots" },
+    { name: "IT Park Land", path: "/land-plots/it-park-land", parent: "Commercial Land / Plots" },
+    { name: "Warehouse Land", path: "/land-plots/warehouse-land", parent: "Commercial Land / Plots" },
+    { name: "Industrial Commercial Plot", path: "/land-plots/industrial-commercial-plot", parent: "Commercial Land / Plots" },
     // Agricultural submenus
     { name: "Agricultural Land", path: "/land-plots/agricultural-land", parent: "Agricultural Land" },
     { name: "Farm Land", path: "/land-plots/farm-land", parent: "Agricultural Land" },
@@ -206,12 +207,6 @@ const IndependentHousePlotPage = () => {
   useEffect(() => {
     const currentPath = location.pathname;
     
-    // Check for Independent House Plot route
-    if (currentPath === "/land-plots/independent-house-plot") {
-      setActiveLandType("Independent House Plot");
-      return;
-    }
-    
     // First check for main category pages
     const mainCategoryPaths = [
       { path: "/land-plots/residential-land-plots", name: "Residential Land / Plots" },
@@ -240,7 +235,7 @@ const IndependentHousePlotPage = () => {
     if (activeType) {
       setActiveLandType(activeType.name);
     } else {
-      setActiveLandType("Independent House Plot");
+      setActiveLandType("Retail Shop Plot");
     }
   }, [location.pathname]);
 
@@ -256,6 +251,11 @@ const IndependentHousePlotPage = () => {
   const handleFilterChange = (filters) => {
     setAppliedFilters(filters);
     console.log("Applied Filters:", filters);
+  };
+
+  const getParentCategory = (typeName) => {
+    const landType = landTypes.find(t => t.name === typeName);
+    return landType?.parent || null;
   };
 
   /* ─── Shared sub-components ─────────────────────────────────────────── */
@@ -301,7 +301,7 @@ const IndependentHousePlotPage = () => {
       <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
       <input
         type="text"
-        placeholder="Search independent house plots by city, locality, or project name"
+        placeholder="Search retail shop plots by city, market area, or project name"
         className="w-full pl-11 pr-11 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/90 text-sm focus:outline-none focus:border-teal-400 transition-all duration-300"
       />
       <MapPin className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
@@ -392,17 +392,17 @@ const IndependentHousePlotPage = () => {
             <div className="hidden sm:inline-flex mb-1 items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
               <Star className="w-4 h-4 text-teal-300 animate-spin-slow" fill="currentColor" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300 text-sm font-medium">
-                Independent House Plots
+                Retail Shop Plots
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
               Find Your Perfect{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">
-                Independent House Plot
+                Retail Shop Plot
               </span>
             </h1>
             <p className="text-sm md:text-base lg:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed px-2">
-              Discover premium independent house plots for your dream home with complete privacy and freedom
+              Discover prime retail shop plots for your business venture
             </p>
             <PropertyCategoryButtons />
           </div>
@@ -591,7 +591,7 @@ const IndependentHousePlotPage = () => {
         {showFilterModal && (
           <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-[140px] px-4 pb-4 bg-black/50 backdrop-blur-sm animate-fade-in">
             <div className="relative w-full max-w-2xl max-h-[80vh] overflow-y-auto">
-              <IndependentHousePlotFilter
+              <RetailShopPlotFilter
                 activeTab={activeButton}
                 onFilterChange={handleFilterChange}
                 onClose={() => setShowFilterModal(false)}
@@ -609,14 +609,14 @@ const IndependentHousePlotPage = () => {
             {/* ── Property Cards ── */}
             <div className="w-full lg:w-2/3">
               <section>
-                <IndependentHousePlot />
+                <RetailShopPlot />
               </section>
             </div>
 
             {/* ── Sidebar Filter (desktop only) ── */}
             <div className="hidden lg:block lg:w-1/3 lg:relative">
               <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:scrollbar-hide animate-slide-in-right">
-                <IndependentHousePlotFilter
+                <RetailShopPlotFilter
                   activeTab={activeButton}
                   onFilterChange={handleFilterChange}
                 />
@@ -696,4 +696,4 @@ const IndependentHousePlotPage = () => {
   );
 };
 
-export default IndependentHousePlotPage;
+export default RetailShopPlotPage;

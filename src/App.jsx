@@ -67,11 +67,22 @@ import DTCPPlotPage from './pages/LandAndPlots/DTCPPlotPage';
 import GatedCommunityPlotPage from './pages/LandAndPlots/GatedCommunityPlotPage';
 import VillaPlotPage from './pages/LandAndPlots/VillaPlotPage';
 import FarmHousePlotPage from './pages/LandAndPlots/FarmHousePlotPage';
-import CommercialPlotPage from './pages/LandAndPlots/CommercialPlotPage';
+import CommonPlotPage from './pages/LandAndPlots/CommonPlotPage';
 import DuplexHousePlotPage from './pages/LandAndPlots/DuplexHousePlotPage';
 import IndependentHousePlotPage from './pages/LandAndPlots/IndependentHousePlotPage';
 import RowHousePlotPage from './pages/LandAndPlots/RowHousePlotPage';
 
+import CommercialLandPlotsPage from './pages/LandAndPlots/CommercialLandPlotsPage';
+import CommercialPlotPage from './pages/LandAndPlots/CommercialPlotPage';
+import OfficeSpaceLandPage from './pages/LandAndPlots/OfficeSpaceLandPage';
+import RetailShopPlotPage from './pages/LandAndPlots/RetailShopPlotPage';
+import ShowroomPlotPage from './pages/LandAndPlots/ShowroomPlotPage';
+import ShoppingComplexLandPage from './pages/LandAndPlots/ShoppingComplexLandPage';
+import HotelResortLandPage from './pages/LandAndPlots/HotelResortLandPage';
+import PetrolBunkPlotPage from './pages/LandAndPlots/PetrolBunkPlotPage';
+import ITParkLandPage from './pages/LandAndPlots/ITParkLandPage';
+import WarehouseLandPage from './pages/LandAndPlots/WarehouseLandPage';
+import IndustrialCommercialPlotPage from './pages/LandAndPlots/IndustrialCommercialPlotPage';
 // Import all form modals
 import OwnerFormModal from "./components/Forms/OwnerFormModal";
 import AgentFormModal from "./components/Forms/AgentFormModal";
@@ -214,10 +225,22 @@ function AppLayout() {
           <Route path="/land-plots/residential-land-plots/gated-community-plot" element={<GatedCommunityPlotPage/>} />
           <Route path="/land-plots/residential-land-plots/villa-plot" element={<VillaPlotPage/>} />
           <Route path="/land-plots/residential-land-plots/farm-house-plot" element={<FarmHousePlotPage/>} />
-          <Route path="/land-plots/residential-land-plots/commercial-plot" element={<CommercialPlotPage/>} />
+          <Route path="/land-plots/residential-land-plots/common-plot" element={<CommonPlotPage/>} />
           <Route path="/land-plots/residential-land-plots/row-house-plot" element={<RowHousePlotPage/>} />
           <Route path="/land-plots/residential-land-plots/duplex-house-plot" element={<DuplexHousePlotPage/>} />
           <Route path="/land-plots/residential-land-plots/independent-house-plot" element={<IndependentHousePlotPage/>} />
+
+          <Route path="/land-plots/commercial-land-plots" element={<CommercialLandPlotsPage/>} />
+          <Route path="/land-plots/commercial-land-plots/commercial-plot" element={<CommercialPlotPage/>} />
+          <Route path="/land-plots/commercial-land-plots/office-space-land" element={<OfficeSpaceLandPage/>} />
+          <Route path="/land-plots/commercial-land-plots/retail-shop-plot" element={<RetailShopPlotPage/>} />
+          <Route path="/land-plots/commercial-land-plots/showroom-plot" element={<ShowroomPlotPage/>} />
+          <Route path="/land-plots/commercial-land-plots/shopping-complex-land" element={<ShoppingComplexLandPage/>} />
+          <Route path="/land-plots/commercial-land-plots/hotel-resort-land" element={<HotelResortLandPage/>} />
+          <Route path="/land-plots/commercial-land-plots/petrol-bunk-plot" element={<PetrolBunkPlotPage/>} />
+          <Route path="/land-plots/commercial-land-plots/it-park-land" element={<ITParkLandPage/>} />
+          <Route path="/land-plots/commercial-land-plots/warehouse-land" element={<WarehouseLandPage/>} />
+          <Route path="/land-plots/commercial-land-plots/industrial-commercial-plot" element={<IndustrialCommercialPlotPage/>} />
 
           <Route 
             path="/post-property" 

@@ -14,7 +14,6 @@ const CommercialPlotPage = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState(null);
- const [activeParentCategory, setActiveParentCategory] = useState("Residential Land / Plots");
 
   const propertyCategories = [
     { name: "Individual", path: "/individual", icon: <Building className="w-4 h-4" /> },
@@ -23,7 +22,7 @@ const CommercialPlotPage = () => {
     { name: "Hostel", path: "/hostel", icon: <Building2 className="w-4 h-4" /> }
   ];
 
-  // Main categories with submenus - Commercial Plot is a submenu under Residential Land / Plots
+  // Main categories with submenus - Same as LandAndPlotsPage
   const landCategories = [
     {
       name: "All",
@@ -42,7 +41,7 @@ const CommercialPlotPage = () => {
         "Gated Community Plot",
         "Villa Plot",
         "Farm House Plot",
-        "Commercial Plot",
+        "Common Plot",
         "Independent House Plot",
         "Duplex House Plot",
         "Row House Plot"
@@ -134,7 +133,7 @@ const CommercialPlotPage = () => {
     }
   ];
 
-  // Flatten all land types for navigation - Commercial Plot appears under both Residential and Commercial
+  // Flatten all land types for navigation
   const landTypes = [
     { name: "All", path: "/land-plots", parent: null },
     { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots", parent: null },
@@ -150,21 +149,21 @@ const CommercialPlotPage = () => {
     { name: "Gated Community Plot", path: "/land-plots/residential-land-plots/gated-community-plot", parent: "Residential Land / Plots" },
     { name: "Villa Plot", path: "/land-plots/residential-land-plots/villa-plot", parent: "Residential Land / Plots" },
     { name: "Farm House Plot", path: "/land-plots/residential-land-plots/farm-house-plot", parent: "Residential Land / Plots" },
-    { name: "Commercial Plot", path: "/land-plots/residential-land-plots/commercial-plot", parent: "Residential Land / Plots" }, // This is the key route
+    { name: "Common Plot", path: "/land-plots/residential-land-plots/common-plot", parent: "Residential Land / Plots" },
     { name: "Independent House Plot", path: "/land-plots/residential-land-plots/independent-house-plot", parent: "Residential Land / Plots" },
     { name: "Duplex House Plot", path: "/land-plots/residential-land-plots/duplex-house-plot", parent: "Residential Land / Plots" },
     { name: "Row House Plot", path: "/land-plots/residential-land-plots/row-house-plot", parent: "Residential Land / Plots" },
     // Commercial submenus
-    { name: "Commercial Plot", path: "/land-plots/commercial-land-plots/commercial-plot", parent: "Commercial Land / Plots" }, // Also appears here
-    { name: "Office Space Land", path: "/land-plots/office-space-land", parent: "Commercial Land / Plots" },
-    { name: "Retail Shop Plot", path: "/land-plots/retail-shop-plot", parent: "Commercial Land / Plots" },
-    { name: "Showroom Plot", path: "/land-plots/showroom-plot", parent: "Commercial Land / Plots" },
-    { name: "Shopping Complex Land", path: "/land-plots/shopping-complex-land", parent: "Commercial Land / Plots" },
-    { name: "Hotel / Resort Land", path: "/land-plots/hotel-resort-land", parent: "Commercial Land / Plots" },
-    { name: "Petrol Bunk Plot", path: "/land-plots/petrol-bunk-plot", parent: "Commercial Land / Plots" },
-    { name: "IT Park Land", path: "/land-plots/it-park-land", parent: "Commercial Land / Plots" },
-    { name: "Warehouse Land", path: "/land-plots/warehouse-land", parent: "Commercial Land / Plots" },
-    { name: "Industrial Commercial Plot", path: "/land-plots/industrial-commercial-plot", parent: "Commercial Land / Plots" },
+    { name: "Commercial Plot", path: "/land-plots/commercial-land-plots/commercial-plot", parent: "Commercial Land / Plots" },
+    { name: "Office Space Land", path: "/land-plots/commercial-land-plots/office-space-land", parent: "Commercial Land / Plots" },
+    { name: "Retail Shop Plot", path: "/land-plots/commercial-land-plots/retail-shop-plot", parent: "Commercial Land / Plots" },
+    { name: "Showroom Plot", path: "/land-plots/commercial-land-plots/showroom-plot", parent: "Commercial Land / Plots" },
+    { name: "Shopping Complex Land", path: "/land-plots/commercial-land-plots/shopping-complex-land", parent: "Commercial Land / Plots" },
+    { name: "Hotel / Resort Land", path: "/land-plots/commercial-land-plots/hotel-resort-land", parent: "Commercial Land / Plots" },
+    { name: "Petrol Bunk Plot", path: "/land-plots/commercial-land-plots/petrol-bunk-plot", parent: "Commercial Land / Plots" },
+    { name: "IT Park Land", path: "/land-plots/commercial-land-plots/it-park-land", parent: "Commercial Land / Plots" },
+    { name: "Warehouse Land", path: "/land-plots/commercial-land-plots/warehouse-land", parent: "Commercial Land / Plots" },
+    { name: "Industrial Commercial Plot", path: "/land-plots/commercial-land-plots/industrial-commercial-plot", parent: "Commercial Land / Plots" },
     // Agricultural submenus
     { name: "Agricultural Land", path: "/land-plots/agricultural-land", parent: "Agricultural Land" },
     { name: "Farm Land", path: "/land-plots/farm-land", parent: "Agricultural Land" },
@@ -207,13 +206,6 @@ const CommercialPlotPage = () => {
   useEffect(() => {
     const currentPath = location.pathname;
     
-    // Check for Commercial Plot route
-    if (currentPath === "/land-plots/residential-land-plots/commercial-plot") {
-    setActiveLandType("Commercial Plot");
-    setActiveParentCategory("Residential Land / Plots");
-    return;
-  }
-    
     // First check for main category pages
     const mainCategoryPaths = [
       { path: "/land-plots/residential-land-plots", name: "Residential Land / Plots" },
@@ -241,6 +233,8 @@ const CommercialPlotPage = () => {
     const activeType = landTypes.find(type => type.path === currentPath);
     if (activeType) {
       setActiveLandType(activeType.name);
+    } else if (currentPath === "/land-plots/commercial-plot" || currentPath === "/commercial-plot") {
+      setActiveLandType("Commercial Plot");
     } else {
       setActiveLandType("Commercial Plot");
     }
@@ -258,6 +252,11 @@ const CommercialPlotPage = () => {
   const handleFilterChange = (filters) => {
     setAppliedFilters(filters);
     console.log("Applied Filters:", filters);
+  };
+
+  const getParentCategory = (typeName) => {
+    const landType = landTypes.find(t => t.name === typeName);
+    return landType?.parent || null;
   };
 
   /* ─── Shared sub-components ─────────────────────────────────────────── */
@@ -404,7 +403,7 @@ const CommercialPlotPage = () => {
               </span>
             </h1>
             <p className="text-sm md:text-base lg:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed px-2">
-              Discover premium commercial plots for your business needs - available within residential communities
+              Discover premium commercial plots for your business needs
             </p>
             <PropertyCategoryButtons />
           </div>
@@ -425,18 +424,16 @@ const CommercialPlotPage = () => {
             {/* Main Categories with Hover Dropdown */}
             <div className="flex flex-wrap gap-2">
               {landCategories.map((category) => {
-              const isActive = activeLandType === category.name || 
-                (category.submenus && 
-                category.submenus.some(s => s === activeLandType) && 
-                activeParentCategory === category.name);
-              
-              return (
-                <div
-                  key={category.name}
-                  className="relative"
-                  onMouseEnter={() => !category.isAllButton && setHoveredCategory(category.name)}
-                  onMouseLeave={() => !category.isAllButton && setHoveredCategory(null)}
-                >
+                const isActive = activeLandType === category.name || 
+                  (category.submenus && category.submenus.some(s => s === activeLandType));
+                
+                return (
+                  <div
+                    key={category.name}
+                    className="relative"
+                    onMouseEnter={() => !category.isAllButton && setHoveredCategory(category.name)}
+                    onMouseLeave={() => !category.isAllButton && setHoveredCategory(null)}
+                  >
                     <button
                       onClick={() => {
                         if (category.isAllButton) {
@@ -480,15 +477,12 @@ const CommercialPlotPage = () => {
                               <button
                                 key={submenu}
                                 onClick={() => {
-                                const landType = landTypes.find(
-                                  t => t.name === submenu && t.parent === category.name
-                                );
-                                if (landType) {
-                                  handleNavigation(landType.path, submenu);
-                                  setActiveParentCategory(category.name);
-                                }
-                                setHoveredCategory(null);
-                              }}
+                                  const landType = landTypes.find(t => t.name === submenu);
+                                  if (landType) {
+                                    handleNavigation(landType.path, submenu);
+                                  }
+                                  setHoveredCategory(null);
+                                }}
                                 className={`w-full px-4 py-2 text-left text-sm transition-all duration-300 group flex items-center gap-2 ${
                                   isSubmenuActive
                                     ? "bg-teal-600 text-white font-semibold"
@@ -531,21 +525,19 @@ const CommercialPlotPage = () => {
 
             <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
               {landCategories.map((category) => {
-              const isActive = activeLandType === category.name || 
-                (category.submenus && 
-                category.submenus.some(s => s === activeLandType) && 
-                activeParentCategory === category.name);
-              
-              return (
-                <button
-                  key={category.name}
-                  onClick={() => {
-                    if (category.isAllButton) {
-                      handleNavigation(category.path, "All");
-                    } else {
-                      setHoveredCategory(hoveredCategory === category.name ? null : category.name);
-                    }
-                  }}
+                const isActive = activeLandType === category.name || 
+                  (category.submenus && category.submenus.some(s => s === activeLandType));
+                
+                return (
+                  <button
+                    key={category.name}
+                    onClick={() => {
+                      if (category.isAllButton) {
+                        handleNavigation(category.path, "All");
+                      } else {
+                        setHoveredCategory(hoveredCategory === category.name ? null : category.name);
+                      }
+                    }}
                     className={`flex-shrink-0 px-3 py-1.5 rounded-xl font-semibold text-xs transition-all duration-300 whitespace-nowrap flex items-center gap-1 ${
                       isActive
                         ? "bg-white text-teal-800 ring-2 ring-teal-600 shadow-md"
@@ -571,16 +563,13 @@ const CommercialPlotPage = () => {
                       <button
                         key={submenu}
                         onClick={() => {
-                        const landType = landTypes.find(
-                          t => t.name === submenu && t.parent === hoveredCategory
-                        );
-                        if (landType) {
-                          handleNavigation(landType.path, submenu);
-                          setActiveParentCategory(hoveredCategory);
-                        }
-                        setHoveredCategory(null);
-                      }}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 ${
+                          const landType = landTypes.find(t => t.name === submenu);
+                          if (landType) {
+                            handleNavigation(landType.path, submenu);
+                          }
+                          setHoveredCategory(null);
+                        }}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 ${
                           isSubmenuActive
                             ? "bg-teal-600 text-white"
                             : "bg-white text-teal-700 hover:bg-teal-600 hover:text-white"

@@ -1,27 +1,15 @@
+// CommonPlotFilter.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   X, ChevronDown, Building, MapPin, IndianRupee, Ruler, Shield, 
   Phone, FileText, RefreshCw, DollarSign, Calendar, Zap, 
-  Square, Home, Bus, CheckCircle, TrendingUp, Clock, Trees,
-  Droplets, Sun, Sprout, Fence, Car, Eye, Mountain, Warehouse,
-  Wifi, Droplet, Lock, Users, Scissors, Key, 
-  ParkingCircle, School, Hospital, Store
+  Square, Home, Bus, CheckCircle, TrendingUp, Clock, Users, UserPlus, Share2, Info
 } from 'lucide-react';
 
 // Custom Square Icon
 const SquareIcon = ({ className }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor"/>
-  </svg>
-);
-
-// Custom Row House Icon
-const RowHouseIcon = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <rect x="3" y="8" width="4" height="13" stroke="currentColor" fill="none"/>
-    <rect x="10" y="8" width="4" height="13" stroke="currentColor" fill="none"/>
-    <rect x="17" y="8" width="4" height="13" stroke="currentColor" fill="none"/>
-    <path d="M2 8L12 2L22 8" stroke="currentColor" fill="none"/>
   </svg>
 );
 
@@ -180,14 +168,15 @@ const CustomSelect = ({ label, options, value, onChange, placeholder }) => {
   );
 };
 
-// Plot Area Unit Select - For Row House (Sq.ft, Cents, Acres)
-const RowHouseAreaUnitSelect = ({ value, onChange }) => {
+// Plot Area Unit Select - Compact with teal-500 hover
+const PlotAreaUnitSelect = ({ value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef(null);
   const units = [
     { value: 'sqft', label: 'Sq.ft' },
     { value: 'cents', label: 'Cents' },
-    { value: 'acres', label: 'Acres' }
+    { value: 'acres', label: 'Acres' },
+    { value: 'grounds', label: 'Grounds' }
   ];
 
   useEffect(() => {
@@ -310,116 +299,47 @@ const CheckboxGroup = ({ label, options, values, onChange, columns = 2 }) => (
   </div>
 );
 
-const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabChange }) => {
+const CommonPlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabChange }) => {
   const [currentTab, setCurrentTab] = useState(activeTab);
   const [activeMainSection, setActiveMainSection] = useState('basic');
   
   const [filters, setFilters] = useState({
-    // Basic Details
     listingType: [],
-    city: '', 
-    locality: '', 
-    layoutName: '', 
-    landmark: '', 
-    pincode: '', 
-    nearbyConnectivity: '',
-    
-    // Rent Details
-    minRent: '', 
-    maxRent: '', 
-    securityDeposit: '', 
-    advanceAmount: '',
-    maintenanceIncluded: '', 
-    rentNegotiable: '',
-    
-    // Buy Details
-    minPrice: '', 
-    maxPrice: '', 
-    preferredPricePerSqft: '', 
-    loanRequired: '', 
-    priceNegotiable: '',
-    
-    // Sell Details
-    minSellPrice: '', 
-    maxSellPrice: '', 
-    sellPriceNegotiable: '', 
-    maintenanceCharges: '', 
-    propertyTax: '',
-    
-    // Lease Details
-    minLeaseAmount: '', 
-    maxLeaseAmount: '', 
-    refundableDeposit: '', 
-    advanceLeaseAmount: '', 
-    leaseDuration: '', 
-    leaseNegotiable: '',
-    
-    // Plot Details
-    plotArea: '', 
-    plotAreaUnit: 'sqft', 
-    plotLength: '', 
-    plotWidth: '', 
-    facing: '', 
-    cornerPlot: '', 
-    roadWidth: '', 
-    boundaryWall: '', 
-    plotShape: '',
-    minRoadWidthRequired: '',
-    boundaryWallPreferred: '',
-    plotShapePreference: '',
-    
-    // Infrastructure & Utilities
-    waterConnection: '', 
-    borewellFacility: '', 
-    electricityConnection: '', 
-    drainageFacility: '', 
-    streetLights: '', 
-    internetBroadband: '',
-    
-    // Amenities
-    gatedCommunity: '', 
-    security24x7: '', 
-    cctvSurveillance: '', 
-    parkGardenNearby: '', 
-    childrenPlayArea: '', 
-    visitorParking: '', 
-    wideInternalRoads: '',
-    
-    // Approval & Legal Details
-    dtcpApproved: '', 
-    cmdaApproved: '', 
-    reraApproved: '', 
-    pattaAvailable: '', 
-    encumbranceFree: '',
-    rentalAgreementReady: '',
-    leaseAgreementReady: '',
-    loanEligible: '',
-    titleDeedVerified: '',
-    encumbranceFreePreferred: '',
-    loanEligiblePlotRequired: '',
-    
-    // Suitable For
+    city: '', locality: '', landmark: '', pincode: '', layoutName: '', nearbyConnectivity: '',
+    minPrice: '', maxPrice: '', priceNegotiable: '', loanRequired: '', maintenanceCharges: '',
+    pricePerSqft: '', preferredPricePerSqft: '', propertyTax: '',
+    minRent: '', maxRent: '', securityDeposit: '', maintenanceIncluded: '', rentNegotiable: '',
+    minLeaseAmount: '', maxLeaseAmount: '', refundableDeposit: '', leaseDuration: '', leaseNegotiable: '',
+    minSellPrice: '', maxSellPrice: '', sellPriceNegotiable: '',
+    plotArea: '', plotAreaUnit: 'sqft', plotLength: '', plotWidth: '', facing: '', 
+    commercialPlot: '', roadWidth: '', boundaryWall: '', plotShape: '',
+    minRoadWidthRequired: '', plotShapePreference: '',
+    dtcpApproved: '', cmdaApproved: '', reraApproved: '', panchayatApproved: '',
+    pattaAvailable: '', encumbranceFree: '', loanEligible: '', titleDeedVerified: '',
+    rentalAgreementReady: '', leaseAgreementReady: '',
+    dtcpApprovedOnly: '', cmdaApprovedOnly: '', reraApprovedOnly: '',
+    pattaRequired: '', encumbranceFreePreferred: '', loanEligiblePlotRequired: '',
+    waterConnection: false, borewellAvailable: false, electricityConnection: false,
+    drainageConnection: false, streetLights: false, gatedCommunity: '', securityAvailable: false,
     suitableForTypes: [],
-    
-    // Availability
-    immediateAvailability: '', 
-    availableFrom: '', 
-    minRentalDuration: '', 
-    leaseRenewalOption: '', 
-    readyToRegister: '', 
-    immediatePossession: '', 
-    underDevelopmentAcceptable: '',
-    underDevelopmentLayout: '',
-    
-    // Nearby Access
+    immediateAvailability: '', availableFrom: '', minRentalDuration: '',
+    readyToRegister: '', immediatePossession: '', underDevelopmentLayout: '', leaseRenewalOption: '',
     nearbyAccess: [],
-    
-    // Contact Preference
-    contactOwner: false, 
-    contactAgent: false, 
-    contactBuilder: false, 
-    contactDeveloper: false,
-    preferredContactTime: ''
+    contactOwner: false, contactAgent: false, contactBuilder: false, preferredContactTime: '',
+    // Common plot specific filters
+    commonPlotType: [], // Co-ownership, Joint Development, Community Land, Share Basis
+    numberOfShares: '', // 2, 4, 6, 8, 10+
+    sharePercentage: '', // 25%, 33%, 50%, etc.
+    coOwnersCount: '', // 2, 3, 4, 5+
+    developmentAgreement: '', // Yes/No
+    maintenanceAssociation: '', // Yes/No/Planned
+    commonAmenities: [], // Common Garden, Play Area, Parking, Community Hall, Security
+    usageRights: [], // Residential Only, Commercial Only, Mixed Use, Agricultural
+    approvalStatus: [], // DTCP Approved, CMDA Approved, RERA Registered, Panchayat Approved
+    resaleAllowed: '', // Yes/No/Restricted
+    transferRules: '', // Flexible, Restricted, After Lock-in Period
+    monthlyMaintenance: '',
+    maintenanceIncludes: [] // Water, Electricity, Security, Common Area, Gardening
   });
 
   const facingOptions = [
@@ -457,59 +377,52 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
     { value: 'Any', label: 'Any Time' }
   ];
 
+  const commonPlotTypeOptions = [
+    'Co-ownership Plot', 'Joint Development', 'Community Land', 'Share Basis', 'Undivided Share Land'
+  ];
+
+  const commonAmenitiesOptions = [
+    'Common Garden', 'Play Area', 'Parking Space', 'Community Hall', 'Security Cabin', 'Children Play Area'
+  ];
+
+  const usageRightsOptions = [
+    'Residential Only', 'Commercial Only', 'Mixed Use', 'Agricultural Use'
+  ];
+
+  const approvalStatusOptions = [
+    'DTCP Approved', 'CMDA Approved', 'RERA Registered', 'Panchayat Approved'
+  ];
+
+  const maintenanceIncludesOptions = [
+    'Water', 'Electricity', 'Security', 'Common Area', 'Gardening', 'Sewage'
+  ];
+
   const suitableForOptions = {
     rent: [
-      'Row House Construction',
-      'Rental House Development',
-      'Family Residential Setup',
-      'Temporary Residential Use',
-      'Investment Holding',
-      'Small Residential Project'
+      'Temporary Residential Use', 'Parking Purpose', 'Storage Purpose',
+      'Container House Setup', 'Garden / Nursery', 'Small Commercial Temporary Setup'
     ],
     buy: [
-      'Row House Construction',
-      'Rental House Development',
-      'Family Residential Setup',
-      'Investment Purpose',
-      'Small Residential Project',
-      'Future Home Construction'
-    ],
-    sell: [
-      'Row House Construction',
-      'Rental House Development',
-      'Family Residential Setup',
-      'Investment Purpose',
-      'Small Residential Project',
-      'Future Home Construction'
-    ],
-    lease: [
-      'Row House Construction',
-      'Rental House Development',
-      'Family Residential Setup',
-      'Temporary Residential Use',
-      'Investment Holding',
-      'Small Residential Project'
+      'Individual House Construction', 'Villa Construction', 'Duplex House',
+      'Investment Purpose', 'Rental Property Development', 'Small Residential Project',
+      'Co-ownership Housing', 'Joint Family Home'
     ]
   };
 
   const nearbyOptions = [
-    'Bus Stop / Metro',
-    'School / College',
-    'Hospital',
-    'Shopping Area',
-    'Highway Access',
-    'Residential Neighborhood'
+    'Bus Stop / Metro', 'School / College', 'Hospital',
+    'Shopping Area', 'Highway Access', 'Residential Neighborhood'
   ];
 
   const mainSections = [
     { id: 'basic', label: '📍 Basic', icon: <Home className="w-3.5 h-3.5" /> },
     { id: 'price', label: currentTab === 'Rent' ? '💰 Rent' : currentTab === 'Buy' ? '💰 Budget' : currentTab === 'Sell' ? '💰 Price' : '💰 Lease', icon: <IndianRupee className="w-3.5 h-3.5" /> },
+    { id: 'common', label: '👥 Common Plot', icon: <Users className="w-3.5 h-3.5" /> },
     { id: 'plot', label: '📐 Plot', icon: <SquareIcon className="w-3.5 h-3.5" /> },
-    { id: 'utilities', label: '💡 Utilities', icon: <Zap className="w-3.5 h-3.5" /> },
-    { id: 'amenities', label: '✨ Amenities', icon: <Users className="w-3.5 h-3.5" /> },
     { id: 'legal', label: '⚖️ Legal', icon: <Shield className="w-3.5 h-3.5" /> },
-    { id: 'suitable', label: '🏠 Suitable For', icon: <Building className="w-3.5 h-3.5" /> },
-    { id: 'availability', label: '📅 Availability', icon: <Calendar className="w-3.5 h-3.5" /> },
+    { id: 'utilities', label: '💡 Utilities', icon: <Zap className="w-3.5 h-3.5" /> },
+    { id: 'suitable', label: '🏗️ Suitable', icon: <Building className="w-3.5 h-3.5" /> },
+    { id: 'availability', label: '📅 Available', icon: <Calendar className="w-3.5 h-3.5" /> },
     { id: 'nearby', label: '🚌 Nearby', icon: <Bus className="w-3.5 h-3.5" /> },
     { id: 'contact', label: '📞 Contact', icon: <Phone className="w-3.5 h-3.5" /> }
   ];
@@ -540,28 +453,38 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
   };
 
   const applyFilters = () => {
-    const filtersToSend = { ...filters, purpose: currentTab, propertyType: 'Row House Plot' };
+    const filtersToSend = { ...filters, purpose: currentTab, propertyType: 'Common Plot' };
     if (onFilterChange) onFilterChange(filtersToSend);
     if (onClose) onClose();
   };
 
   const clearAllFilters = () => {
     setFilters({
-      listingType: [], city: '', locality: '', layoutName: '', landmark: '', pincode: '', nearbyConnectivity: '',
-      minRent: '', maxRent: '', securityDeposit: '', advanceAmount: '', maintenanceIncluded: '', rentNegotiable: '',
-      minPrice: '', maxPrice: '', preferredPricePerSqft: '', loanRequired: '', priceNegotiable: '',
-      minSellPrice: '', maxSellPrice: '', sellPriceNegotiable: '', maintenanceCharges: '', propertyTax: '',
-      minLeaseAmount: '', maxLeaseAmount: '', refundableDeposit: '', advanceLeaseAmount: '', leaseDuration: '', leaseNegotiable: '',
-      plotArea: '', plotAreaUnit: 'sqft', plotLength: '', plotWidth: '', facing: '', cornerPlot: '', roadWidth: '', boundaryWall: '', plotShape: '',
-      minRoadWidthRequired: '', boundaryWallPreferred: '', plotShapePreference: '',
-      waterConnection: '', borewellFacility: '', electricityConnection: '', drainageFacility: '', streetLights: '', internetBroadband: '',
-      gatedCommunity: '', security24x7: '', cctvSurveillance: '', parkGardenNearby: '', childrenPlayArea: '', visitorParking: '', wideInternalRoads: '',
-      dtcpApproved: '', cmdaApproved: '', reraApproved: '', pattaAvailable: '', encumbranceFree: '',
-      rentalAgreementReady: '', leaseAgreementReady: '', loanEligible: '', titleDeedVerified: '', encumbranceFreePreferred: '', loanEligiblePlotRequired: '',
+      listingType: [], city: '', locality: '', landmark: '', pincode: '', layoutName: '', nearbyConnectivity: '',
+      minPrice: '', maxPrice: '', priceNegotiable: '', loanRequired: '', maintenanceCharges: '',
+      pricePerSqft: '', preferredPricePerSqft: '', propertyTax: '',
+      minRent: '', maxRent: '', securityDeposit: '', maintenanceIncluded: '', rentNegotiable: '',
+      minLeaseAmount: '', maxLeaseAmount: '', refundableDeposit: '', leaseDuration: '', leaseNegotiable: '',
+      minSellPrice: '', maxSellPrice: '', sellPriceNegotiable: '',
+      plotArea: '', plotAreaUnit: 'sqft', plotLength: '', plotWidth: '', facing: '', 
+      commercialPlot: '', roadWidth: '', boundaryWall: '', plotShape: '',
+      minRoadWidthRequired: '', plotShapePreference: '',
+      dtcpApproved: '', cmdaApproved: '', reraApproved: '', panchayatApproved: '',
+      pattaAvailable: '', encumbranceFree: '', loanEligible: '', titleDeedVerified: '',
+      rentalAgreementReady: '', leaseAgreementReady: '',
+      dtcpApprovedOnly: '', cmdaApprovedOnly: '', reraApprovedOnly: '',
+      pattaRequired: '', encumbranceFreePreferred: '', loanEligiblePlotRequired: '',
+      waterConnection: false, borewellAvailable: false, electricityConnection: false,
+      drainageConnection: false, streetLights: false, gatedCommunity: '', securityAvailable: false,
       suitableForTypes: [],
-      immediateAvailability: '', availableFrom: '', minRentalDuration: '', leaseRenewalOption: '', readyToRegister: '', immediatePossession: '', underDevelopmentAcceptable: '', underDevelopmentLayout: '',
+      immediateAvailability: '', availableFrom: '', minRentalDuration: '',
+      readyToRegister: '', immediatePossession: '', underDevelopmentLayout: '', leaseRenewalOption: '',
       nearbyAccess: [],
-      contactOwner: false, contactAgent: false, contactBuilder: false, contactDeveloper: false, preferredContactTime: ''
+      contactOwner: false, contactAgent: false, contactBuilder: false, preferredContactTime: '',
+      commonPlotType: [], numberOfShares: '', sharePercentage: '', coOwnersCount: '',
+      developmentAgreement: '', maintenanceAssociation: '', commonAmenities: [],
+      usageRights: [], approvalStatus: [], resaleAllowed: '', transferRules: '',
+      monthlyMaintenance: '', maintenanceIncludes: []
     });
   };
 
@@ -591,7 +514,7 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <div>
             <label className="text-xs text-teal-800 font-semibold block mb-1">Property Type</label>
-            <input type="text" value="Row House Plot" disabled className="w-full px-2 py-1.5 rounded border border-teal-300 bg-gray-50 text-xs text-gray-600" />
+            <input type="text" value="Common Plot" disabled className="w-full px-2 py-1.5 rounded border border-teal-300 bg-gray-50 text-xs text-gray-600" />
           </div>
           <div>
             <label className="text-xs text-teal-800 font-semibold block mb-1">Purpose</label>
@@ -599,7 +522,7 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
           </div>
           <div className="md:col-span-2">
             <label className="text-xs text-teal-800 font-semibold block mb-1.5">Listing Type</label>
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-4">
               {['Owner', 'Agent', 'Builder', 'Developer'].map(type => (
                 <label key={type} className="flex items-center gap-1.5 cursor-pointer group">
                   <input
@@ -624,9 +547,9 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <input type="text" placeholder="City" className="w-full px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.city} onChange={(e) => handleInputChange('city', e.target.value)} />
           <input type="text" placeholder="Area / Locality" className="w-full px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.locality} onChange={(e) => handleInputChange('locality', e.target.value)} />
-          <input type="text" placeholder="Layout / Community Name" className="w-full px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.layoutName} onChange={(e) => handleInputChange('layoutName', e.target.value)} />
           <input type="text" placeholder="Landmark" className="w-full px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.landmark} onChange={(e) => handleInputChange('landmark', e.target.value)} />
           <input type="text" placeholder="PIN Code" className="w-full px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.pincode} onChange={(e) => handleInputChange('pincode', e.target.value)} />
+          <input type="text" placeholder="Layout Name" className="w-full px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.layoutName} onChange={(e) => handleInputChange('layoutName', e.target.value)} />
           <input type="text" placeholder="Nearby Connectivity" className="w-full px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.nearbyConnectivity} onChange={(e) => handleInputChange('nearbyConnectivity', e.target.value)} />
         </div>
       </div>
@@ -639,13 +562,12 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
         <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg p-3 border border-teal-200">
           <h3 className="font-semibold text-teal-800 mb-2 flex items-center gap-1.5 text-sm"><IndianRupee className="w-3.5 h-3.5" /> Rent Details</h3>
           <div className="space-y-2">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-              <div className="grid grid-cols-2 gap-2 md:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 <input type="number" placeholder="Min Rent (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.minRent} onChange={(e) => handleInputChange('minRent', e.target.value)} />
                 <input type="number" placeholder="Max Rent (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.maxRent} onChange={(e) => handleInputChange('maxRent', e.target.value)} />
               </div>
               <input type="number" placeholder="Security Deposit (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.securityDeposit} onChange={(e) => handleInputChange('securityDeposit', e.target.value)} />
-              <input type="number" placeholder="Advance Amount (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.advanceAmount} onChange={(e) => handleInputChange('advanceAmount', e.target.value)} />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <YesNoRadioGroup label="Maintenance Charges Included" name="maintenanceIncluded" value={filters.maintenanceIncluded} onChange={(val) => handleRadioChange('maintenanceIncluded', val)} />
@@ -683,7 +605,7 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
                 <input type="number" placeholder="Min Price (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.minSellPrice} onChange={(e) => handleInputChange('minSellPrice', e.target.value)} />
                 <input type="number" placeholder="Max Price (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.maxSellPrice} onChange={(e) => handleInputChange('maxSellPrice', e.target.value)} />
               </div>
-              <input type="number" placeholder="Price Per Sq.ft (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.preferredPricePerSqft} onChange={(e) => handleInputChange('preferredPricePerSqft', e.target.value)} />
+              <input type="number" placeholder="Price Per Sq.ft (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.pricePerSqft} onChange={(e) => handleInputChange('pricePerSqft', e.target.value)} />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <YesNoRadioGroup label="Price Negotiable" name="sellPriceNegotiable" value={filters.sellPriceNegotiable} onChange={(val) => handleRadioChange('sellPriceNegotiable', val)} />
@@ -704,7 +626,6 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
                 <input type="number" placeholder="Max Lease (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.maxLeaseAmount} onChange={(e) => handleInputChange('maxLeaseAmount', e.target.value)} />
               </div>
               <input type="number" placeholder="Refundable Deposit (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.refundableDeposit} onChange={(e) => handleInputChange('refundableDeposit', e.target.value)} />
-              <input type="number" placeholder="Advance Amount (₹)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.advanceLeaseAmount} onChange={(e) => handleInputChange('advanceLeaseAmount', e.target.value)} />
             </div>
             <CustomSelect label="Lease Duration" options={leaseDurationOptions} value={filters.leaseDuration} onChange={(val) => handleInputChange('leaseDuration', val)} placeholder="Select Duration" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -717,106 +638,242 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
     }
   };
 
+  const renderCommonPlotSection = () => (
+    <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg p-3 border border-teal-200">
+      <h3 className="font-semibold text-teal-800 mb-2 flex items-center gap-1.5 text-sm"><Users className="w-3.5 h-3.5" /> Common Plot Details</h3>
+      <div className="space-y-3">
+        <CheckboxGroup 
+          label="Common Plot Type" 
+          options={commonPlotTypeOptions} 
+          values={filters.commonPlotType} 
+          onChange={(val) => handleInputChange('commonPlotType', val)} 
+          columns={2} 
+        />
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <CustomSelect 
+            label="Number of Shares" 
+            options={[
+              { value: '2', label: '2 Shares' },
+              { value: '4', label: '4 Shares' },
+              { value: '6', label: '6 Shares' },
+              { value: '8', label: '8 Shares' },
+              { value: '10+', label: '10+ Shares' }
+            ]} 
+            value={filters.numberOfShares} 
+            onChange={(val) => handleInputChange('numberOfShares', val)} 
+            placeholder="Select Shares" 
+          />
+          <CustomSelect 
+            label="Share Percentage" 
+            options={[
+              { value: '25', label: '25%' },
+              { value: '33', label: '33%' },
+              { value: '50', label: '50%' },
+              { value: '75', label: '75%' },
+              { value: '100', label: '100%' }
+            ]} 
+            value={filters.sharePercentage} 
+            onChange={(val) => handleInputChange('sharePercentage', val)} 
+            placeholder="Select Share %" 
+          />
+          <CustomSelect 
+            label="Number of Co-Owners" 
+            options={[
+              { value: '2', label: '2 Co-Owners' },
+              { value: '3', label: '3 Co-Owners' },
+              { value: '4', label: '4 Co-Owners' },
+              { value: '5+', label: '5+ Co-Owners' }
+            ]} 
+            value={filters.coOwnersCount} 
+            onChange={(val) => handleInputChange('coOwnersCount', val)} 
+            placeholder="Select Co-Owners" 
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <YesNoRadioGroup label="Development Agreement" name="developmentAgreement" value={filters.developmentAgreement} onChange={(val) => handleRadioChange('developmentAgreement', val)} />
+          <YesNoRadioGroup label="Maintenance Association" name="maintenanceAssociation" value={filters.maintenanceAssociation} onChange={(val) => handleRadioChange('maintenanceAssociation', val)} />
+        </div>
+
+        <CheckboxGroup 
+          label="Common Amenities" 
+          options={commonAmenitiesOptions} 
+          values={filters.commonAmenities} 
+          onChange={(val) => handleInputChange('commonAmenities', val)} 
+          columns={2} 
+        />
+
+        <CheckboxGroup 
+          label="Usage Rights" 
+          options={usageRightsOptions} 
+          values={filters.usageRights} 
+          onChange={(val) => handleInputChange('usageRights', val)} 
+          columns={2} 
+        />
+
+        <div className="grid grid-cols-1 gap-2">
+          <CheckboxGroup 
+            label="Approval Status" 
+            options={approvalStatusOptions} 
+            values={filters.approvalStatus} 
+            onChange={(val) => handleInputChange('approvalStatus', val)} 
+            columns={2} 
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+          <CustomSelect 
+            label="Resale Allowed" 
+            options={[
+              { value: 'Yes', label: 'Yes' },
+              { value: 'No', label: 'No' },
+              { value: 'Restricted', label: 'Restricted' }
+            ]} 
+            value={filters.resaleAllowed} 
+            onChange={(val) => handleInputChange('resaleAllowed', val)} 
+            placeholder="Select" 
+          />
+          <CustomSelect 
+            label="Transfer Rules" 
+            options={[
+              { value: 'Flexible', label: 'Flexible' },
+              { value: 'Restricted', label: 'Restricted' },
+              { value: 'After Lock-in Period', label: 'After Lock-in Period' }
+            ]} 
+            value={filters.transferRules} 
+            onChange={(val) => handleInputChange('transferRules', val)} 
+            placeholder="Select" 
+          />
+          <input 
+            type="text" 
+            placeholder="Monthly Maintenance (₹)" 
+            className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" 
+            value={filters.monthlyMaintenance} 
+            onChange={(e) => handleInputChange('monthlyMaintenance', e.target.value)} 
+          />
+        </div>
+
+        <CheckboxGroup 
+          label="Maintenance Includes" 
+          options={maintenanceIncludesOptions} 
+          values={filters.maintenanceIncludes} 
+          onChange={(val) => handleInputChange('maintenanceIncludes', val)} 
+          columns={2} 
+        />
+      </div>
+    </div>
+  );
+
   const renderPlotSection = () => (
     <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg p-3 border border-teal-200">
       <h3 className="font-semibold text-teal-800 mb-2 flex items-center gap-1.5 text-sm"><SquareIcon className="w-3.5 h-3.5" /> Plot Details</h3>
       <div className="space-y-2">
-        <div className="grid grid-cols-4 gap-2 items-end">
-          <input type="text" placeholder="Plot Area" className="col-span-1 px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.plotArea} onChange={(e) => handleInputChange('plotArea', e.target.value)} />
-          <RowHouseAreaUnitSelect value={filters.plotAreaUnit} onChange={(val) => handleInputChange('plotAreaUnit', val)} />
-          <input type="text" placeholder="Length (ft)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.plotLength} onChange={(e) => handleInputChange('plotLength', e.target.value)} />
-          <input type="text" placeholder="Width (ft)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.plotWidth} onChange={(e) => handleInputChange('plotWidth', e.target.value)} />
-        </div>
+      <div className="grid grid-cols-4 gap-2 items-end">
+        <input type="text" placeholder="Plot Area" className="col-span-1 px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.plotArea} onChange={(e) => handleInputChange('plotArea', e.target.value)} />
+        <PlotAreaUnitSelect value={filters.plotAreaUnit} onChange={(val) => handleInputChange('plotAreaUnit', val)} />
+        <input type="text" placeholder="Length (ft)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.plotLength} onChange={(e) => handleInputChange('plotLength', e.target.value)} />
+        <input type="text" placeholder="Width (ft)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.plotWidth} onChange={(e) => handleInputChange('plotWidth', e.target.value)} />
+      </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <CustomSelect label="Facing" options={facingOptions} value={filters.facing} onChange={(val) => handleInputChange('facing', val)} placeholder="Select Facing" />
-          <YesNoRadioGroup label="Corner Plot" name="cornerPlot" value={filters.cornerPlot} onChange={(val) => handleRadioChange('cornerPlot', val)} />
-          {currentTab === 'Buy' ? (
-            <input type="text" placeholder="Minimum Road Width Required (ft)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.minRoadWidthRequired} onChange={(e) => handleInputChange('minRoadWidthRequired', e.target.value)} />
-          ) : (
-            <input type="text" placeholder="Road Width Facing Plot (ft)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.roadWidth} onChange={(e) => handleInputChange('roadWidth', e.target.value)} />
-          )}
-          {currentTab === 'Buy' ? (
-            <YesNoRadioGroup label="Boundary Wall Preferred" name="boundaryWallPreferred" value={filters.boundaryWallPreferred} onChange={(val) => handleRadioChange('boundaryWallPreferred', val)} />
-          ) : (
-            <YesNoRadioGroup label="Boundary Wall Available" name="boundaryWall" value={filters.boundaryWall} onChange={(val) => handleRadioChange('boundaryWall', val)} />
-          )}
-          {currentTab === 'Buy' ? (
-            <CustomSelect label="Plot Shape Preference" options={plotShapeOptions} value={filters.plotShapePreference} onChange={(val) => handleInputChange('plotShapePreference', val)} placeholder="Select Shape" />
-          ) : (
-            <CustomSelect label="Plot Shape" options={plotShapeOptions} value={filters.plotShape} onChange={(val) => handleInputChange('plotShape', val)} placeholder="Select Shape" />
+          <YesNoRadioGroup label="Commercial Plot" name="commercialPlot" value={filters.commercialPlot} onChange={(val) => handleRadioChange('commercialPlot', val)} />
+          <input type="text" placeholder="Road Width (ft)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.roadWidth} onChange={(e) => handleInputChange('roadWidth', e.target.value)} />
+          <YesNoRadioGroup label="Boundary Wall" name="boundaryWall" value={filters.boundaryWall} onChange={(val) => handleRadioChange('boundaryWall', val)} />
+          <CustomSelect label="Plot Shape" options={plotShapeOptions} value={filters.plotShape} onChange={(val) => handleInputChange('plotShape', val)} placeholder="Select Shape" />
+          {currentTab === 'Buy' && (
+            <>
+              <input type="text" placeholder="Min Road Width (ft)" className="px-2 py-1.5 rounded border border-teal-300 bg-white text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" value={filters.minRoadWidthRequired} onChange={(e) => handleInputChange('minRoadWidthRequired', e.target.value)} />
+              <CustomSelect label="Shape Preference" options={plotShapeOptions} value={filters.plotShapePreference} onChange={(val) => handleInputChange('plotShapePreference', val)} placeholder="Select" />
+            </>
           )}
         </div>
-      </div>
-    </div>
-  );
-
-  const renderUtilitiesSection = () => (
-    <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg p-3 border border-teal-200">
-      <h3 className="font-semibold text-teal-800 mb-2 flex items-center gap-1.5 text-sm"><Zap className="w-3.5 h-3.5" /> Infrastructure & Utilities</h3>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-        <YesNoRadioGroup label="Water Connection" name="waterConnection" value={filters.waterConnection} onChange={(val) => handleRadioChange('waterConnection', val)} />
-        <YesNoRadioGroup label="Borewell Facility" name="borewellFacility" value={filters.borewellFacility} onChange={(val) => handleRadioChange('borewellFacility', val)} />
-        <YesNoRadioGroup label="Electricity Connection" name="electricityConnection" value={filters.electricityConnection} onChange={(val) => handleRadioChange('electricityConnection', val)} />
-        <YesNoRadioGroup label="Drainage Facility" name="drainageFacility" value={filters.drainageFacility} onChange={(val) => handleRadioChange('drainageFacility', val)} />
-        <YesNoRadioGroup label="Street Lights" name="streetLights" value={filters.streetLights} onChange={(val) => handleRadioChange('streetLights', val)} />
-        <YesNoRadioGroup label="Internet / Broadband Ready" name="internetBroadband" value={filters.internetBroadband} onChange={(val) => handleRadioChange('internetBroadband', val)} />
-      </div>
-    </div>
-  );
-
-  const renderAmenitiesSection = () => (
-    <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg p-3 border border-teal-200">
-      <h3 className="font-semibold text-teal-800 mb-2 flex items-center gap-1.5 text-sm"><Users className="w-3.5 h-3.5" /> Amenities</h3>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-        <YesNoRadioGroup label="Gated Community" name="gatedCommunity" value={filters.gatedCommunity} onChange={(val) => handleRadioChange('gatedCommunity', val)} />
-        <YesNoRadioGroup label="24/7 Security" name="security24x7" value={filters.security24x7} onChange={(val) => handleRadioChange('security24x7', val)} />
-        <YesNoRadioGroup label="CCTV Surveillance" name="cctvSurveillance" value={filters.cctvSurveillance} onChange={(val) => handleRadioChange('cctvSurveillance', val)} />
-        <YesNoRadioGroup label="Park / Garden Nearby" name="parkGardenNearby" value={filters.parkGardenNearby} onChange={(val) => handleRadioChange('parkGardenNearby', val)} />
-        <YesNoRadioGroup label="Children's Play Area" name="childrenPlayArea" value={filters.childrenPlayArea} onChange={(val) => handleRadioChange('childrenPlayArea', val)} />
-        <YesNoRadioGroup label="Visitor Parking" name="visitorParking" value={filters.visitorParking} onChange={(val) => handleRadioChange('visitorParking', val)} />
-        <YesNoRadioGroup label="Wide Internal Roads" name="wideInternalRoads" value={filters.wideInternalRoads} onChange={(val) => handleRadioChange('wideInternalRoads', val)} />
       </div>
     </div>
   );
 
   const renderLegalSection = () => (
     <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg p-3 border border-teal-200">
-      <h3 className="font-semibold text-teal-800 mb-2 flex items-center gap-1.5 text-sm"><Shield className="w-3.5 h-3.5" /> Approval & Legal Details</h3>
+      <h3 className="font-semibold text-teal-800 mb-2 flex items-center gap-1.5 text-sm"><Shield className="w-3.5 h-3.5" /> Legal & Approval</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-        <YesNoRadioGroup label="DTCP Approved" name="dtcpApproved" value={filters.dtcpApproved} onChange={(val) => handleRadioChange('dtcpApproved', val)} />
-        <YesNoRadioGroup label="CMDA Approved" name="cmdaApproved" value={filters.cmdaApproved} onChange={(val) => handleRadioChange('cmdaApproved', val)} />
-        <YesNoRadioGroup label="RERA Approved" name="reraApproved" value={filters.reraApproved} onChange={(val) => handleRadioChange('reraApproved', val)} />
-        <YesNoRadioGroup label="Patta Available" name="pattaAvailable" value={filters.pattaAvailable} onChange={(val) => handleRadioChange('pattaAvailable', val)} />
-        
-        {currentTab === 'Buy' ? (
+        {(currentTab === 'Rent' || currentTab === 'Lease') ? (
           <>
-            <YesNoRadioGroup label="Encumbrance Free Preferred" name="encumbranceFreePreferred" value={filters.encumbranceFreePreferred} onChange={(val) => handleRadioChange('encumbranceFreePreferred', val)} />
-            <YesNoRadioGroup label="Loan Eligible Plot Required" name="loanEligiblePlotRequired" value={filters.loanEligiblePlotRequired} onChange={(val) => handleRadioChange('loanEligiblePlotRequired', val)} />
-            <YesNoRadioGroup label="Title Deed Verified" name="titleDeedVerified" value={filters.titleDeedVerified} onChange={(val) => handleRadioChange('titleDeedVerified', val)} />
+            <YesNoRadioGroup label="DTCP Approved" name="dtcpApproved" value={filters.dtcpApproved} onChange={(val) => handleRadioChange('dtcpApproved', val)} />
+            <YesNoRadioGroup label="CMDA Approved" name="cmdaApproved" value={filters.cmdaApproved} onChange={(val) => handleRadioChange('cmdaApproved', val)} />
+            <YesNoRadioGroup label="RERA Approved" name="reraApproved" value={filters.reraApproved} onChange={(val) => handleRadioChange('reraApproved', val)} />
+            <YesNoRadioGroup label="Panchayat Approved" name="panchayatApproved" value={filters.panchayatApproved} onChange={(val) => handleRadioChange('panchayatApproved', val)} />
+            <YesNoRadioGroup label="Patta Available" name="pattaAvailable" value={filters.pattaAvailable} onChange={(val) => handleRadioChange('pattaAvailable', val)} />
+            <YesNoRadioGroup label="Encumbrance Free" name="encumbranceFree" value={filters.encumbranceFree} onChange={(val) => handleRadioChange('encumbranceFree', val)} />
+            {currentTab === 'Rent' && (
+              <YesNoRadioGroup label="Rental Agreement Ready" name="rentalAgreementReady" value={filters.rentalAgreementReady} onChange={(val) => handleRadioChange('rentalAgreementReady', val)} />
+            )}
+            {currentTab === 'Lease' && (
+              <YesNoRadioGroup label="Lease Agreement Ready" name="leaseAgreementReady" value={filters.leaseAgreementReady} onChange={(val) => handleRadioChange('leaseAgreementReady', val)} />
+            )}
           </>
         ) : currentTab === 'Sell' ? (
           <>
+            <YesNoRadioGroup label="DTCP Approved" name="dtcpApproved" value={filters.dtcpApproved} onChange={(val) => handleRadioChange('dtcpApproved', val)} />
+            <YesNoRadioGroup label="CMDA Approved" name="cmdaApproved" value={filters.cmdaApproved} onChange={(val) => handleRadioChange('cmdaApproved', val)} />
+            <YesNoRadioGroup label="RERA Approved" name="reraApproved" value={filters.reraApproved} onChange={(val) => handleRadioChange('reraApproved', val)} />
+            <YesNoRadioGroup label="Panchayat Approved" name="panchayatApproved" value={filters.panchayatApproved} onChange={(val) => handleRadioChange('panchayatApproved', val)} />
+            <YesNoRadioGroup label="Patta Available" name="pattaAvailable" value={filters.pattaAvailable} onChange={(val) => handleRadioChange('pattaAvailable', val)} />
             <YesNoRadioGroup label="Encumbrance Free" name="encumbranceFree" value={filters.encumbranceFree} onChange={(val) => handleRadioChange('encumbranceFree', val)} />
             <YesNoRadioGroup label="Loan Eligible" name="loanEligible" value={filters.loanEligible} onChange={(val) => handleRadioChange('loanEligible', val)} />
             <YesNoRadioGroup label="Title Deed Verified" name="titleDeedVerified" value={filters.titleDeedVerified} onChange={(val) => handleRadioChange('titleDeedVerified', val)} />
           </>
-        ) : currentTab === 'Rent' ? (
+        ) : currentTab === 'Buy' ? (
           <>
-            <YesNoRadioGroup label="Encumbrance Free" name="encumbranceFree" value={filters.encumbranceFree} onChange={(val) => handleRadioChange('encumbranceFree', val)} />
-            <YesNoRadioGroup label="Rental Agreement Ready" name="rentalAgreementReady" value={filters.rentalAgreementReady} onChange={(val) => handleRadioChange('rentalAgreementReady', val)} />
+            <YesNoRadioGroup label="DTCP Approved Only" name="dtcpApprovedOnly" value={filters.dtcpApprovedOnly} onChange={(val) => handleRadioChange('dtcpApprovedOnly', val)} />
+            <YesNoRadioGroup label="CMDA Approved Only" name="cmdaApprovedOnly" value={filters.cmdaApprovedOnly} onChange={(val) => handleRadioChange('cmdaApprovedOnly', val)} />
+            <YesNoRadioGroup label="RERA Approved Only" name="reraApprovedOnly" value={filters.reraApprovedOnly} onChange={(val) => handleRadioChange('reraApprovedOnly', val)} />
+            <YesNoRadioGroup label="Panchayat Approved" name="panchayatApproved" value={filters.panchayatApproved} onChange={(val) => handleRadioChange('panchayatApproved', val)} />
+            <YesNoRadioGroup label="Patta Required" name="pattaRequired" value={filters.pattaRequired} onChange={(val) => handleRadioChange('pattaRequired', val)} />
+            <YesNoRadioGroup label="Encumbrance Free Preferred" name="encumbranceFreePreferred" value={filters.encumbranceFreePreferred} onChange={(val) => handleRadioChange('encumbranceFreePreferred', val)} />
+            <YesNoRadioGroup label="Loan Eligible Required" name="loanEligiblePlotRequired" value={filters.loanEligiblePlotRequired} onChange={(val) => handleRadioChange('loanEligiblePlotRequired', val)} />
           </>
-        ) : (
-          <>
-            <YesNoRadioGroup label="Encumbrance Free" name="encumbranceFree" value={filters.encumbranceFree} onChange={(val) => handleRadioChange('encumbranceFree', val)} />
-            <YesNoRadioGroup label="Lease Agreement Ready" name="leaseAgreementReady" value={filters.leaseAgreementReady} onChange={(val) => handleRadioChange('leaseAgreementReady', val)} />
-          </>
-        )}
+        ) : null}
+      </div>
+    </div>
+  );
+
+  const renderUtilitiesSection = () => (
+    <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg p-3 border border-teal-200">
+      <h3 className="font-semibold text-teal-800 mb-2 flex items-center gap-1.5 text-sm"><Zap className="w-3.5 h-3.5" /> Utilities</h3>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+        <label className="flex items-center gap-1.5 cursor-pointer group">
+          <input type="checkbox" checked={filters.waterConnection} onChange={(e) => handleCheckboxChange('waterConnection', e.target.checked)} className="w-3.5 h-3.5 rounded border border-teal-400 checked:bg-teal-500 checked:border-teal-500 accent-teal-500" />
+          <span className="text-xs text-gray-700 group-hover:text-teal-500">Water</span>
+        </label>
+        <label className="flex items-center gap-1.5 cursor-pointer group">
+          <input type="checkbox" checked={filters.borewellAvailable} onChange={(e) => handleCheckboxChange('borewellAvailable', e.target.checked)} className="w-3.5 h-3.5 rounded border border-teal-400 checked:bg-teal-500 checked:border-teal-500 accent-teal-500" />
+          <span className="text-xs text-gray-700 group-hover:text-teal-500">Borewell</span>
+        </label>
+        <label className="flex items-center gap-1.5 cursor-pointer group">
+          <input type="checkbox" checked={filters.electricityConnection} onChange={(e) => handleCheckboxChange('electricityConnection', e.target.checked)} className="w-3.5 h-3.5 rounded border border-teal-400 checked:bg-teal-500 checked:border-teal-500 accent-teal-500" />
+          <span className="text-xs text-gray-700 group-hover:text-teal-500">Electricity</span>
+        </label>
+        <label className="flex items-center gap-1.5 cursor-pointer group">
+          <input type="checkbox" checked={filters.drainageConnection} onChange={(e) => handleCheckboxChange('drainageConnection', e.target.checked)} className="w-3.5 h-3.5 rounded border border-teal-400 checked:bg-teal-500 checked:border-teal-500 accent-teal-500" />
+          <span className="text-xs text-gray-700 group-hover:text-teal-500">Drainage</span>
+        </label>
+        <label className="flex items-center gap-1.5 cursor-pointer group">
+          <input type="checkbox" checked={filters.streetLights} onChange={(e) => handleCheckboxChange('streetLights', e.target.checked)} className="w-3.5 h-3.5 rounded border border-teal-400 checked:bg-teal-500 checked:border-teal-500 accent-teal-500" />
+          <span className="text-xs text-gray-700 group-hover:text-teal-500">Street Lights</span>
+        </label>
+        <label className="flex items-center gap-1.5 cursor-pointer group">
+          <input type="checkbox" checked={filters.securityAvailable} onChange={(e) => handleCheckboxChange('securityAvailable', e.target.checked)} className="w-3.5 h-3.5 rounded border border-teal-400 checked:bg-teal-500 checked:border-teal-500 accent-teal-500" />
+          <span className="text-xs text-gray-700 group-hover:text-teal-500">Security</span>
+        </label>
+      </div>
+      <div className="mt-2">
+        <YesNoRadioGroup label="Gated Community" name="gatedCommunity" value={filters.gatedCommunity} onChange={(val) => handleRadioChange('gatedCommunity', val)} />
       </div>
     </div>
   );
 
   const renderSuitableSection = () => {
-    const options = suitableForOptions[currentTab.toLowerCase()] || suitableForOptions.buy;
+    const options = (currentTab === 'Rent' || currentTab === 'Lease') ? suitableForOptions.rent : suitableForOptions.buy;
     return (
       <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg p-3 border border-teal-200">
         <h3 className="font-semibold text-teal-800 mb-2 flex items-center gap-1.5 text-sm"><Building className="w-3.5 h-3.5" /> Suitable For</h3>
@@ -835,7 +892,7 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
             {filters.immediateAvailability === 'No' && (
               <CustomDatePicker label="Available From" value={filters.availableFrom} onChange={(val) => handleInputChange('availableFrom', val)} />
             )}
-            <CustomSelect label="Minimum Rental Duration" options={rentalDurationOptions} value={filters.minRentalDuration} onChange={(val) => handleInputChange('minRentalDuration', val)} placeholder="Select Duration" />
+            <CustomSelect label="Min Rental Duration" options={rentalDurationOptions} value={filters.minRentalDuration} onChange={(val) => handleInputChange('minRentalDuration', val)} placeholder="Select" />
           </div>
         </div>
       );
@@ -870,7 +927,7 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
           <div className="space-y-2">
             <YesNoRadioGroup label="Ready to Register" name="readyToRegister" value={filters.readyToRegister} onChange={(val) => handleRadioChange('readyToRegister', val)} />
             <YesNoRadioGroup label="Immediate Possession" name="immediatePossession" value={filters.immediatePossession} onChange={(val) => handleRadioChange('immediatePossession', val)} />
-            <YesNoRadioGroup label="Under Development Acceptable" name="underDevelopmentAcceptable" value={filters.underDevelopmentAcceptable} onChange={(val) => handleRadioChange('underDevelopmentAcceptable', val)} />
+            <YesNoRadioGroup label="Under Development Acceptable" name="underDevelopmentLayout" value={filters.underDevelopmentLayout} onChange={(val) => handleRadioChange('underDevelopmentLayout', val)} />
           </div>
         </div>
       );
@@ -901,10 +958,6 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
             <input type="checkbox" checked={filters.contactBuilder} onChange={(e) => handleCheckboxChange('contactBuilder', e.target.checked)} className="w-3.5 h-3.5 rounded border border-teal-400 checked:bg-teal-500 checked:border-teal-500 accent-teal-500" />
             <span className="text-xs text-gray-700 font-medium group-hover:text-teal-500">Builder</span>
           </label>
-          <label className="flex items-center gap-1.5 cursor-pointer group">
-            <input type="checkbox" checked={filters.contactDeveloper} onChange={(e) => handleCheckboxChange('contactDeveloper', e.target.checked)} className="w-3.5 h-3.5 rounded border border-teal-400 checked:bg-teal-500 checked:border-teal-500 accent-teal-500" />
-            <span className="text-xs text-gray-700 font-medium group-hover:text-teal-500">Developer</span>
-          </label>
         </div>
         <CustomSelect label="Preferred Contact Time" options={contactTimeOptions} value={filters.preferredContactTime} onChange={(val) => handleInputChange('preferredContactTime', val)} placeholder="Select Time" />
       </div>
@@ -912,80 +965,84 @@ const RowHousePlotFilter = ({ activeTab = 'Buy', onFilterChange, onClose, onTabC
   );
 
   const animationStyle = `
-    @keyframes slowRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+  @keyframes slowRotate {
+    from {
+      transform: rotate(0deg);
     }
-    .slow-rotate {
-      animation: slowRotate 4s linear infinite;
+    to {
+      transform: rotate(360deg);
     }
-  `;
+  }
+  .slow-rotate {
+    animation: slowRotate 4s linear infinite;
+  }
+`;
 
   return (
     <>
-      <style>{animationStyle}</style>
-      <div className="bg-white rounded-xl shadow-xl border border-teal-100 overflow-hidden flex flex-col" style={{ maxHeight: '85vh', width: '100%', maxWidth: '900px' }}>
-        <div className="sticky top-0 z-10 bg-white border-b border-teal-100">
-          <div className="flex justify-between items-center px-3 py-2 bg-gradient-to-r from-teal-600 to-emerald-700">
-            <div className="flex items-center gap-2">
-              <div className="p-0.5 bg-white/20 rounded">
-                <RowHouseIcon className="w-4 h-4 text-white slow-rotate" />
-              </div>
-              <h3 className="text-white font-semibold text-lg">Filter Row House Plot</h3>
+    <style>{animationStyle}</style>
+    <div className="bg-white rounded-xl shadow-xl border border-teal-100 overflow-hidden flex flex-col" style={{ maxHeight: '85vh', width: '100%', maxWidth: '900px' }}>
+      <div className="sticky top-0 z-10 bg-white border-b border-teal-100">
+        <div className="flex justify-between items-center px-3 py-2 bg-gradient-to-r from-teal-600 to-emerald-700">
+          <div className="flex items-center gap-2">
+            <div className="p-0.5 bg-white/20 rounded">
+              <SquareIcon className="w-4 h-4 text-white slow-rotate" />
             </div>
-            {onClose && (
-              <button onClick={onClose} className="text-white/80 hover:text-white transition-all p-0.5" type="button">
-                <X className="w-4 h-4" />
-              </button>
-            )}
+            <h3 className="text-white font-semibold text-lg">Filter Common Plot</h3>
           </div>
-          
-          <div className="flex border-b border-teal-100 bg-teal-50/50">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => handleTabClick(tab.id)}
-                type="button"
-                className={`flex-1 py-2 text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer ${
-                  currentTab === tab.id ? 'text-teal-600 border-b-2 border-teal-500 bg-white shadow-sm' : 'text-teal-500 hover:text-teal-600 hover:bg-teal-50'
-                }`}
-              >
-                {tab.icon}
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex-1 overflow-y-auto">
-          <SectionNav />
-          <div className="p-3 space-y-3">
-            {activeMainSection === 'basic' && renderBasicSection()}
-            {activeMainSection === 'price' && renderPriceSection()}
-            {activeMainSection === 'plot' && renderPlotSection()}
-            {activeMainSection === 'utilities' && renderUtilitiesSection()}
-            {activeMainSection === 'amenities' && renderAmenitiesSection()}
-            {activeMainSection === 'legal' && renderLegalSection()}
-            {activeMainSection === 'suitable' && renderSuitableSection()}
-            {activeMainSection === 'availability' && renderAvailabilitySection()}
-            {activeMainSection === 'nearby' && renderNearbySection()}
-            {activeMainSection === 'contact' && renderContactSection()}
-          </div>
-        </div>
-
-        <div className="sticky bottom-0 p-2 border-t border-teal-100 bg-gradient-to-r from-teal-50 to-emerald-50">
-          <div className="flex gap-2">
-            <button onClick={clearAllFilters} className="flex-1 px-3 py-1.5 rounded-lg border border-teal-400 text-teal-600 font-semibold text-xs hover:bg-teal-200 transition-all flex items-center justify-center gap-1.5" type="button">
-              <RefreshCw className="w-3 h-3" /> Reset
+          {onClose && (
+            <button onClick={onClose} className="text-white/80 hover:text-white transition-all p-0.5" type="button">
+              <X className="w-4 h-4" />
             </button>
-            <button onClick={applyFilters} className="flex-1 px-3 py-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-700 text-white font-semibold text-xs hover:shadow-md transition-all flex items-center justify-center gap-1.5" type="button">
-              <CheckCircle className="w-3 h-3" /> Apply
+          )}
+        </div>
+        
+        <div className="flex border-b border-teal-100 bg-teal-50/50">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => handleTabClick(tab.id)}
+              type="button"
+              className={`flex-1 py-2 text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer ${
+                currentTab === tab.id ? 'text-teal-600 border-b-2 border-teal-500 bg-white shadow-sm' : 'text-teal-500 hover:text-teal-600 hover:bg-teal-50'
+              }`}
+            >
+              {tab.icon}
+              {tab.label}
             </button>
-          </div>
+          ))}
         </div>
       </div>
-    </>
+
+      <div className="flex-1 overflow-y-auto">
+        <SectionNav />
+        <div className="p-3 space-y-3">
+          {activeMainSection === 'basic' && renderBasicSection()}
+          {activeMainSection === 'price' && renderPriceSection()}
+          {activeMainSection === 'common' && renderCommonPlotSection()}
+          {activeMainSection === 'plot' && renderPlotSection()}
+          {activeMainSection === 'legal' && renderLegalSection()}
+          {activeMainSection === 'utilities' && renderUtilitiesSection()}
+          {activeMainSection === 'suitable' && renderSuitableSection()}
+          {activeMainSection === 'availability' && renderAvailabilitySection()}
+          {activeMainSection === 'nearby' && renderNearbySection()}
+          {activeMainSection === 'contact' && renderContactSection()}
+        </div>
+      </div>
+
+      <div className="sticky bottom-0 p-2 border-t border-teal-100 bg-gradient-to-r from-teal-50 to-emerald-50">
+        <div className="flex gap-2">
+          <button onClick={clearAllFilters} className="flex-1 px-3 py-1.5 rounded-lg border border-teal-400 text-teal-600 font-semibold text-xs hover:bg-teal-200 transition-all flex items-center justify-center gap-1.5" type="button">
+            <RefreshCw className="w-3 h-3" /> Reset
+          </button>
+          <button onClick={applyFilters} className="flex-1 px-3 py-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-700 text-white font-semibold text-xs hover:shadow-md transition-all flex items-center justify-center gap-1.5" type="button">
+            <CheckCircle className="w-3 h-3" /> Apply
+          </button>
+        </div>
+      </div>
+    </div>
+   </> 
   );
 };
 
-export default RowHousePlotFilter;
+export default CommonPlotFilter;

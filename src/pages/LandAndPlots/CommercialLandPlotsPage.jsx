@@ -3,11 +3,11 @@ import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark,
 import { useNavigate, useLocation } from "react-router-dom";
 import backgroundImage from "../../assets/landandplots/mainbg.png";
 
-const ResidentialLandPlotsPage = () => {
+const CommercialLandPlotsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeButton, setActiveButton] = useState("Buy");
-  const [activeLandType, setActiveLandType] = useState("Residential Land / Plots");
+  const [activeLandType, setActiveLandType] = useState("Commercial Land / Plots");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -131,27 +131,17 @@ const ResidentialLandPlotsPage = () => {
     }
   ];
 
-  // Flatten all land types for navigation
+  // Flatten all land types for navigation with CORRECTED commercial paths
   const landTypes = [
     { name: "All", path: "/land-plots", parent: null },
-    { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots", parent: null },
     { name: "Commercial Land / Plots", path: "/land-plots/commercial-land-plots", parent: null },
+    { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots", parent: null },
     { name: "Agricultural Land", path: "/land-plots/agricultural-land-plots", parent: null },
     { name: "Industrial Land", path: "/land-plots/industrial-land-plots", parent: null },
     { name: "Mixed-Use Land", path: "/land-plots/mixed-use-land-plots", parent: null },
     { name: "Institutional Land", path: "/land-plots/institutional-land-plots", parent: null },
     { name: "Investment & Special Purpose Land", path: "/land-plots/investment-land-plots", parent: null },
-    // Residential submenus
-    { name: "Residential Plot", path: "/land-plots/residential-land-plots/residential-plot", parent: "Residential Land / Plots" },
-    { name: "DTCP & CMDA Approved Plot", path: "/land-plots/residential-land-plots/dtcp-cmda-approved-plot", parent: "Residential Land / Plots" },
-    { name: "Gated Community Plot", path: "/land-plots/residential-land-plots/gated-community-plot", parent: "Residential Land / Plots" },
-    { name: "Villa Plot", path: "/land-plots/residential-land-plots/villa-plot", parent: "Residential Land / Plots" },
-    { name: "Farm House Plot", path: "/land-plots/residential-land-plots/farm-house-plot", parent: "Residential Land / Plots" },
-    { name: "Common Plot", path: "/land-plots/residential-land-plots/common-plot", parent: "Residential Land / Plots" },
-    { name: "Independent House Plot", path: "/land-plots/independent-house-plot", parent: "Residential Land / Plots" },
-    { name: "Duplex House Plot", path: "/land-plots/duplex-house-plot", parent: "Residential Land / Plots" },
-    { name: "Row House Plot", path: "/land-plots/residential-land-plots/row-house-plot", parent: "Residential Land / Plots" },
-    // Commercial submenus
+    // Commercial submenus with correct paths
     { name: "Commercial Plot", path: "/land-plots/commercial-land-plots/commercial-plot", parent: "Commercial Land / Plots" },
     { name: "Office Space Land", path: "/land-plots/commercial-land-plots/office-space-land", parent: "Commercial Land / Plots" },
     { name: "Retail Shop Plot", path: "/land-plots/commercial-land-plots/retail-shop-plot", parent: "Commercial Land / Plots" },
@@ -162,6 +152,16 @@ const ResidentialLandPlotsPage = () => {
     { name: "IT Park Land", path: "/land-plots/commercial-land-plots/it-park-land", parent: "Commercial Land / Plots" },
     { name: "Warehouse Land", path: "/land-plots/commercial-land-plots/warehouse-land", parent: "Commercial Land / Plots" },
     { name: "Industrial Commercial Plot", path: "/land-plots/commercial-land-plots/industrial-commercial-plot", parent: "Commercial Land / Plots" },
+    // Residential submenus
+    { name: "Residential Plot", path: "/land-plots/residential-land-plots/residential-plot", parent: "Residential Land / Plots" },
+    { name: "DTCP & CMDA Approved Plot", path: "/land-plots/residential-land-plots/dtcp-cmda-approved-plot", parent: "Residential Land / Plots" },
+    { name: "Gated Community Plot", path: "/land-plots/residential-land-plots/gated-community-plot", parent: "Residential Land / Plots" },
+    { name: "Villa Plot", path: "/land-plots/residential-land-plots/villa-plot", parent: "Residential Land / Plots" },
+    { name: "Farm House Plot", path: "/land-plots/residential-land-plots/farm-house-plot", parent: "Residential Land / Plots" },
+    { name: "Common Plot", path: "/land-plots/residential-land-plots/common-plot", parent: "Residential Land / Plots" },
+    { name: "Independent House Plot", path: "/land-plots/independent-house-plot", parent: "Residential Land / Plots" },
+    { name: "Duplex House Plot", path: "/land-plots/duplex-house-plot", parent: "Residential Land / Plots" },
+    { name: "Row House Plot", path: "/land-plots/residential-land-plots/row-house-plot", parent: "Residential Land / Plots" },
     // Agricultural submenus
     { name: "Agricultural Land", path: "/land-plots/agricultural-land", parent: "Agricultural Land" },
     { name: "Farm Land", path: "/land-plots/farm-land", parent: "Agricultural Land" },
@@ -206,8 +206,8 @@ const ResidentialLandPlotsPage = () => {
     
     // First check for main category pages
     const mainCategoryPaths = [
-      { path: "/land-plots/residential-land-plots", name: "Residential Land / Plots" },
       { path: "/land-plots/commercial-land-plots", name: "Commercial Land / Plots" },
+      { path: "/land-plots/residential-land-plots", name: "Residential Land / Plots" },
       { path: "/land-plots/agricultural-land-plots", name: "Agricultural Land" },
       { path: "/land-plots/industrial-land-plots", name: "Industrial Land" },
       { path: "/land-plots/mixed-use-land-plots", name: "Mixed-Use Land" },
@@ -232,7 +232,7 @@ const ResidentialLandPlotsPage = () => {
     if (activeType) {
       setActiveLandType(activeType.name);
     } else {
-      setActiveLandType("Residential Land / Plots");
+      setActiveLandType("Commercial Land / Plots");
     }
   }, [location.pathname]);
 
@@ -324,14 +324,14 @@ const ResidentialLandPlotsPage = () => {
             <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
               <Star className="w-4 h-4 text-teal-300 animate-spin-slow" fill="currentColor" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300 text-sm font-medium">
-                Residential Land & Plots
+                Commercial Land & Plots
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
-              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Residential Land</span>
+              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Commercial Land</span>
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed ">
-              Discover premium residential plots and lands for your dream home
+              Discover premium commercial plots and lands for your business growth
             </p>
             <div className="flex flex-wrap justify-center gap-4 px-4 animate-fade-in-up delay-200">
               {propertyCategories.map((category, index) => (
@@ -592,17 +592,17 @@ const ResidentialLandPlotsPage = () => {
                   >
                     <div className="absolute inset-0 animate-gradient-shift-slow rounded-3xl"></div>
                     <div className="absolute -inset-4 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-3xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-700"></div>
-                    <Building className="w-12 h-12 text-white group-hover:rotate-12 transition-transform duration-700 relative z-10" />
+                    <Building2 className="w-12 h-12 text-white group-hover:rotate-12 transition-transform duration-700 relative z-10" />
                   </div>
                   
                   <h2 className="text-3xl md:text-4xl font-bold text-teal-900 mb-4 group-hover:text-teal-950 transition-colors duration-300">
-                    {activeLandType === "All" ? "Premium Residential Land & Plots" : `${activeLandType} Properties`}
+                    {activeLandType === "All" ? "Premium Commercial Land & Plots" : `${activeLandType} Properties`}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 animate-gradient-text-slow"> Coming Soon</span>
                   </h2>
                   
                   <p className="text-teal-800 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed group-hover:text-teal-900 transition-colors duration-300 backdrop-blur-sm bg-teal-100/30 rounded-2xl p-6 border border-teal-200/20">
                     {activeLandType === "All" 
-                      ? "We're currently adding verified residential land and plot listings across all categories."
+                      ? "We're currently adding verified commercial land and plot listings across all categories."
                       : `We're currently adding exclusive ${activeLandType.toLowerCase()} listings to our database.`}
                     <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 font-semibold text-xl">
                       Check back soon for amazing deals!
@@ -633,17 +633,17 @@ const ResidentialLandPlotsPage = () => {
                 <div className="max-w-2xl mx-auto">
                   <div className="w-20 h-20 rounded-3xl bg-gradient-to-r from-teal-500/10 to-emerald-500/10 mx-auto mb-6 flex items-center justify-center relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-3xl animate-pulse-slow"></div>
-                    <Building className="w-10 h-10 text-teal-600 animate-bounce-slow relative z-10" />
+                    <Building2 className="w-10 h-10 text-teal-600 animate-bounce-slow relative z-10" />
                   </div>
                   
                   <h3 className="text-2xl font-bold text-teal-900 mb-4">
-                    No {activeLandType !== "All" ? `${activeLandType} ` : ""}Residential Land & Plots Found
+                    No {activeLandType !== "All" ? `${activeLandType} ` : ""}Commercial Land & Plots Found
                   </h3>
                   
                   <p className="text-teal-800 mb-6 backdrop-blur-sm bg-teal-100/30 rounded-xl p-4 border border-teal-200/20">
                     {activeLandType !== "All"
                       ? `We don't have any ${activeLandType.toLowerCase()} listings available at the moment.`
-                      : "Hover over any category above and select a subcategory to find residential land and plots."}
+                      : "Hover over any category above and select a subcategory to find commercial land and plots."}
                   </p>
                   
                   <div className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-100">
@@ -657,7 +657,7 @@ const ResidentialLandPlotsPage = () => {
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 font-medium">
                       {activeLandType !== "All" 
                         ? `Check back later for ${activeLandType.toLowerCase()} listings` 
-                        : "Hover over a category above to explore available residential land types"}
+                        : "Hover over a category above to explore available commercial land types"}
                     </span>
                   </div>
                 </div>
@@ -738,11 +738,11 @@ const ResidentialLandPlotsPage = () => {
                     <label className="text-sm font-semibold text-teal-800 mb-3 block flex items-center gap-2">
                       <span className="text-xl animate-bounce-slow">📍</span>
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
-                        Features
+                        Commercial Features
                       </span>
                     </label>
                     <div className="grid grid-cols-2 gap-2">
-                      {["commercial Plot", "Road Access", "Water Connection", "Electricity", "Level Ground", "Clear Title", "Approved Layout", "Gated Community", "Highway Facing", "Lake View", "Hill View", "Beach Side"].map((feature) => (
+                      {["High Footfall Area", "Main Road Facing", "Commercial Zone", "Parking Available", "Signage Allowed", "Near Metro/Station", "Business Hub", "Retail Corridor", "Warehouse Access", "Loading Dock", "Bank/ATM Nearby", "Public Transport"].map((feature) => (
                         <label key={feature} className="flex items-center gap-3 p-2 rounded-lg border border-teal-200/50 hover:border-teal-300 cursor-pointer transition-all duration-300 hover:bg-teal-50/50">
                           <input type="checkbox" className="w-3.5 h-3.5 rounded border-teal-300 text-teal-600 focus:ring-teal-500/30" />
                           <span className="text-xs text-teal-700">{feature}</span>
@@ -942,4 +942,4 @@ const ResidentialLandPlotsPage = () => {
   );
 };
 
-export default ResidentialLandPlotsPage;
+export default CommercialLandPlotsPage;
