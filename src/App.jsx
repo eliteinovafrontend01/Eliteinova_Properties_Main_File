@@ -83,6 +83,18 @@ import PetrolBunkPlotPage from './pages/LandAndPlots/PetrolBunkPlotPage';
 import ITParkLandPage from './pages/LandAndPlots/ITParkLandPage';
 import WarehouseLandPage from './pages/LandAndPlots/WarehouseLandPage';
 import IndustrialCommercialPlotPage from './pages/LandAndPlots/IndustrialCommercialPlotPage';
+
+import AgriculturalLandPlotsPage from './pages/LandAndPlots/AgriculturalLandPlotsPage';
+import AgriculturalLandPage from './pages/LandAndPlots/AgriculturalLandPage';
+import FarmLandPage from './pages/LandAndPlots/FarmLandPage';
+import OrganicFarmingLandPage from './pages/LandAndPlots/OrganicFarmingLandPage';
+import CoconutFarmLandPage from './pages/LandAndPlots/CoconutFarmLandPage';
+import MangoGroveLandPage from './pages/LandAndPlots/MangoGroveLandPage';
+import TeaCoffeeLandPage from './pages/LandAndPlots/TeaCoffeeLandPage';
+import DairyFarmLandPage from './pages/LandAndPlots/DairyFarmLandPage';
+import FisheriesAquacultureLandPage from './pages/LandAndPlots/FisheriesAquacultureLandPage';
+import PoultryFarmLandPage from './pages/LandAndPlots/PoultryFarmLandPage';
+
 // Import all form modals
 import OwnerFormModal from "./components/Forms/OwnerFormModal";
 import AgentFormModal from "./components/Forms/AgentFormModal";
@@ -241,6 +253,18 @@ function AppLayout() {
           <Route path="/land-plots/commercial-land-plots/it-park-land" element={<ITParkLandPage/>} />
           <Route path="/land-plots/commercial-land-plots/warehouse-land" element={<WarehouseLandPage/>} />
           <Route path="/land-plots/commercial-land-plots/industrial-commercial-plot" element={<IndustrialCommercialPlotPage/>} />
+
+         <Route path="/land-plots/agricultural-land-plots" element={<AgriculturalLandPlotsPage/>} />
+        <Route path="/land-plots/agricultural-land-plots/agricultural-land" element={<AgriculturalLandPage/>} />
+        <Route path="/land-plots/agricultural-land-plots/farm-land" element={<AgriculturalLandPage/>} />
+        <Route path="/land-plots/agricultural-land-plots/organic-farming-land" element={<AgriculturalLandPage/>} />
+        <Route path="/land-plots/agricultural-land-plots/coconut-farm-land" element={<AgriculturalLandPage/>} />
+        <Route path="/land-plots/agricultural-land-plots/mango-grove-land" element={<AgriculturalLandPage/>} />
+        <Route path="/land-plots/agricultural-land-plots/tea-coffee-estate" element={<AgriculturalLandPage/>} />
+        <Route path="/land-plots/agricultural-land-plots/poultry-farm-land" element={<AgriculturalLandPage/>} />
+        <Route path="/land-plots/agricultural-land-plots/dairy-farm-land" element={<AgriculturalLandPage/>} />
+        <Route path="/land-plots/agricultural-land-plots/fisheries-aquaculture-land" element={<AgriculturalLandPage/>} />
+          
 
           <Route 
             path="/post-property" 

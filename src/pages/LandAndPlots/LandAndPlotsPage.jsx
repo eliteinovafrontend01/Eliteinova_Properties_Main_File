@@ -137,7 +137,7 @@ const LandAndPlotsPage = () => {
     // Main category pages
     { name: "Residential Land / Plots", path: "/land-plots/residential-land-plots", parent: null },
     { name: "Commercial Land / Plots", path: "/land-plots/commercial-land-plots", parent: null },
-    { name: "Agricultural Land", path: "/land-plots/agricultural-land-plots", parent: null },
+    { name: "Agricultural Land / Plots", path: "/land-plots/agricultural-land-plots", parent: null },
     { name: "Industrial Land", path: "/land-plots/industrial-land-plots", parent: null },
     { name: "Mixed-Use Land", path: "/land-plots/mixed-use-land-plots", parent: null },
     { name: "Institutional Land", path: "/land-plots/institutional-land-plots", parent: null },
@@ -164,15 +164,15 @@ const LandAndPlotsPage = () => {
     { name: "Warehouse Land", path: "/land-plots/commercial-land-plots/warehouse-land", parent: "Commercial Land / Plots" },
     { name: "Industrial Commercial Plot", path: "/land-plots/commercial-land-plots/industrial-commercial-plot", parent: "Commercial Land / Plots" },
     // Agricultural submenus
-    { name: "Agricultural Land", path: "/land-plots/agricultural-land", parent: "Agricultural Land" },
-    { name: "Farm Land", path: "/land-plots/farm-land", parent: "Agricultural Land" },
-    { name: "Organic Farming Land", path: "/land-plots/organic-farming-land", parent: "Agricultural Land" },
-    { name: "Coconut Farm Land", path: "/land-plots/coconut-farm-land", parent: "Agricultural Land" },
-    { name: "Mango Grove Land", path: "/land-plots/mango-grove-land", parent: "Agricultural Land" },
-    { name: "Tea / Coffee Estate", path: "/land-plots/tea-coffee-estate", parent: "Agricultural Land" },
-    { name: "Poultry Farm Land", path: "/land-plots/poultry-farm-land", parent: "Agricultural Land" },
-    { name: "Dairy Farm Land", path: "/land-plots/dairy-farm-land", parent: "Agricultural Land" },
-    { name: "Fisheries / Aquaculture Land", path: "/land-plots/fisheries-aquaculture-land", parent: "Agricultural Land" },
+    { name: "Agricultural Land", path: "/land-plots/agricultural-land-plots/agricultural-land", parent: "Agricultural Land" },
+    { name: "Farm Land", path: "/land-plots/agricultural-land-plots/farm-land", parent: "Agricultural Land" },
+    { name: "Organic Farming Land", path: "/land-plots/agricultural-land-plots/organic-farming-land", parent: "Agricultural Land" },
+    { name: "Coconut Farm Land", path: "/land-plots/agricultural-land-plots/coconut-farm-land", parent: "Agricultural Land" },
+    { name: "Mango Grove Land", path: "/land-plots/agricultural-land-plots/mango-grove-land", parent: "Agricultural Land" },
+    { name: "Tea / Coffee Estate", path: "/land-plots/agricultural-land-plots/tea-coffee-estate", parent: "Agricultural Land" },
+    { name: "Poultry Farm Land", path: "/land-plots/agricultural-land-plots/poultry-farm-land", parent: "Agricultural Land" },
+    { name: "Dairy Farm Land", path: "/land-plots/agricultural-land-plots/dairy-farm-land", parent: "Agricultural Land" },
+    { name: "Fisheries / Aquaculture Land", path: "/land-plots/agricultural-land-plots/fisheries-aquaculture-land", parent: "Agricultural Land" },
     // Industrial submenus
     { name: "Industrial Plot", path: "/land-plots/industrial-plot", parent: "Industrial Land" },
     { name: "Factory Land", path: "/land-plots/factory-land", parent: "Industrial Land" },
@@ -209,7 +209,7 @@ const LandAndPlotsPage = () => {
     const mainCategoryPaths = [
       { path: "/land-plots/residential-land-plots", name: "Residential Land / Plots" },
       { path: "/land-plots/commercial-land-plots", name: "Commercial Land / Plots" },
-      { path: "/land-plots/agricultural-land-plots", name: "Agricultural Land" },
+      { path: "/land-plots/agricultural-land-plots", name: "Agricultural Land / Plots" },
       { path: "/land-plots/industrial-land-plots", name: "Industrial Land" },
       { path: "/land-plots/mixed-use-land-plots", name: "Mixed-Use Land" },
       { path: "/land-plots/institutional-land-plots", name: "Institutional Land" },
@@ -420,7 +420,16 @@ const LandAndPlotsPage = () => {
               {/* Main Categories with Hover Dropdown */}
               <div className="flex flex-wrap gap-2">
                 {landCategories.map((category) => {
-                  const isActive = activeLandType === category.name;
+                  const mainCategoryActiveMap = {
+  "Residential Land / Plots": "Residential Land / Plots",
+  "Commercial Land / Plots": "Commercial Land / Plots",
+  "Agricultural Land": "Agricultural Land / Plots",
+  "Industrial Land": "Industrial Land / Plots",
+  "Mixed-Use Land": "Mixed-Use Land / Plots",
+  "Institutional Land": "Institutional Land / Plots",
+  "Investment & Special Purpose Land": "Investment & Special Purpose Land / Plots",
+};
+const isActive = activeLandType === (mainCategoryActiveMap[category.name] || category.name);
                   
                   return (
                     <div
@@ -504,7 +513,16 @@ const LandAndPlotsPage = () => {
             <div className="md:hidden space-y-4">
               <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
                 {landCategories.map((category) => {
-                  const isActive = activeLandType === category.name;
+                  const mainCategoryActiveMap = {
+  "Residential Land / Plots": "Residential Land / Plots",
+  "Commercial Land / Plots": "Commercial Land / Plots",
+  "Agricultural Land": "Agricultural Land / Plots",
+  "Industrial Land": "Industrial Land / Plots",
+  "Mixed-Use Land": "Mixed-Use Land / Plots",
+  "Institutional Land": "Institutional Land / Plots",
+  "Investment & Special Purpose Land": "Investment & Special Purpose Land / Plots",
+};
+const isActive = activeLandType === (mainCategoryActiveMap[category.name] || category.name);
                   return (
                     <button
                       key={category.name}
