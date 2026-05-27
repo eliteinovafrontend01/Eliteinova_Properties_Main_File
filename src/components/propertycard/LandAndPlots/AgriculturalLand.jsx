@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { AgriculturalLandData } from "../../data/LandAndPlots/AgriculturalLandData";
 
-const PAGE_NAME = "AgriculturalLand";
+const PAGE_NAME = "Agricultural Land";
 
 // Helper: split price into amount + unit
 const splitPrice = (price) => {

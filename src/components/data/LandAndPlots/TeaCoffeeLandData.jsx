@@ -54,7 +54,7 @@ import villa10_1 from "../../../assets/Villa/villa10_1.png";
 import villa10_2 from "../../../assets/Villa/villa10_2.png";
 import villa10_3 from "../../../assets/Villa/villa10_3.png";
 
-export const TeaCoffeeEstateData = [
+export const TeaCoffeeLandData = [
   // BUY - Luxury Villa (Posted by OWNER)
   {
     id: 1,

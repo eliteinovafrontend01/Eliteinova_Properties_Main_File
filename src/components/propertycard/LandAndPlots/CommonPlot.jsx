@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { CommonPlotData } from "../../data/LandAndPlots/CommonPlotData";
 
-const PAGE_NAME = "CommonPlot";
+const PAGE_NAME = "Common Plot";
 
 // Helper: split price into amount + unit
 const splitPrice = (price) => {

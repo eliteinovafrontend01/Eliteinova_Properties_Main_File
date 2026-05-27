@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { DairyFarmLandData } from "../../data/LandAndPlots/DairyFarmLandData";
 
-const PAGE_NAME = "DairyFarmLand";
+const PAGE_NAME = "DairyFarm Land";
 
+// Helper: split price into amount + unit
 const splitPrice = (price) => {
   if (!price) return { num: '', unit: '' };
   const match = price.match(/^(\s*₹[\d.,]+)(.*)$/);
@@ -11,12 +12,14 @@ const splitPrice = (price) => {
   return { num: match[1].trim(), unit: match[2].trim() };
 };
 
+// Helper: extract BHK from highlights
 const extractBHK = (highlights) => {
   if (!highlights) return '';
   const match = highlights.match(/(\d+\s*\+?\s*BHK)/i);
   return match ? match[1].trim() : '';
 };
 
+// Helper: format price with crores/lakhs - preserves month units
 const formatPriceAmount = (priceNum, originalUnit) => {
   if (!priceNum) return { amount: priceNum, unit: '' };
   const hasMonth = originalUnit && originalUnit.toLowerCase().includes('month');
@@ -132,11 +135,13 @@ const PropertyCard = ({ property, onContactClick }) => {
         <div className="p-4 md:p-5">
           <div className="flex flex-col lg:flex-row gap-5 items-stretch">
 
+            {/* IMAGE SECTION */}
             <div className="w-full lg:w-[35%] xl:w-[32%]" style={{ position: 'relative', minHeight: '260px' }}>
               <div
                 className="flex flex-row bg-gray-100 rounded-xl overflow-hidden shadow-lg"
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
               >
+                {/* Main Image */}
                 <div
                   className="relative cursor-pointer overflow-hidden flex-1"
                   onDoubleClick={(e) => handleImageDoubleClick(activeImg, e)}
@@ -155,6 +160,7 @@ const PropertyCard = ({ property, onContactClick }) => {
                   </div>
                 </div>
 
+                {/* Thumbnails */}
                 <div
                   className="overflow-y-auto bg-white flex flex-col gap-1 p-1"
                   style={{ width: imageCount <= 2 ? '70px' : imageCount <= 3 ? '75px' : imageCount <= 4 ? '80px' : '85px' }}
@@ -184,7 +190,10 @@ const PropertyCard = ({ property, onContactClick }) => {
               </div>
             </div>
 
+            {/* CONTENT SECTION */}
             <div className="flex-1 flex flex-col gap-2">
+
+              {/* PRICE AND HEADER */}
               <div className="flex flex-wrap justify-between items-start gap-2">
                 <div className="flex-1">
                   <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
@@ -245,6 +254,7 @@ const PropertyCard = ({ property, onContactClick }) => {
                 </div>
               </div>
 
+              {/* LOCATION */}
               <div
                 className="flex items-start gap-2 cursor-pointer group"
                 onClick={() => openInMaps(property.location)}
@@ -261,6 +271,7 @@ const PropertyCard = ({ property, onContactClick }) => {
                 </p>
               </div>
 
+              {/* HIGHLIGHTS */}
               <div>
                 <p className="font-black text-[#004D40] uppercase tracking-wider mb-1.5 flex items-center gap-3 text-[10px] md:text-[11px]">
                   <span className="w-5 h-px bg-[#004D40]"></span>
@@ -276,9 +287,12 @@ const PropertyCard = ({ property, onContactClick }) => {
                 </div>
               </div>
 
+              {/* POSTED BY SECTION */}
               <div className="pt-2 border-t border-gray-100">
                 <div className="flex flex-wrap items-center justify-between gap-2">
+
                   <div className="flex items-center gap-3 flex-1 min-w-[180px]">
+                    {/* LOGO — click to open Google Maps */}
                     <div
                       className="rounded-xl bg-gradient-to-br from-[#00695C] to-[#26A69A] flex items-center justify-center text-white font-black shadow-lg overflow-hidden shrink-0 w-10 h-10 md:w-12 md:h-12 text-base md:text-lg cursor-pointer hover:scale-110 hover:shadow-xl transition-all duration-200"
                       onClick={() => openInMaps(property.location)}
@@ -327,11 +341,13 @@ const PropertyCard = ({ property, onContactClick }) => {
                   </button>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
 
+      {/* MAP CONFIRM MODAL */}
       {mapConfirm.show && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[300] flex items-center justify-center p-4 animate-fadeIn"
@@ -371,6 +387,7 @@ const PropertyCard = ({ property, onContactClick }) => {
         </div>
       )}
 
+      {/* AGENT DETAILS MODAL */}
       {showAgentModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-start justify-center p-4 pt-16 md:pt-20 animate-fadeIn" onClick={() => setShowAgentModal(false)}>
           <div className="bg-white rounded-2xl max-w-[95%] sm:max-w-lg md:max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl animate-scale-in mt-16 md:mt-20" onClick={(e) => e.stopPropagation()}>
@@ -524,6 +541,7 @@ const PropertyCard = ({ property, onContactClick }) => {
         </div>
       )}
 
+      {/* FULL GALLERY MODAL */}
       {showFullGallery && (
         <div className="fixed inset-0 bg-black/95 z-[150] flex flex-col animate-fadeIn" onClick={() => setShowFullGallery(false)}>
           <div className="bg-gradient-to-r from-[#00695C] to-[#26A69A] p-3 md:p-4 flex justify-between items-center px-4 md:px-6">
@@ -556,6 +574,7 @@ const PropertyCard = ({ property, onContactClick }) => {
         </div>
       )}
 
+      {/* SINGLE CLICK MODAL */}
       {showImageModal && (
         <div className="fixed inset-0 bg-black/95 z-[100] flex flex-col animate-fadeIn" onClick={() => setShowImageModal(false)}>
           <div className="bg-gradient-to-r from-[#00695C] to-[#26A69A] p-3 md:p-5 flex justify-between items-center px-4 md:px-8">
@@ -618,13 +637,14 @@ const DairyFarmLand = () => {
               <div className="w-full bg-white rounded-2xl shadow-2xl border border-teal-100 p-8 text-center">
                 <div className="text-5xl mb-3">🔍</div>
                 <h3 className="text-lg font-bold text-slate-800 mb-1">No Properties Found</h3>
-                <p className="text-xs text-slate-500">No Dairy Farm Land properties available at the moment.</p>
+                <p className="text-xs text-slate-500">No DairyFarmLand apartments available at the moment.</p>
               </div>
             )}
           </div>
         </div>
       </div>
 
+      {/* LOGIN MODAL */}
       {showLoginModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center animate-fadeIn">
           <div className="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl">
@@ -639,6 +659,7 @@ const DairyFarmLand = () => {
         </div>
       )}
 
+      {/* CONTACT TOAST */}
       {showContactInfo && selectedProperty && (
         <div className="fixed bottom-4 right-4 bg-gradient-to-r from-[#00695C] to-[#26A69A] text-white rounded-xl shadow-2xl p-2.5 z-[200] animate-slideIn max-w-[260px] sm:max-w-sm">
           <div className="flex items-center gap-2">

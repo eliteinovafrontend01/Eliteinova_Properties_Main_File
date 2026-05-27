@@ -65,7 +65,7 @@ export const FarmLandData = [
     totalSqft: "20,000 sqft Area",
     builtUp: "18,500 sqft (Built Up area)",
     location: "Ashok Nagar, Chennai-600091, Tamil Nadu",
-    highlights: "Fully Furnished | 5+ BHK | Ready to Move | Luxury Villa",
+    highlights: "Fully Furnished | 5+ BHK | Ready to Move | Luxury Villa | ",
     postedBy: "Priya Sharma",
     postedAs: "Owner",
     logo: villa1_logo,
