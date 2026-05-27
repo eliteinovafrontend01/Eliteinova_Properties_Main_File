@@ -3,7 +3,7 @@ import React from 'react'
 const DairyFarmLandFilter = () => {
   return (
     <div>
-      Dairy Farm Land filter
+      Dairy Farm Land filters
     </div>
   )
 }

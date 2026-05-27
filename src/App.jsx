@@ -91,7 +91,7 @@ import OrganicFarmingLandPage from './pages/LandAndPlots/OrganicFarmingLandPage'
 import CoconutFarmLandPage from './pages/LandAndPlots/CoconutFarmLandPage';
 import MangoGroveLandPage from './pages/LandAndPlots/MangoGroveLandPage';
 import TeaCoffeeLandPage from './pages/LandAndPlots/TeaCoffeeLandPage';
-import DairyFarmLandPage from './pages/LandAndPlots/DairyFarmLandPage';
+// import DairyFarmLandPage from './pages/LandAndPlots/DairyFarmLandPage';
 import FisheriesAquacultureLandPage from './pages/LandAndPlots/FisheriesAquacultureLandPage';
 import PoultryFarmLandPage from './pages/LandAndPlots/PoultryFarmLandPage';
 
@@ -262,7 +262,7 @@ function AppLayout() {
         <Route path="/land-plots/agricultural-land-plots/mango-grove-land" element={<MangoGroveLandPage/>} />
         <Route path="/land-plots/agricultural-land-plots/tea-coffee-estate" element={<TeaCoffeeLandPage/>} />
         <Route path="/land-plots/agricultural-land-plots/poultry-farm-land" element={<PoultryFarmLandPage/>} />
-        <Route path="/land-plots/agricultural-land-plots/dairy-farm-land" element={<DairyFarmLandPage/>} />
+        {/* <Route path="/land-plots/agricultural-land-plots/dairy-farm-land" element={<DairyFarmLandPage/>} /> */}
         <Route path="/land-plots/agricultural-land-plots/fisheries-aquaculture-land" element={<FisheriesAquacultureLandPage/>} />
           
 
