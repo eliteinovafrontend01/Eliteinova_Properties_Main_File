@@ -91,7 +91,7 @@ import OrganicFarmingLandPage from './pages/LandAndPlots/OrganicFarmingLandPage'
 import CoconutFarmLandPage from './pages/LandAndPlots/CoconutFarmLandPage';
 import MangoGroveLandPage from './pages/LandAndPlots/MangoGroveLandPage';
 import TeaCoffeeLandPage from './pages/LandAndPlots/TeaCoffeeLandPage';
-import DairyFarmLandPage from './pages/LandAndPlots/DairyFarmLandPage';
+import DairyFarmLandPage from './pages/LandAndPlots/DairyFarmLandPage.jsx';
 import FisheriesAquacultureLandPage from './pages/LandAndPlots/FisheriesAquacultureLandPage';
 import PoultryFarmLandPage from './pages/LandAndPlots/PoultryFarmLandPage';
 
