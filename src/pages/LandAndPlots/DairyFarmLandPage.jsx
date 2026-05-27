@@ -1,6 +1,6 @@
 // DairyFarmLandPage.jsx
 import React, { useState, useEffect } from "react";
-import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Store, Factory, Hotel, Briefcase, Trees, Sprout, Heart, School, Layers, ChevronRight, Compass } from "lucide-react";
+import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, Store, Factory, Hotel, Briefcase, Trees, Sprout, Heart, School, Layers, ChevronRight, Compass, ShoppingBag, ShoppingCart } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import backgroundImage from "../../assets/landandplots/mainbg.png";
 import DairyFarmLandFilter from "../../components/filters/LandAndPlots/DairyFarmLandFilter";
@@ -23,6 +23,7 @@ const DairyFarmLandPage = () => {
     { name: "Hostel", path: "/hostel", icon: <Building2 className="w-4 h-4" /> }
   ];
 
+  // Main categories with submenus - Same as LandAndPlotsPage
   const landCategories = [
     {
       name: "All",
@@ -164,7 +165,7 @@ const DairyFarmLandPage = () => {
     { name: "IT Park Land", path: "/land-plots/commercial-land-plots/it-park-land", parent: "Commercial Land / Plots" },
     { name: "Warehouse Land", path: "/land-plots/commercial-land-plots/warehouse-land", parent: "Commercial Land / Plots" },
     { name: "Industrial Commercial Plot", path: "/land-plots/commercial-land-plots/industrial-commercial-plot", parent: "Commercial Land / Plots" },
-    // Agricultural submenus - FARM LAND is now highlighted
+    // Agricultural submenus
     { name: "Agricultural Land", path: "/land-plots/agricultural-land-plots/agricultural-land", parent: "Agricultural Land" },
     { name: "Farm Land", path: "/land-plots/agricultural-land-plots/farm-land", parent: "Agricultural Land" },
     { name: "Organic Farming Land", path: "/land-plots/agricultural-land-plots/organic-farming-land", parent: "Agricultural Land" },
@@ -300,7 +301,7 @@ const DairyFarmLandPage = () => {
       <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
       <input
         type="text"
-        placeholder="Search DairyFarm Land by city, locality, or project name"
+        placeholder="Search hotel/resort land by city, tourist area, or project name"
         className="w-full pl-11 pr-11 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/90 text-sm focus:outline-none focus:border-teal-400 transition-all duration-300"
       />
       <MapPin className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
@@ -397,11 +398,11 @@ const DairyFarmLandPage = () => {
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
               Find Your Perfect{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">
-                DairyFarm Land
+                Hotel & Resort Land
               </span>
             </h1>
             <p className="text-sm md:text-base lg:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed px-2">
-              Discover premium DairyFarm Land for cultivation, organic farming, and agricultural investment
+              Discover prime hotel and resort land for your hospitality business
             </p>
             <PropertyCategoryButtons />
           </div>
