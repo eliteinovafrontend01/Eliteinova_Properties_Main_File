@@ -23,7 +23,6 @@ const DairyFarmLandPage = () => {
     { name: "Hostel", path: "/hostel", icon: <Building2 className="w-4 h-4" /> }
   ];
 
-  // Main categories with submenus
   const landCategories = [
     {
       name: "All",

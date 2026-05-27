@@ -39,7 +39,6 @@ const FieldDt = ({ label, required, hint, children }) => (
 const inMob = "w-full border border-gray-200 rounded-lg px-2.5 py-1.5 text-[11px] text-gray-700 placeholder:text-gray-300 placeholder:text-[10px] focus:outline-none focus:border-[#00695C] focus:ring-1 focus:ring-[#00695C]/20 bg-white transition-all";
 const inDt  = "input w-full text-sm placeholder:text-gray-300 placeholder:text-xs";
 
-// Available amenities list for agent form (Pricing & Commission step)
 const availableAmenities = ["Lift", "Power Backup", "Security", "Water Supply", "Park", "Gym", "Swimming Pool", "Parking", "Children Play Area"];
 
 export default function AgentFormModal({ isOpen, onClose }) {
