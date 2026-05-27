@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ResidentialPlotData } from "../../data/LandAndPlots/ResidentialPlotData";
 
-const PAGE_NAME = "ResidentialPlot";
+const PAGE_NAME = "Residential Plot";
 
 // Helper: split price into amount + unit
 const splitPrice = (price) => {
