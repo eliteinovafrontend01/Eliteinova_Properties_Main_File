@@ -560,20 +560,6 @@ const handleCustomerPortalClick = (type) => {
                 </div>
               )}
             </div>
-
-            {/* Live Stats with Emojis */}
-            {/* <div className="ml-auto mr-4 flex items-center gap-6">
-              <div className="text-white/80 text-sm flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="font-bold">🏠 1,234+</span>
-                <span className="text-white/60">Properties</span>
-              </div>
-              <div className="text-white/80 text-sm flex items-center gap-2">
-                <Heart className="w-4 h-4 text-pink-400" />
-                <span className="font-bold">😊 567+</span>
-                <span className="text-white/60">Happy Clients</span>
-              </div>
-            </div>*/}
           </div> 
         </nav>
       </header>
