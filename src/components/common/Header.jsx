@@ -54,13 +54,6 @@ const Header = ({ onPostPropertyClick }) => {
     { name: "🚪 Logout", icon: <LogOut className="w-4 h-4" /> },
   ];
 
-  const quickLinks = [
-    // { name: "⭐ Featured", icon: <Star className="w-3 h-3" /> },
-    // // { name: "📈 Trending", path: "/trending", icon: <TrendingUp className="w-3 h-3" /> },
-    // { name: "👑 Premium", path: "/premium", icon: <Award className="w-3 h-3" /> },
-    // { name: "✅ Verified", path: "/verified", icon: <CheckCircle className="w-3 h-3" /> },
-  ];
-
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -88,33 +81,32 @@ const Header = ({ onPostPropertyClick }) => {
     }
   };
 
-  // Update the handleCustomerPortalClick function in Header.jsx
-const handleCustomerPortalClick = (type) => {
-  setActiveDropdown(null);
-  setMobileMenuOpen(false);
-  
-  const typeKey = type.toLowerCase().replace(/\s+/g, '-');
-  
-  if (typeKey === "individual") {
-    navigate("/individual");
-  } else if (typeKey === "rent") {
-    navigate("/rent");
-  } else if (typeKey === "buy") {
-    navigate("/buy");
-  } else if (typeKey === "lease") {
-    navigate("/lease");
-  } else if (typeKey === "sell") {
-    navigate("/sell");
-  } else if (typeKey === "apartment") {
-    navigate("/apartment");
-  } else if (typeKey === "commercial") {
-    navigate("/commercial");
-  } else if (typeKey === "land-&-plots") {
-    navigate("/land-plots");
-  } else if (typeKey === "hostel") {
-    navigate("/hostel");
-  }
-};
+  const handleCustomerPortalClick = (type) => {
+    setActiveDropdown(null);
+    setMobileMenuOpen(false);
+    
+    const typeKey = type.toLowerCase().replace(/\s+/g, '-');
+    
+    if (typeKey === "individual") {
+      navigate("/individual");
+    } else if (typeKey === "rent") {
+      navigate("/rent");
+    } else if (typeKey === "buy") {
+      navigate("/buy");
+    } else if (typeKey === "lease") {
+      navigate("/lease");
+    } else if (typeKey === "sell") {
+      navigate("/sell");
+    } else if (typeKey === "apartment") {
+      navigate("/apartment");
+    } else if (typeKey === "commercial") {
+      navigate("/commercial");
+    } else if (typeKey === "land-&-plots") {
+      navigate("/land-plots");
+    } else if (typeKey === "hostel") {
+      navigate("/hostel");
+    }
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -133,148 +125,118 @@ const handleCustomerPortalClick = (type) => {
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
-          ? 'bg-gradient-to-r from-[#00695C]/95 via-[#26A69A]/95 to-[#00695C]/95 backdrop-blur-lg shadow-2xl' 
+          ? 'bg-gradient-to-r from-[#00695C]/95 via-[#26A69A]/95 to-[#00695C]/95 backdrop-blur-xl shadow-2xl shadow-[#00695C]/20' 
           : 'bg-gradient-to-r from-[#00695C] via-[#26A69A] to-[#00695C]'
       }`}>
-        {/* Floating Particles Animation */}
+        {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(25)].map((_, i) => (
+          {[...Array(15)].map((_, i) => (
             <div
               key={i}
-              className="absolute rounded-full animate-particle-float"
+              className="absolute rounded-full animate-float-particle"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                width: `${Math.random() * 4 + 1}px`,
-                height: `${Math.random() * 4 + 1}px`,
-                background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%)',
+                width: `${Math.random() * 2 + 1}px`,
+                height: `${Math.random() * 2 + 1}px`,
+                background: 'radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 70%)',
                 animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${5 + Math.random() * 10}s`,
+                animationDuration: `${6 + Math.random() * 12}s`,
               }}
             />
           ))}
           
-          {/* Animated Waves */}
           <div className="absolute bottom-0 left-0 right-0 h-8">
-            <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/10 to-transparent animate-wave" />
-            <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white/5 to-transparent animate-wave-delayed" />
+            <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/5 to-transparent animate-wave-slow" />
           </div>
         </div>
 
-        {/* Animated Gradient Border Bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer" />
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
 
         {/* ================= TOP BAR ================= */}
-        <div className="h-16 md:h-20 w-full px-4 md:px-6 flex items-center relative">
-          {/* Animated Background Glow */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-white/5 animate-glow-sweep" />
+        <div className="h-[72px] md:h-[84px] w-full px-3 md:px-6 flex items-center relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-white/[0.03] via-transparent to-white/[0.03] animate-sweep" />
           
           <div className="flex items-center justify-between w-full relative z-10">
             {/* LEFT SECTION */}
-            <div className="flex items-center gap-3 md:gap-4">
-              {/* Animated Mobile Menu Button */}
+            <div className="flex items-center gap-2 md:gap-4">
               <button
                 onClick={toggleMobileMenu}
-                className="md:hidden p-2 rounded-xl hover:bg-white/20 transition-all duration-300 group relative overflow-hidden"
+                className="md:hidden p-1.5 rounded-lg hover:bg-white/20 transition-all duration-300 group relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <Menu className="w-6 h-6 text-white group-hover:scale-110 transition-transform duration-300 relative z-10" />
+                <Menu className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-300 relative z-10" />
               </button>
 
-              {/* Animated Logo without white circle */}
               <div
                 onClick={() => navigate("/")}
-                className="cursor-pointer group relative animate-logo-float"
+                className="cursor-pointer group relative"
               >
-                {/* Glow Effect */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-white/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute -inset-2 bg-gradient-to-r from-white/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 
-                {/* Logo Container with Holographic Effect */}
-                <div className="relative w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden flex items-center justify-center">
-                  {/* Holographic Background */}
-                  <div className="absolute inset-0 animate-holographic" />
-                  
-                  {/* Inner Shine */}
-                  <div className="absolute inset-1 rounded-full bg-gradient-to-br from-white/10 to-transparent blur-sm" />
+                <div className="relative w-13 h-13 md:w-[76px] md:h-[76px] rounded-full overflow-hidden flex items-center justify-center">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#004D40] to-[#00695C] opacity-80" />
+                  <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-[#26A69A]/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#00E5FF]/20 via-transparent to-[#00FF88]/20 animate-spin-slow rounded-full" />
                   
                   <img
                     src={logo}
                     alt="Eliteinova Properties Logo"
-                    className="w-10 h-10 md:w-14 md:h-14 object-contain relative z-10 group-hover:scale-110 transition-transform duration-500 group-hover:rotate-3"
-                    style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))' }}
+                    className="w-11 h-11 md:w-[60px] md:h-[60px] object-contain relative z-10 group-hover:scale-110 transition-transform duration-500"
+                    style={{ filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))' }}
                   />
                 </div>
               </div>
 
-              {/* Animated Brand Text with Neon Effect */}
               <div 
                 onClick={() => navigate("/")} 
                 className="cursor-pointer group relative"
               >
-                {/* Text Glow */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-[#00E5FF]/20 via-transparent to-[#00E5FF]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute -inset-2 bg-gradient-to-r from-[#00E5FF]/10 via-transparent to-[#00FF88]/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 
                 <h1
-                  className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight relative animate-text-glow"
+                  className="text-lg md:text-2xl lg:text-3xl font-light leading-tight relative tracking-wide"
                   style={{
                     fontFamily: "Pacifico, cursive",
                     color: "#E8F5E9",
-                    textShadow: '0 2px 20px rgba(0, 229, 255, 0.3)',
+                    textShadow: '0 2px 16px rgba(0, 229, 255, 0.2)',
+                    fontWeight: 300,
                   }}
                 >
-                  <span className="relative">
-                    Eliteinova Properties
-                    {/* Neon Border Effect */}
-                    <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-[#00E5FF] via-[#00FF88] to-[#00E5FF] opacity-0 group-hover:opacity-20 blur-md transition-opacity duration-500" />
+                  <span className="relative inline-block group-hover:scale-105 transition-transform duration-500">
+                    Eliteinova <span className="text-[0.75em]">Properties</span>
+                    <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-[#00E5FF]/20 via-[#00FF88]/20 to-[#00E5FF]/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-700" />
                   </span>
                 </h1>
                 
-                {/* Subheading with Typing Animation */}
                 <p 
-                  className="text-sm md:text-base lg:text-lg font-normal leading-tight mt-0.5 flex items-center gap-2"
+                  className="text-[11px] md:text-sm lg:text-base font-light leading-tight mt-0 flex items-center gap-2"
                   style={{
                     fontFamily: "Pacifico, cursive",
                     color: "#C8E6C9",
+                    fontWeight: 300,
                   }}
                 >
                   <span className="relative whitespace-nowrap">
                     No Brokerage
-                    <Sparkles className="absolute -right-5 top-0 w-4 h-4 text-yellow-300 animate-sparkle opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <Sparkles className="absolute -right-5 -top-0.5 w-3 h-3 text-yellow-300 animate-sparkle-glow" />
                   </span>
-                  <span className="text-xs bg-gradient-to-r from-[#00FF88]/20 to-[#00E5FF]/20 px-2 py-0.5 rounded-full border border-white/10 animate-pulse">
-                    Trusted
+                  <span className="text-[8px] md:text-[10px] bg-gradient-to-r from-[#00FF88]/20 to-[#00E5FF]/20 px-2 py-0.5 rounded-full border border-white/15 backdrop-blur-sm">
+                    ⭐ Trusted
                   </span>
                 </p>
               </div>
             </div>
 
-            {/* CENTER SECTION - Quick Links */}
-            <div className="hidden lg:flex items-center gap-4 mx-6">
-              {quickLinks.map((link) => (
-                <button
-                  key={link.name}
-                  onClick={() => navigate(link.path)}
-                  className="relative group"
-                >
-                  <span className="text-white/80 text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center gap-2">
-                    {link.icon}
-                    {link.name.replace(/[⭐📈👑✅]/g, '')}
-                  </span>
-                  <div className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-gradient-to-r from-[#00FF88] to-[#00E5FF] transform -translate-x-1/2 group-hover:w-4/5 transition-all duration-300 rounded-full" />
-                </button>
-              ))}
-            </div>
-
             {/* RIGHT SECTION */}
-            <div className="flex items-center gap-3">
-              {/* Animated Search Bar */}
+            <div className="flex items-center gap-1.5 md:gap-3">
               <div ref={searchRef} className="relative">
                 <button
                   onClick={() => setSearchOpen(!searchOpen)}
-                  className="w-10 h-10 rounded-full flex items-center justify-center relative group transition-all duration-300 hover:scale-110"
+                  className="w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center relative group transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#00695C]/30"
                   style={{
                     background: 'linear-gradient(135deg, #E8F5E9, #C8E6C9)',
-                    boxShadow: '0 4px 20px rgba(0,105,92,0.3)',
+                    boxShadow: '0 3px 12px rgba(0,105,92,0.2)',
                   }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-[#00695C] via-[#26A69A] to-[#00695C] opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-full" />
@@ -282,38 +244,38 @@ const handleCustomerPortalClick = (type) => {
                 </button>
 
                 {searchOpen && (
-                  <div className="absolute top-full right-0 mt-2 w-80 bg-gradient-to-b from-white/98 to-gray-50/98 backdrop-blur-xl rounded-2xl shadow-2xl z-50 border border-white/20 animate-dropdown-slide">
-                    <form onSubmit={handleSearch} className="p-4">
+                  <div className="absolute top-full right-0 mt-2 w-72 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl shadow-[#00695C]/20 z-50 border border-white/30 animate-dropdown">
+                    <form onSubmit={handleSearch} className="p-3">
                       <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#26A69A]" />
                         <input
                           type="text"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          placeholder="Search properties, locations, agents..."
-                          className="w-full pl-10 pr-4 py-3 bg-white/50 rounded-xl border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#26A69A]/50 focus:border-transparent text-gray-800 placeholder-gray-500"
+                          placeholder="Search properties..."
+                          className="w-full pl-9 pr-3 py-2 text-sm bg-[#E8F5E9]/50 rounded-lg border border-[#26A69A]/20 focus:outline-none focus:ring-2 focus:ring-[#26A69A]/40 focus:border-transparent text-gray-800 placeholder-gray-500"
                           autoFocus
                         />
                       </div>
-                      <div className="mt-3 flex gap-2">
+                      <div className="mt-2 flex gap-1.5 flex-wrap">
                         <button
                           type="button"
-                          onClick={() => setSearchQuery("Apartments in Mumbai")}
-                          className="text-xs bg-gradient-to-r from-[#26A69A]/10 to-[#00695C]/10 hover:from-[#26A69A]/20 hover:to-[#00695C]/20 text-[#00695C] px-3 py-1.5 rounded-lg transition-all duration-300"
+                          onClick={() => setSearchQuery("Mumbai")}
+                          className="text-[10px] bg-gradient-to-r from-[#26A69A]/10 to-[#00695C]/10 hover:from-[#26A69A]/20 hover:to-[#00695C]/20 text-[#00695C] px-2 py-1 rounded-lg transition-all duration-300"
                         >
                           🏙️ Mumbai
                         </button>
                         <button
                           type="button"
-                          onClick={() => setSearchQuery("Villas in Bangalore")}
-                          className="text-xs bg-gradient-to-r from-[#26A69A]/10 to-[#00695C]/10 hover:from-[#26A69A]/20 hover:to-[#00695C]/20 text-[#00695C] px-3 py-1.5 rounded-lg transition-all duration-300"
+                          onClick={() => setSearchQuery("Bangalore")}
+                          className="text-[10px] bg-gradient-to-r from-[#26A69A]/10 to-[#00695C]/10 hover:from-[#26A69A]/20 hover:to-[#00695C]/20 text-[#00695C] px-2 py-1 rounded-lg transition-all duration-300"
                         >
                           🏡 Bangalore
                         </button>
                         <button
                           type="button"
-                          onClick={() => setSearchQuery("Commercial Spaces")}
-                          className="text-xs bg-gradient-to-r from-[#26A69A]/10 to-[#00695C]/10 hover:from-[#26A69A]/20 hover:to-[#00695C]/20 text-[#00695C] px-3 py-1.5 rounded-lg transition-all duration-300"
+                          onClick={() => setSearchQuery("Commercial")}
+                          className="text-[10px] bg-gradient-to-r from-[#26A69A]/10 to-[#00695C]/10 hover:from-[#26A69A]/20 hover:to-[#00695C]/20 text-[#00695C] px-2 py-1 rounded-lg transition-all duration-300"
                         >
                           🏪 Commercial
                         </button>
@@ -323,65 +285,58 @@ const handleCustomerPortalClick = (type) => {
                 )}
               </div>
 
-              {/* Animated Notification Bell */}
               <button className="relative group">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center relative transition-all duration-300 hover:scale-110"
+                <div className="w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center relative transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-orange-500/30"
                   style={{
                     background: 'linear-gradient(135deg, #FFEB3B, #FF9800)',
-                    boxShadow: '0 4px 20px rgba(255,152,0,0.3)',
+                    boxShadow: '0 3px 12px rgba(255,152,0,0.2)',
                   }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-orange-500 via-yellow-500 to-orange-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-full" />
-                  <Bell className="w-5 h-5 text-[#FF6F00] group-hover:text-[#FF3D00] transition-colors duration-300" />
+                  <Bell className="w-5 h-5 text-[#E65100] group-hover:text-[#BF360C] transition-colors duration-300" />
                 </div>
                 {notificationCount > 0 && (
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-ping-slow">
-                    <span className="text-white text-xs font-bold">{notificationCount}</span>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-pulse-ring">
+                    <span className="text-white text-[8px] font-bold">{notificationCount}</span>
                   </div>
                 )}
               </button>
 
-              {/* Enhanced User Profile with Dropdown */}
               <div className="relative">
                 <button 
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="w-10 h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center relative group overflow-hidden transition-all duration-300 hover:scale-110"
+                  className="w-9 h-9 md:w-11 md:h-11 rounded-full flex items-center justify-center relative group transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#00695C]/30"
                   style={{
                     background: 'linear-gradient(135deg, #E8F5E9, #C8E6C9)',
-                    boxShadow: '0 4px 20px rgba(0,105,92,0.3)',
+                    boxShadow: '0 3px 12px rgba(0,105,92,0.2)',
                   }}
                 >
-                  {/* Animated Background */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#00695C] via-[#26A69A] to-[#00695C] opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-full" />
+                  <div className="absolute -inset-0.5 rounded-full border border-white/20 animate-spin-slow" />
                   
-                  {/* Orbital Rings */}
-                  <div className="absolute -inset-1 rounded-full border border-white/20 animate-orbit-slow" />
-                  <div className="absolute -inset-2 rounded-full border border-white/10 animate-orbit" />
+                  <User className="w-5 h-5 md:w-6 md:h-6 text-[#00695C] group-hover:text-[#004D40] transition-colors duration-300 relative z-10" />
                   
-                  <User className="w-6 h-6 md:w-7 md:h-7 text-[#00695C] group-hover:text-[#004D40] transition-colors duration-300 relative z-10 group-hover:rotate-12" />
-                  
-                  {/* Online Status */}
-                  <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 animate-pulse border-2 border-white" />
+                  <div className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 animate-pulse border-2 border-white" />
                 </button>
 
                 {userMenuOpen && (
-                  <div className="absolute top-full right-0 mt-2 w-56 bg-gradient-to-b from-white/98 to-gray-50/98 backdrop-blur-xl rounded-2xl shadow-2xl z-50 border border-white/20 animate-dropdown-slide">
-                    <div className="p-4 border-b border-white/10">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00695C] to-[#26A69A] flex items-center justify-center">
-                          <User className="w-6 h-6 text-white" />
+                  <div className="absolute top-full right-0 mt-2 w-52 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl shadow-[#00695C]/20 z-50 border border-white/30 animate-dropdown">
+                    <div className="p-3 border-b border-[#E8F5E9]">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00695C] to-[#26A69A] flex items-center justify-center shadow-md">
+                          <User className="w-4 h-4 text-white" />
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-800">👤 John Doe</p>
-                          <p className="text-xs text-gray-500">👑 Premium Member</p>
+                          <p className="font-semibold text-sm text-gray-800">John Doe</p>
+                          <p className="text-[8px] text-[#26A69A] font-medium">⭐ Premium</p>
                         </div>
                       </div>
                     </div>
-                    <div className="p-2">
+                    <div className="p-1.5">
                       {userMenuItems.map((item, index) => (
                         <button
                           key={item.name}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300 rounded-lg animate-dropdown-item"
+                          className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300 rounded-lg animate-slide-item"
                           style={{ animationDelay: `${index * 50}ms` }}
                           onClick={() => {
                             setUserMenuOpen(false);
@@ -392,7 +347,7 @@ const handleCustomerPortalClick = (type) => {
                             }
                           }}
                         >
-                          {item.icon}
+                          <span className="text-[#26A69A]">{item.icon}</span>
                           <span>{item.name}</span>
                         </button>
                       ))}
@@ -405,47 +360,44 @@ const handleCustomerPortalClick = (type) => {
         </div>
 
         {/* ================= DESKTOP NAVIGATION ================= */}
-        <nav className="hidden md:flex h-14 items-center relative bg-gradient-to-r from-[#004D40]/80 via-[#00796B]/80 to-[#004D40]/80 backdrop-blur-sm border-t border-white/10">
-          {/* Animated Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
+        <nav className="hidden md:flex h-12 items-center relative bg-gradient-to-r from-[#004D40]/90 via-[#00796B]/90 to-[#004D40]/90 backdrop-blur-sm border-t border-white/5">
+          <div className="absolute inset-0 opacity-[0.03]">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent animate-shimmer-slow" />
           </div>
           
-          <div className="flex items-center relative z-10">
-            {/* Home Button with Active Indicator */}
+          <div className="flex items-center h-full relative z-10">
             <button
               onClick={() => {
                 navigate("/");
                 setActiveTab("home");
               }}
-              className={`group relative px-5 h-14 text-white font-semibold text-base transition-all duration-300 overflow-hidden ${
+              className={`group relative px-5 h-full text-white font-medium text-sm tracking-wide transition-all duration-300 overflow-hidden ${
                 activeTab === "home" 
-                  ? 'bg-gradient-to-r from-white/15 to-transparent' 
-                  : 'hover:bg-white/10'
+                  ? 'bg-gradient-to-r from-white/10 to-transparent' 
+                  : 'hover:bg-white/5'
               }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-2 relative z-10">
                 <Home className="w-4 h-4" />
                 Home
               </span>
               
-              {/* Active Indicator */}
               {activeTab === "home" && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-300 to-amber-400 animate-pulse" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-yellow-300 to-amber-400 animate-pulse-glow" />
               )}
             </button>
 
             {/* Customer Portal */}
             <div
-              className="relative"
+              className="relative h-full"
               onMouseEnter={() => setActiveDropdown("customer")}
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <button 
                 onClick={() => navigate("/customer-portal")}
-                className="group relative px-5 h-14 text-white font-semibold text-base hover:bg-white/10 flex items-center gap-2 transition-all duration-300"
+                className="group relative px-5 h-full text-white font-medium text-sm tracking-wide hover:bg-white/5 flex items-center gap-2 transition-all duration-300"
               >
                 <Building className="w-4 h-4" />
                 <span>Customer Portal</span>
@@ -453,21 +405,21 @@ const handleCustomerPortalClick = (type) => {
               </button>
 
               {activeDropdown === "customer" && (
-                <div className="absolute top-full left-0 bg-gradient-to-b from-white/98 to-gray-50/98 backdrop-blur-xl rounded-2xl shadow-2xl z-50 min-w-[160px] border border-white/20 animate-dropdown-slide">
+                <div className="absolute top-full left-0 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl shadow-[#00695C]/20 z-50 min-w-[180px] border border-white/30 animate-dropdown">
                   {Object.entries(customerPortalMenu).map(([key, submenu]) => (
-                    <div key={key} className="relative group">
+                    <div key={key} className="relative group/item">
                       <button 
                         onClick={() => handleCustomerPortalClick(key)}
-                        className="w-full px-4 py-3 text-left text-sm font-semibold text-black hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300 capitalize"
+                        className="w-full px-5 py-2.5 text-left text-sm font-semibold text-gray-800 hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300 capitalize"
                       >
                         {key}
                       </button>
-                      <div className="absolute left-full top-0 hidden group-hover:block bg-gradient-to-b from-white/98 to-gray-50/98 backdrop-blur-xl rounded-2xl shadow-2xl min-w-[140px] z-50 border border-white/20 animate-nested-slide">
+                      <div className="absolute left-full top-0 hidden group-hover/item:block bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl shadow-[#00695C]/20 min-w-[160px] z-50 border border-white/30 animate-dropdown-nested">
                         {submenu.map((item) => (
                           <button
                             key={item}
                             onClick={() => handleCustomerPortalClick(item.toLowerCase())}
-                            className="w-full px-4 py-2.5 text-left text-sm text-black hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300"
+                            className="w-full px-5 py-2.5 text-left text-sm text-gray-700 hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300"
                           >
                             {item}
                           </button>
@@ -481,26 +433,26 @@ const handleCustomerPortalClick = (type) => {
 
             {/* Post Property */}
             <div
-              className="relative"
+              className="relative h-full"
               onMouseEnter={() => setActiveDropdown("post")}
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <button
                 onClick={() => navigate("/post-property")}
-                className="group relative px-5 h-14 text-white font-semibold text-base hover:bg-white/10 flex items-center gap-2 transition-all duration-300"
+                className="group relative px-5 h-full text-white font-medium text-sm tracking-wide hover:bg-white/5 flex items-center gap-2 transition-all duration-300"
               >
                 <TrendingUp className="w-4 h-4" />
-                <span>Post Your Property</span>
+                <span>Post Property</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === "post" ? 'rotate-180' : ''}`} />
               </button>
 
               {activeDropdown === "post" && (
-                <div className="absolute top-full left-0 bg-gradient-to-b from-white/98 to-gray-50/98 backdrop-blur-xl rounded-2xl shadow-2xl z-50 min-w-[220px] border border-white/20 animate-dropdown-slide">
+                <div className="absolute top-full left-0 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl shadow-[#00695C]/20 z-50 min-w-[190px] border border-white/30 animate-dropdown">
                   {postPropertyMenu.map((item) => (
                     <button
                       key={item}
                       onClick={() => handlePostSubmenuClick(item)}
-                      className="w-full px-4 py-3 text-left text-sm font-semibold text-black hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300"
+                      className="w-full px-5 py-2.5 text-left text-sm font-semibold text-gray-800 hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300"
                     >
                       {item}
                     </button>
@@ -511,22 +463,22 @@ const handleCustomerPortalClick = (type) => {
 
             {/* Find Your Loan */}
             <div
-              className="relative"
+              className="relative h-full"
               onMouseEnter={() => setActiveDropdown("loan")}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              <button className="group relative px-5 h-14 text-white font-semibold text-base hover:bg-white/10 flex items-center gap-2 transition-all duration-300">
+              <button className="group relative px-5 h-full text-white font-medium text-sm tracking-wide hover:bg-white/5 flex items-center gap-2 transition-all duration-300">
                 <Landmark className="w-4 h-4" />
-                <span>Find Your Loan</span>
+                <span>Find Loan</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === "loan" ? 'rotate-180' : ''}`} />
               </button>
 
               {activeDropdown === "loan" && (
-                <div className="absolute top-full left-0 bg-gradient-to-b from-white/98 to-gray-50/98 backdrop-blur-xl rounded-2xl shadow-2xl z-50 min-w-[180px] border border-white/20 animate-dropdown-slide">
+                <div className="absolute top-full left-0 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl shadow-[#00695C]/20 z-50 min-w-[180px] border border-white/30 animate-dropdown">
                   {loanMenu.map((item) => (
                     <button
                       key={item}
-                      className="w-full px-4 py-3 text-left text-sm font-semibold text-black hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300"
+                      className="w-full px-5 py-2.5 text-left text-sm font-semibold text-gray-800 hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300"
                     >
                       {item}
                     </button>
@@ -537,22 +489,22 @@ const handleCustomerPortalClick = (type) => {
 
             {/* Services */}
             <div
-              className="relative"
+              className="relative h-full"
               onMouseEnter={() => setActiveDropdown("services")}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              <button className="group relative px-5 h-14 text-white font-semibold text-base hover:bg-white/10 flex items-center gap-2 transition-all duration-300">
+              <button className="group relative px-5 h-full text-white font-medium text-sm tracking-wide hover:bg-white/5 flex items-center gap-2 transition-all duration-300">
                 <Settings className="w-4 h-4" />
                 <span>Services</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === "services" ? 'rotate-180' : ''}`} />
               </button>
 
               {activeDropdown === "services" && (
-                <div className="absolute top-full left-0 bg-gradient-to-b from-white/98 to-gray-50/98 backdrop-blur-xl rounded-2xl shadow-2xl z-50 min-w-[160px] border border-white/20 animate-dropdown-slide">
+                <div className="absolute top-full left-0 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl shadow-[#00695C]/20 z-50 min-w-[160px] border border-white/30 animate-dropdown">
                   {servicesMenu.map((item) => (
                     <button
                       key={item}
-                      className="w-full px-4 py-3 text-left text-sm font-semibold text-black hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300"
+                      className="w-full px-5 py-2.5 text-left text-sm font-semibold text-gray-800 hover:bg-gradient-to-r from-[#00695C]/5 to-[#26A69A]/5 transition-all duration-300"
                     >
                       {item}
                     </button>
@@ -567,64 +519,62 @@ const handleCustomerPortalClick = (type) => {
       {/* ================= MOBILE MENU ================= */}
       {mobileMenuOpen && (
         <div 
-          className="md:hidden fixed inset-0 z-50 animate-fade-in"
+          className="md:hidden fixed inset-0 z-50 animate-fade"
           onClick={toggleMobileMenu}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-[#00695C]/90 via-[#26A69A]/90 to-[#00695C]/90 backdrop-blur-xl animate-backdrop-fade" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#00695C]/95 via-[#26A69A]/95 to-[#00695C]/95 backdrop-blur-xl animate-backdrop" />
           
           <div 
-            className="absolute right-0 top-0 h-full w-80 bg-gradient-to-b from-[#00695C] to-[#26A69A] shadow-2xl overflow-y-auto animate-slide-in-right"
+            className="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-gradient-to-b from-[#00695C] to-[#26A69A] shadow-2xl shadow-[#00695C]/50 overflow-y-auto animate-slide"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-5 border-b border-white border-opacity-20">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-gradient-to-r from-white/10 to-transparent">
-                  <Menu className="w-5 h-5 text-white" />
+            <div className="flex items-center justify-between p-4 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 rounded-lg bg-white/10 backdrop-blur-sm">
+                  <Menu className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-white font-bold text-xl">📱 Menu</h2>
-                  <p className="text-white/60 text-sm">👋 Welcome back!</p>
+                  <h2 className="text-white font-bold text-sm">Menu</h2>
+                  <p className="text-white/50 text-[10px]">Welcome back!</p>
                 </div>
               </div>
               <button 
                 onClick={toggleMobileMenu} 
-                className="p-2 rounded-xl hover:bg-white/10 transition-all duration-300 group"
+                className="p-1.5 rounded-lg hover:bg-white/10 transition-all duration-300 group"
               >
-                <X className="w-7 h-7 text-white group-hover:rotate-90 transition-transform duration-500" />
+                <X className="w-5 h-5 text-white group-hover:rotate-90 transition-transform duration-500" />
               </button>
             </div>
             
-            {/* Mobile Search */}
-            <div className="p-5">
-              <form onSubmit={handleSearch} className="mb-4">
+            <div className="p-4">
+              <form onSubmit={handleSearch} className="mb-3">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/60" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="🔍 Search..."
-                    className="w-full pl-10 pr-4 py-3 bg-white/10 rounded-xl border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder-white/60"
+                    placeholder="Search..."
+                    className="w-full pl-9 pr-3 py-2 text-sm bg-white/10 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/20 text-white placeholder-white/40"
                   />
                 </div>
               </form>
             </div>
             
-            {/* Mobile Menu Items with Expandable Submenus */}
-            <div className="p-5">
+            <div className="px-4 pb-16">
               <button 
                 onClick={() => {
                   navigate('/');
                   toggleMobileMenu();
                 }}
-                className="w-full text-left text-white font-semibold py-4 border-b border-white border-opacity-20 text-lg animate-slide-in-item"
+                className="w-full text-left text-white font-medium py-3 border-b border-white/5 text-sm animate-slide-item"
                 style={{ animationDelay: '0ms' }}
               >
-                Home
+                🏠 Home
               </button>
               
-              <details className="border-b border-white border-opacity-20 animate-slide-in-item" style={{ animationDelay: '50ms' }}>
-                <summary className="text-white font-semibold py-4 cursor-pointer list-none text-lg">
+              <details className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '50ms' }}>
+                <summary className="text-white font-medium py-3 cursor-pointer list-none text-sm">
                   <div className="flex items-center justify-between">
                     <button
                       onClick={(e) => {
@@ -634,15 +584,15 @@ const handleCustomerPortalClick = (type) => {
                       }}
                       className="text-left flex-1"
                     >
-                      Customer Portal
+                      🏢 Customer Portal
                     </button>
-                    <ChevronDown className="w-5 h-5 pointer-events-none" />
+                    <ChevronDown className="w-3.5 h-3.5 pointer-events-none" />
                   </div>
                 </summary>
-                <div className="pl-5 pb-3">
+                <div className="pl-4 pb-2">
                   {Object.entries(customerPortalMenu).map(([key, submenu]) => (
-                    <details key={key} className="mb-3">
-                      <summary className="text-white text-base py-3 capitalize cursor-pointer list-none">
+                    <details key={key} className="mb-1.5">
+                      <summary className="text-white/90 text-xs py-2 capitalize cursor-pointer list-none">
                         <div className="flex items-center justify-between">
                           <button
                             onClick={(e) => {
@@ -653,10 +603,10 @@ const handleCustomerPortalClick = (type) => {
                           >
                             {key}
                           </button>
-                          <ChevronDown className="w-4 h-4 pointer-events-none" />
+                          <ChevronDown className="w-3 h-3 pointer-events-none" />
                         </div>
                       </summary>
-                      <div className="pl-5">
+                      <div className="pl-3">
                         {submenu.map((item) => (
                           <button 
                             key={item} 
@@ -664,7 +614,7 @@ const handleCustomerPortalClick = (type) => {
                               handleCustomerPortalClick(item.toLowerCase());
                               toggleMobileMenu();
                             }}
-                            className="block text-white text-sm py-2.5 w-full text-left hover:bg-white hover:bg-opacity-10"
+                            className="block text-white/70 text-xs py-1.5 w-full text-left hover:text-white transition-colors"
                           >
                             {item}
                           </button>
@@ -675,8 +625,8 @@ const handleCustomerPortalClick = (type) => {
                 </div>
               </details>
               
-              <details className="border-b border-white border-opacity-20 animate-slide-in-item" style={{ animationDelay: '100ms' }}>
-                <summary className="text-white font-semibold py-4 cursor-pointer list-none text-lg">
+              <details className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '100ms' }}>
+                <summary className="text-white font-medium py-3 cursor-pointer list-none text-sm">
                   <div className="flex items-center justify-between">
                     <button
                       onClick={(e) => {
@@ -686,12 +636,12 @@ const handleCustomerPortalClick = (type) => {
                       }}
                       className="text-left flex-1"
                     >
-                      Post Your Property
+                      📊 Post Property
                     </button>
-                    <ChevronDown className="w-5 h-5 pointer-events-none" />
+                    <ChevronDown className="w-3.5 h-3.5 pointer-events-none" />
                   </div>
                 </summary>
-                <div className="pl-5 pb-3">
+                <div className="pl-4 pb-2">
                   {postPropertyMenu.map((item) => (
                     <button
                       key={item}
@@ -699,7 +649,7 @@ const handleCustomerPortalClick = (type) => {
                         handlePostSubmenuClick(item);
                         toggleMobileMenu();
                       }}
-                      className="block text-white text-base py-3 w-full text-left hover:bg-white hover:bg-opacity-10"
+                      className="block text-white/90 text-xs py-2 w-full text-left hover:text-white transition-colors"
                     >
                       {item}
                     </button>
@@ -707,18 +657,18 @@ const handleCustomerPortalClick = (type) => {
                 </div>
               </details>
 
-              <details className="border-b border-white border-opacity-20 animate-slide-in-item" style={{ animationDelay: '150ms' }}>
-                <summary className="text-white font-semibold py-4 cursor-pointer list-none text-lg">
+              <details className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '150ms' }}>
+                <summary className="text-white font-medium py-3 cursor-pointer list-none text-sm">
                   <span className="flex items-center justify-between">
-                    Find Your Loan
-                    <ChevronDown className="w-5 h-5" />
+                    💰 Find Loan
+                    <ChevronDown className="w-3.5 h-3.5" />
                   </span>
                 </summary>
-                <div className="pl-5 pb-3">
+                <div className="pl-4 pb-2">
                   {loanMenu.map((item) => (
                     <button 
                       key={item} 
-                      className="block text-white text-base py-3 w-full text-left hover:bg-white hover:bg-opacity-10"
+                      className="block text-white/90 text-xs py-2 w-full text-left hover:text-white transition-colors"
                     >
                       {item}
                     </button>
@@ -726,18 +676,18 @@ const handleCustomerPortalClick = (type) => {
                 </div>
               </details>
               
-              <details className="border-b border-white border-opacity-20 animate-slide-in-item" style={{ animationDelay: '200ms' }}>
-                <summary className="text-white font-semibold py-4 cursor-pointer list-none text-lg">
+              <details className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '200ms' }}>
+                <summary className="text-white font-medium py-3 cursor-pointer list-none text-sm">
                   <span className="flex items-center justify-between">
-                    Services
-                    <ChevronDown className="w-5 h-5" />
+                    🛠️ Services
+                    <ChevronDown className="w-3.5 h-3.5" />
                   </span>
                 </summary>
-                <div className="pl-5 pb-3">
+                <div className="pl-4 pb-2">
                   {servicesMenu.map((item) => (
                     <button 
                       key={item} 
-                      className="block text-white text-base py-3 w-full text-left hover:bg-white hover:bg-opacity-10"
+                      className="block text-white/90 text-xs py-2 w-full text-left hover:text-white transition-colors"
                     >
                       {item}
                     </button>
@@ -745,53 +695,49 @@ const handleCustomerPortalClick = (type) => {
                 </div>
               </details>
 
-              {/* Profile */}
               <button
                 onClick={() => {
                   navigate("/profile");
                   toggleMobileMenu();
                 }}
-                className="w-full text-left text-white font-semibold py-4 border-b border-white border-opacity-20 text-lg animate-slide-in-item"
+                className="w-full text-left text-white font-medium py-3 border-b border-white/5 text-sm animate-slide-item"
                 style={{ animationDelay: '250ms' }}
               >
-                Profile
+                👤 Profile
               </button>
 
-              {/* Notifications */}
               <button
                 onClick={() => {
                   navigate("/notifications");
                   toggleMobileMenu();
                 }}
-                className="w-full text-left text-white font-semibold py-4 border-b border-white border-opacity-20 text-lg animate-slide-in-item"
+                className="w-full text-left text-white font-medium py-3 border-b border-white/5 text-sm animate-slide-item"
                 style={{ animationDelay: '300ms' }}
               >
-                Notifications
+                🔔 Notifications
               </button>
 
-              {/* Help */}
               <button
                 onClick={() => {
                   navigate("/help");
                   toggleMobileMenu();
                 }}
-                className="w-full text-left text-white font-semibold py-4 text-lg animate-slide-in-item"
+                className="w-full text-left text-white font-medium py-3 text-sm animate-slide-item"
                 style={{ animationDelay: '350ms' }}
               >
-                Help
+                ❓ Help
               </button>
             </div>
 
-            {/* Mobile Stats */}
-            <div className="p-5 border-t border-white/10 mt-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white/5 rounded-xl p-4 text-center">
-                  <div className="text-2xl font-bold text-white">🏠 1,234+</div>
-                  <div className="text-white/60 text-sm mt-1">Properties</div>
+            <div className="p-4 border-t border-white/10 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#004D40]/50 to-transparent">
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 text-center">
+                  <div className="text-base font-bold text-white">🏠 1,234+</div>
+                  <div className="text-white/50 text-[8px] mt-0.5">Properties</div>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 text-center">
-                  <div className="text-2xl font-bold text-white">😊 567+</div>
-                  <div className="text-white/60 text-sm mt-1">Happy Clients</div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 text-center">
+                  <div className="text-base font-bold text-white">😊 567+</div>
+                  <div className="text-white/50 text-[8px] mt-0.5">Happy Clients</div>
                 </div>
               </div>
             </div>
@@ -799,110 +745,39 @@ const handleCustomerPortalClick = (type) => {
         </div>
       )}
 
-      {/* Spacer for fixed header */}
-      <div className="h-16 md:h-20"></div>
+      {/* Spacer */}
+      <div className="h-[60px] md:h-[64px]"></div>
 
-      {/* Custom Animations CSS */}
       <style jsx>{`
-        @keyframes particle-float {
+        @keyframes float-particle {
           0%, 100% { 
-            transform: translateY(0px) translateX(0px) rotate(0deg); 
-            opacity: 0.3;
+            transform: translateY(0) translateX(0) rotate(0deg); 
+            opacity: 0.2;
           }
           25% { 
             transform: translateY(-20px) translateX(15px) rotate(90deg); 
-            opacity: 0.6;
+            opacity: 0.5;
           }
           50% { 
-            transform: translateY(-15px) translateX(-10px) rotate(180deg); 
-            opacity: 0.8;
+            transform: translateY(-12px) translateX(-12px) rotate(180deg); 
+            opacity: 0.7;
           }
           75% { 
-            transform: translateY(10px) translateX(20px) rotate(270deg); 
-            opacity: 0.4;
+            transform: translateY(12px) translateX(18px) rotate(270deg); 
+            opacity: 0.3;
           }
         }
-        .animate-particle-float {
-          animation: particle-float 10s ease-in-out infinite;
+        .animate-float-particle {
+          animation: float-particle 10s ease-in-out infinite;
         }
 
-        @keyframes wave {
+        @keyframes wave-slow {
           0% { transform: translateX(0) scaleY(1); }
-          50% { transform: translateX(50px) scaleY(1.2); }
-          100% { transform: translateX(100px) scaleY(1); }
+          50% { transform: translateX(40px) scaleY(1.2); }
+          100% { transform: translateX(80px) scaleY(1); }
         }
-        .animate-wave {
-          animation: wave 8s ease-in-out infinite;
-        }
-        .animate-wave-delayed {
-          animation: wave 8s ease-in-out infinite 2s;
-        }
-
-        @keyframes holographic {
-          0% { 
-            background: linear-gradient(45deg, #00E5FF20, #00FF8820, #00E5FF20); 
-          }
-          50% { 
-            background: linear-gradient(135deg, #00FF8820, #00E5FF20, #00FF8820); 
-          }
-          100% { 
-            background: linear-gradient(225deg, #00E5FF20, #00FF8820, #00E5FF20); 
-          }
-        }
-        .animate-holographic {
-          animation: holographic 4s linear infinite;
-        }
-
-        @keyframes logo-float {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          25% { transform: translateY(-3px) rotate(-1deg); }
-          50% { transform: translateY(-5px) rotate(0deg); }
-          75% { transform: translateY(-3px) rotate(1deg); }
-        }
-        .animate-logo-float {
-          animation: logo-float 6s ease-in-out infinite;
-        }
-
-        @keyframes text-glow {
-          0%, 100% { 
-            text-shadow: 0 2px 20px rgba(0, 229, 255, 0.3);
-          }
-          50% { 
-            text-shadow: 0 2px 30px rgba(0, 229, 255, 0.6), 0 0 40px rgba(0, 255, 136, 0.4);
-          }
-        }
-        .animate-text-glow {
-          animation: text-glow 3s ease-in-out infinite;
-        }
-
-        @keyframes sparkle {
-          0%, 100% { 
-            opacity: 0;
-            transform: scale(0.5) rotate(0deg);
-          }
-          50% { 
-            opacity: 1;
-            transform: scale(1) rotate(180deg);
-          }
-        }
-        .animate-sparkle {
-          animation: sparkle 2s ease-in-out infinite;
-        }
-
-        @keyframes orbit {
-          0% { transform: rotate(0deg) translateX(10px) rotate(0deg); }
-          100% { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
-        }
-        .animate-orbit {
-          animation: orbit 4s linear infinite;
-        }
-
-        @keyframes orbit-slow {
-          0% { transform: rotate(0deg) translateX(15px) rotate(0deg); }
-          100% { transform: rotate(360deg) translateX(15px) rotate(-360deg); }
-        }
-        .animate-orbit-slow {
-          animation: orbit-slow 6s linear infinite;
+        .animate-wave-slow {
+          animation: wave-slow 8s ease-in-out infinite;
         }
 
         @keyframes shimmer {
@@ -921,7 +796,7 @@ const handleCustomerPortalClick = (type) => {
           animation: shimmer-slow 8s linear infinite;
         }
 
-        @keyframes glow-sweep {
+        @keyframes sweep {
           0%, 100% { 
             background-position: 0% 50%; 
             opacity: 0.3;
@@ -931,102 +806,106 @@ const handleCustomerPortalClick = (type) => {
             opacity: 0.6;
           }
         }
-        .animate-glow-sweep {
+        .animate-sweep {
           background-size: 200% 200%;
-          animation: glow-sweep 4s ease infinite;
+          animation: sweep 4s ease infinite;
         }
 
-        @keyframes ping-slow {
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 6s linear infinite;
+        }
+
+        @keyframes sparkle-glow {
+          0%, 100% { 
+            opacity: 0.3;
+            transform: scale(0.8) rotate(0deg);
+          }
+          50% { 
+            opacity: 1;
+            transform: scale(1.2) rotate(180deg);
+          }
+        }
+        .animate-sparkle-glow {
+          animation: sparkle-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-ring {
           0%, 100% {
             transform: scale(1);
-            opacity: 1;
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
           }
           50% {
-            transform: scale(1.3);
-            opacity: 0;
+            transform: scale(1.1);
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0);
           }
         }
-        .animate-ping-slow {
-          animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        .animate-pulse-ring {
+          animation: pulse-ring 1.5s ease-out infinite;
         }
 
-        @keyframes pulse {
+        @keyframes pulse-glow {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 0.7; }
         }
-        .animate-pulse {
-          animation: pulse 2s ease-in-out infinite;
+        .animate-pulse-glow {
+          animation: pulse-glow 1.5s ease-in-out infinite;
         }
 
-        @keyframes dropdown-slide {
+        @keyframes dropdown {
           from {
             opacity: 0;
-            transform: translateY(-10px) scale(0.95);
+            transform: translateY(-6px) scale(0.96);
           }
           to {
             opacity: 1;
             transform: translateY(0) scale(1);
           }
         }
-        .animate-dropdown-slide {
-          animation: dropdown-slide 0.3s ease-out forwards;
+        .animate-dropdown {
+          animation: dropdown 0.2s ease-out forwards;
         }
 
-        @keyframes dropdown-item {
+        @keyframes dropdown-nested {
           from {
             opacity: 0;
-            transform: translateX(-10px);
+            transform: translateX(-6px);
           }
           to {
             opacity: 1;
             transform: translateX(0);
           }
         }
-        .animate-dropdown-item {
-          animation: dropdown-item 0.3s ease-out forwards;
+        .animate-dropdown-nested {
+          animation: dropdown-nested 0.15s ease-out forwards;
         }
 
-        @keyframes nested-slide {
+        @keyframes slide-item {
           from {
             opacity: 0;
-            transform: translateX(-10px);
+            transform: translateX(12px);
           }
           to {
             opacity: 1;
             transform: translateX(0);
           }
         }
-        .animate-nested-slide {
-          animation: nested-slide 0.2s ease-out forwards;
+        .animate-slide-item {
+          animation: slide-item 0.3s ease-out forwards;
         }
 
-        @keyframes nested-item {
-          from {
-            opacity: 0;
-            transform: translateX(-5px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
+        @keyframes fade {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
-        .animate-nested-item {
-          animation: nested-item 0.2s ease-out forwards;
+        .animate-fade {
+          animation: fade 0.25s ease-out forwards;
         }
 
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.3s ease-out forwards;
-        }
-
-        @keyframes backdrop-fade {
+        @keyframes backdrop {
           from {
             backdrop-filter: blur(0);
             opacity: 0;
@@ -1036,11 +915,11 @@ const handleCustomerPortalClick = (type) => {
             opacity: 1;
           }
         }
-        .animate-backdrop-fade {
-          animation: backdrop-fade 0.3s ease-out forwards;
+        .animate-backdrop {
+          animation: backdrop 0.25s ease-out forwards;
         }
 
-        @keyframes slide-in-right {
+        @keyframes slide {
           from {
             transform: translateX(100%);
             opacity: 0;
@@ -1050,22 +929,8 @@ const handleCustomerPortalClick = (type) => {
             opacity: 1;
           }
         }
-        .animate-slide-in-right {
-          animation: slide-in-right 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        @keyframes slide-in-item {
-          from {
-            transform: translateX(20px);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-        .animate-slide-in-item {
-          animation: slide-in-item 0.4s ease-out forwards;
+        .animate-slide {
+          animation: slide 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
       `}</style>
     </>

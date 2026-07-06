@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2 } from "lucide-react";
+import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, ChevronRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import backgroundImage from "../../assets/Individual1.png"
+
+// Import images for the banner
+import mainPropertyImage from "../../assets/banner1.jpg"; // Replace with your main image
+import apartmentImg from "../../assets/banner1.jpg";
+import villaImg from "../../assets/banner1.jpg";
+import commercialImg from "../../assets/banner1.jpg";
+import landImg from "../../assets/banner1.jpg";
+
+// Import category images
+import independentHouseImg from "../../assets/banner1.jpg";
+import independentVillaImg from "../../assets/banner1.jpg";
+import residentialApartmentImg from "../../assets/banner1.jpg";
+import duplexResidentialImg from "../../assets/banner1.jpg";
+import rowHouseImg from "../../assets/banner1.jpg";
 
 const IndividualPage = () => {
   const navigate = useNavigate();
@@ -19,6 +32,47 @@ const IndividualPage = () => {
     { name: "Hostel", path: "/hostel", icon: <Building2 className="w-4 h-4" /> }
   ];
 
+  // Property type categories with images for round display - includes "All"
+  const propertyTypeCategories = [
+    { 
+      name: "All", 
+      path: "/individual", 
+      image: null,
+      icon: <Home className="w-7 h-7" />,
+      isAll: true
+    },
+    { 
+      name: "Independent House", 
+      path: "/individual/independent-house", 
+      image: independentHouseImg,
+      icon: <Home className="w-6 h-6" />
+    },
+    { 
+      name: "Independent Villa", 
+      path: "/individual/independent-villa", 
+      image: independentVillaImg,
+      icon: <Home className="w-6 h-6" />
+    },
+    { 
+      name: "Residential Apartment", 
+      path: "/individual/residential-apartment", 
+      image: residentialApartmentImg,
+      icon: <Building className="w-6 h-6" />
+    },
+    { 
+      name: "Duplex Unit", 
+      path: "/individual/duplex-residential-unit", 
+      image: duplexResidentialImg,
+      icon: <Building2 className="w-6 h-6" />
+    },
+    { 
+      name: "Row House", 
+      path: "/individual/row-house", 
+      image: rowHouseImg,
+      icon: <Home className="w-6 h-6" />
+    }
+  ];
+
   const houseTypes = [
     { name: "All", path: "/individual", component: "IndividualPage" },
     { name: "Independent House", path: "/individual/independent-house", component: "IndependentHousePage" },
@@ -26,6 +80,38 @@ const IndividualPage = () => {
     { name: "Residential Apartment", path: "/individual/residential-apartment", component: "ResidentialApartmentPage" },
     { name: "Duplex Residential Unit", path: "/individual/duplex-residential-unit", component: "DuplexResidentialUnitPage" },
     { name: "Row House", path: "/individual/row-house", component: "RowHousePage" }
+  ];
+
+  // Diamond data - Adjusted for full visibility with labels
+  const bannerDiamonds = [
+    {
+      image: apartmentImg,
+      top: "15px",
+      left: "15px",
+      size: "100px",
+      label: "Apartments"
+    },
+    {
+      image: villaImg,
+      top: "140px",
+      left: "65px",
+      size: "85px",
+      label: "Villas"
+    },
+    {
+      image: commercialImg,
+      top: "260px",
+      left: "100px",
+      size: "100px",
+      label: "Commercial"
+    },
+    {
+      image: landImg,
+      top: "375px",
+      left: "35px",
+      size: "80px",
+      label: "Land & Plots"
+    }
   ];
 
   useEffect(() => {
@@ -51,116 +137,150 @@ const IndividualPage = () => {
 
   return (
     <div className="w-full min-h-screen relative">
-      {/* Background and other content same as before */}
-      <div 
-        className="fixed inset-0 z-0"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-900/30 via-emerald-900/20 to-teal-900/40 animate-gradient-flow"></div>
-        
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(25)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute animate-particle-float"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${8 + Math.random() * 8}s`,
-                width: `${2 + Math.random() * 4}px`,
-                height: `${2 + Math.random() * 4}px`,
-                background: `radial-gradient(circle, rgba(38, 166, 154, 0.4) 0%, rgba(0, 105, 92, 0.2) 70%, transparent 100%)`,
-                borderRadius: '50%',
-              }}
-            ></div>
-          ))}
-          
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={`shape-${i}`}
-              className="absolute animate-geometric-float"
-              style={{
-                width: `${20 + Math.random() * 40}px`,
-                height: `${20 + Math.random() * 40}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                background: `linear-gradient(135deg, rgba(0, 105, 92, 0.1), rgba(38, 166, 154, 0.05))`,
-                borderRadius: i % 3 === 0 ? '50%' : i % 3 === 1 ? '20%' : '0%',
-                border: '1px solid rgba(38, 166, 154, 0.15)',
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${15 + Math.random() * 15}s`,
-              }}
-            ></div>
-          ))}
-        </div>
-      </div>
-
       <div className="relative z-10">
-        <section className="w-full h-[300px] md:h-[400px] relative flex items-center overflow-hidden group">
-          <div className="absolute inset-0 bg-gradient-to-b animate-gradient-slow"></div>
-          
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
-              <div
-                key={`dot-${i}`}
-                className="absolute w-2 h-2 bg-teal-400/30 rounded-full animate-bubble-float"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${5 + Math.random() * 5}s`,
-                }}
-              ></div>
-            ))}
-          </div>
-          
-          <div className="max-w-none mx-auto px-6 relative z-10 text-center w-full">
-            <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-600/20 backdrop-blur-lg border border-teal-300/20 animate-float-glow shadow-[0_0_30px_rgba(0,105,92,0.3)]">
-              <Star className="w-4 h-4 text-teal-300 animate-spin-slow" fill="currentColor" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300 text-sm font-medium">
-                Premium Properties
-              </span>
-            </div>
+        {/* ====== PREMIUM BROCHURE-STYLE BANNER ====== */}
+        <section className="w-full h-auto lg:h-[480px] bg-white overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] h-auto lg:h-full">
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slide-up drop-shadow-[0_0_30px_rgba(0,105,92,0.5)]">
-              Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 animate-gradient-text">Individual Property</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed ">
-              Browse through our verified individual properties with premium amenities
-            </p>
+            {/* LEFT CONTENT SECTION - 40% Light Green Background */}
+            <div className="relative bg-[#D1E2DB] flex flex-col justify-center px-6 md:px-10 lg:px-14 py-10 lg:py-0 overflow-hidden min-h-[300px] lg:min-h-0">
+              {/* Top curved decorative shape */}
+              <div className="absolute top-0 left-0 w-56 h-24 bg-[#B8CFC6] rounded-br-[100px] opacity-40" />
+              
+              {/* Bottom curved decorative shape */}
+              <div className="absolute bottom-0 right-0 w-40 h-20 bg-[#B8CFC6] rounded-tl-[70px] opacity-30" />
+              
+              {/* Decorative dots pattern */}
+              <div className="absolute inset-0 opacity-5">
+                {[...Array(15)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-2 h-2 bg-[#00695C] rounded-full"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                    }}
+                  />
+                ))}
+              </div>
 
-            <div className="flex flex-wrap justify-center gap-4 px-4 animate-fade-in-up delay-200">
-              {propertyCategories.map((category, index) => (
-                <button
-                  key={category.name}
-                  onClick={() => handlePropertyCategoryNavigation(category.path)}
-                  className="group relative px-7 py-3.5 rounded-xl text-white font-semibold text-base shadow-2xl hover:shadow-[0_0_40px_rgba(0,105,92,0.5)] transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 overflow-hidden animate-slide-up"
-                  style={{
-                    animationDelay: `${index * 100}ms`,
-                    background: "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
-                    backgroundSize: "200% 200%"
-                  }}
-                >
-                  <div className="absolute inset-0 animate-gradient-shift"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
-                  <div className="relative z-10 flex items-center gap-3">
-                    <span className="group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">{category.icon}</span>
-                    <span>{category.name}</span>
-                  </div>
+              <div className="relative z-10">
+                {/* Brand Badge */}
+                <p className="text-[#00695C]/70 text-[10px] tracking-[0.3em] mb-3 font-medium uppercase">
+                  EliteInova Properties
+                </p>
+
+                {/* Main Heading */}
+                <h1 className="text-[#143B35] font-black leading-none">
+                  <span className="block text-lg md:text-xl mb-0.5 font-light tracking-wider">
+                    MODERN
+                  </span>
+                  <span className="block text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+                    HOME
+                  </span>
+                  <span className="block text-xl md:text-2xl mt-1 font-bold text-[#00695C]">
+                    FOR SALE
+                  </span>
+                </h1>
+
+                {/* Description */}
+                <p className="text-[#4B5C58] mt-4 max-w-sm text-sm md:text-base leading-relaxed">
+                  Discover premium villas, apartments, plots and commercial spaces in prime locations.
+                </p>
+
+                {/* CTA Button */}
+                <button className="mt-6 bg-[#00695C] text-white font-bold px-8 md:px-10 py-2.5 md:py-3 rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-sm md:text-base">
+                  Explore Properties
                 </button>
+              </div>
+            </div>
+
+            {/* RIGHT IMAGE SECTION - 60% with Light Green Background */}
+            <div className="relative h-[300px] lg:h-full overflow-hidden bg-[#D1E2DB]">
+              <img
+                src={mainPropertyImage}
+                alt="Luxury Property"
+                className="absolute inset-0 w-full h-full object-cover scale-105"
+              />
+              
+              {/* Subtle gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/5 via-transparent to-black/10" />
+
+              {/* Light Green diagonal design strips */}
+              <div className="absolute inset-0 z-10 pointer-events-none">
+                <div
+                  className="
+                    absolute
+                    top-[-80px]
+                    left-[-60px]
+                    w-[180px]
+                    h-[700px]
+                    bg-[#D1E2DB]
+                    rotate-[35deg]
+                    opacity-90
+                  "
+                />
+                <div
+                  className="
+                    absolute
+                    top-[-80px]
+                    left-[80px]
+                    w-[50px]
+                    h-[700px]
+                    bg-[#D1E2DB]
+                    rotate-[35deg]
+                    opacity-85
+                  "
+                />
+              </div>
+
+              {/* FOUR DIAMONDS - Fully visible with labels */}
+              {bannerDiamonds.map((diamond, index) => (
+                <div
+                  key={index}
+                  className="
+                    absolute
+                    z-30
+                    group
+                    cursor-pointer
+                    transition-all
+                    duration-500
+                    hover:scale-110
+                  "
+                  style={{
+                    top: diamond.top,
+                    left: diamond.left,
+                    width: diamond.size,
+                    height: diamond.size,
+                  }}
+                  onClick={() => handlePropertyCategoryNavigation(
+                    index === 0 ? "/apartment" : 
+                    index === 1 ? "/individual/independent-villa" :
+                    index === 2 ? "/commercial" : "/land-plots"
+                  )}
+                >
+                  {/* Diamond Shape */}
+                  <div className="w-full h-full rotate-45 overflow-hidden rounded-[22px] border-[5px] border-white shadow-xl hover:shadow-[0_0_35px_rgba(0,105,92,0.4)] transition-all duration-300">
+                    <img
+                      src={diamond.image}
+                      alt={diamond.label}
+                      className="w-full h-full object-cover -rotate-45 scale-[1.6]"
+                    />
+                  </div>
+                  
+                  {/* Label below diamond - Always visible with proper spacing */}
+                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <span className="text-[10px] font-semibold text-[#143B35] px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-md border border-white/60">
+                      {diamond.label}
+                    </span>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
+        {/* ====== SEARCH & FILTER BAR ====== */}
         <div className="bg-gradient-to-r from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl shadow-2xl sticky top-0 z-40 border-b border-teal-200/30 transition-all duration-500 animate-slide-down">
           <div className="max-w-none mx-auto px-6 py-4">
             <div className="hidden md:block space-y-4">
@@ -255,40 +375,53 @@ const IndividualPage = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3">
-                {houseTypes.map((type, index) => {
-                  const isActive = activeHouseType === type.name;
+              {/* ====== PROPERTY TYPE CATEGORIES - Below Rent & Search Bar - Centered ====== */}
+              <div className="flex flex-wrap items-center justify-center gap-5 md:gap-8 pt-2">
+                {propertyTypeCategories.map((category) => {
+                  const isActive = activeHouseType === category.name || 
+                    (category.name === "All" && activeHouseType === "All");
+                  
                   return (
-                    <button
-                      key={type.name}
-                      onClick={() => handleNavigation(type.path, type.name)}
-                      className={`group relative px-4 py-2 rounded-lg font-semibold text-sm shadow-xl transition-all duration-500 whitespace-nowrap transform hover:-translate-y-1 hover:scale-105 overflow-hidden ${
-                      isActive 
-                        ? "text-teal-800 shadow-none" 
-                        : "text-white/90 hover:text-white"
-                    }`}
-                    style={{
-                  background: isActive 
-                    ? "#ebfff7" 
-                    : "linear-gradient(135deg, #00695C, #26A69A, #4DB6AC)",
-                  backgroundSize: "200% 200%",
-                  outline: isActive ? "3px solid #00695C" : "none",
-                  outlineOffset: "-3px",
-                  border: "none",
-                  boxShadow: isActive ? "0 0 18px 4px rgba(0, 105, 92, 0.45)" : "none"
-                }}
+                    <div
+                      key={category.name}
+                      className="group cursor-pointer flex flex-col items-center transition-all duration-300 hover:scale-105"
+                      onClick={() => handleNavigation(category.path, category.name)}
                     >
-                      <div className={`absolute inset-0 animate-gradient-shift-slow ${isActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-500'}`}></div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                      {isActive && (
-                        <div className="absolute -inset-1 rounded-xl"></div>
-                      )}
-                      <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
-                      <span className="relative z-10 flex items-center gap-2">
-                        <Home className={`w-3.5 h-3.5 transition-transform duration-300 ${isActive ? 'rotate-12' : 'group-hover:rotate-12'}`} />
-                        {type.name}
+                      {/* Round Image - Increased Size */}
+                      <div 
+                        className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 transition-all duration-300 shadow-md hover:shadow-lg ${
+                          isActive 
+                            ? 'border-[#00695C] shadow-[0_0_25px_rgba(0,105,92,0.35)]' 
+                            : 'border-gray-300 hover:border-[#00695C]'
+                        }`}
+                      >
+                        {category.isAll ? (
+                          <div className={`w-full h-full flex items-center justify-center transition-colors duration-300 ${
+                            isActive ? 'bg-[#00695C]' : 'bg-gray-100 group-hover:bg-[#D1E2DB]'
+                          }`}>
+                            <Home className={`w-7 h-7 md:w-9 md:h-9 transition-colors duration-300 ${
+                              isActive ? 'text-white' : 'text-[#00695C]'
+                            }`} />
+                          </div>
+                        ) : (
+                          <>
+                            <img
+                              src={category.image}
+                              alt={category.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                          </>
+                        )}
+                      </div>
+                      
+                      {/* Label - Increased Size */}
+                      <span className={`mt-1.5 text-[10px] sm:text-xs md:text-sm font-semibold text-center transition-colors duration-300 ${
+                        isActive ? 'text-[#00695C]' : 'text-[#143B35] group-hover:text-[#00695C]'
+                      }`}>
+                        {category.name}
                       </span>
-                    </button>
+                    </div>
                   );
                 })}
               </div>
@@ -510,7 +643,6 @@ const IndividualPage = () => {
       </div>
 
       <style jsx>{`
-        /* Keep all existing styles */
         @keyframes gradient-flow {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
