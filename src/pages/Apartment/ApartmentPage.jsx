@@ -3,8 +3,8 @@ import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark,
 import { useNavigate, useLocation } from "react-router-dom";
 
 // Import images from assets
-import individualImg from "../../assets/Individualhomeban1.jpg";
-import commercialImg from "../../assets/banner1.jpg";
+import individualImg from "../../assets/individualcat.jpg";
+import commercialImg from "../../assets/commercialcat.jpg";
 import landPlotsImg from "../../assets/banner1.jpg";
 import hostelImg from "../../assets/banner1.jpg";
 import bannerImg from "../../assets/Apartmentban.jpg";
@@ -255,157 +255,186 @@ const ApartmentPage = () => {
                 {/* Soft overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-[#E7EFEA] via-transparent to-transparent" />
 
-                {/* DIAMOND COLLAGE - With proper shadows */}
-                <div className="absolute inset-0 flex items-center justify-start pl-8 z-20">
-                  <div className="relative w-[320px] h-[320px]">
+                {/* DIAMOND COLLAGE - Proper implementation */}
+<div className="absolute inset-0 flex items-center justify-start pl-8 z-20">
+  <div className="relative w-[320px] h-[320px]">
 
-                    {/* TOP DIAMOND - Individual */}
-                    <div
-                      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
-                      style={{
-                        width: "110px",
-                        height: "110px",
-                        top: "10px",
-                        left: "105px",
-                      }}
-                      onClick={() => handleDiamondClick(bannerDiamonds[0].path)}
-                    >
-                      <div
-                        className="relative w-full h-full overflow-hidden"
-                        style={{
-                          transform: "rotate(45deg)",
-                          borderRadius: "18px",
-                          border: "4px solid #A8D5BA",
-                          boxShadow: "0 8px 32px rgba(0,105,92,0.3), 0 2px 8px rgba(0,105,92,0.15), inset 0 1px 0 rgba(255,255,255,0.2)",
-                        }}
-                      >
-                        <img
-                          src={bannerDiamonds[0].image}
-                          alt="Individual"
-                          className="absolute w-[145%] h-[145%] object-cover"
-                          style={{
-                            transform: "translate(-15%,-15%) rotate(-45deg)",
-                          }}
-                        />
-                        {/* Label overlay inside diamond */}
-                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/70 via-black/30 to-transparent" style={{ transform: "rotate(-45deg)" }}>
-                          <span className="text-white font-bold text-[11px] tracking-wide drop-shadow-lg">
-                            Individual
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+    {/* TOP DIAMOND - Individual */}
+    <div
+      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
+      style={{
+        width: "120px",
+        height: "120px",
+        top: "0px",
+        left: "95px",
+      }}
+      onClick={() => handleDiamondClick(bannerDiamonds[0].path)}
+    >
+      <div
+        className="relative w-full h-full overflow-hidden shadow-2xl"
+        style={{
+          transform: "rotate(45deg)",
+          borderRadius: "22px",
+          border: "4px solid rgba(255,255,255,0.85)",
+          boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
+        }}
+      >
+        <img
+          src={bannerDiamonds[0].image}
+          alt="Individual"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            transform: "rotate(-45deg) scale(1.3)",
+            transformOrigin: "center",
+          }}
+        />
+        {/* Overlay for text readability */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
+          }}
+        />
+      </div>
+      {/* Text Label - Outside the rotated container */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <span className="text-white font-bold text-[13px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] z-10">
+          Individual
+        </span>
+      </div>
+    </div>
 
-                    {/* LEFT DIAMOND - Commercial */}
-                    <div
-                      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
-                      style={{
-                        width: "110px",
-                        height: "110px",
-                        top: "105px",
-                        left: "0px",
-                      }}
-                      onClick={() => handleDiamondClick(bannerDiamonds[1].path)}
-                    >
-                      <div
-                        className="relative w-full h-full overflow-hidden"
-                        style={{
-                          transform: "rotate(45deg)",
-                          borderRadius: "18px",
-                          border: "4px solid #A8D5BA",
-                          boxShadow: "0 8px 32px rgba(0,105,92,0.3), 0 2px 8px rgba(0,105,92,0.15), inset 0 1px 0 rgba(255,255,255,0.2)",
-                        }}
-                      >
-                        <img
-                          src={bannerDiamonds[1].image}
-                          alt="Commercial"
-                          className="absolute w-[145%] h-[145%] object-cover"
-                          style={{
-                            transform: "translate(-15%,-15%) rotate(-45deg)",
-                          }}
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/70 via-black/30 to-transparent" style={{ transform: "rotate(-45deg)" }}>
-                          <span className="text-white font-bold text-[11px] tracking-wide drop-shadow-lg">
-                            Commercial
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+    {/* LEFT DIAMOND - Commercial */}
+    <div
+      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
+      style={{
+        width: "120px",
+        height: "120px",
+        top: "95px",
+        left: "0px",
+      }}
+      onClick={() => handleDiamondClick(bannerDiamonds[1].path)}
+    >
+      <div
+        className="relative w-full h-full overflow-hidden shadow-2xl"
+        style={{
+          transform: "rotate(45deg)",
+          borderRadius: "22px",
+          border: "4px solid rgba(255,255,255,0.85)",
+          boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
+        }}
+      >
+        <img
+          src={bannerDiamonds[1].image}
+          alt="Commercial"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            transform: "rotate(-45deg) scale(1.5)",
+            transformOrigin: "center",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <span className="text-white font-bold text-[13px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] z-10">
+          Commercial
+        </span>
+      </div>
+    </div>
 
-                    {/* RIGHT DIAMOND - Land & Plots */}
-                    <div
-                      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
-                      style={{
-                        width: "110px",
-                        height: "110px",
-                        top: "105px",
-                        left: "210px",
-                      }}
-                      onClick={() => handleDiamondClick(bannerDiamonds[2].path)}
-                    >
-                      <div
-                        className="relative w-full h-full overflow-hidden"
-                        style={{
-                          transform: "rotate(45deg)",
-                          borderRadius: "18px",
-                          border: "4px solid #A8D5BA",
-                          boxShadow: "0 8px 32px rgba(0,105,92,0.3), 0 2px 8px rgba(0,105,92,0.15), inset 0 1px 0 rgba(255,255,255,0.2)",
-                        }}
-                      >
-                        <img
-                          src={bannerDiamonds[2].image}
-                          alt="Land & Plots"
-                          className="absolute w-[145%] h-[145%] object-cover"
-                          style={{
-                            transform: "translate(-15%,-15%) rotate(-45deg)",
-                          }}
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/70 via-black/30 to-transparent" style={{ transform: "rotate(-45deg)" }}>
-                          <span className="text-white font-bold text-[11px] tracking-wide drop-shadow-lg text-center leading-tight">
-                            Land &<br />Plots
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+    {/* RIGHT DIAMOND - Land & Plots */}
+    <div
+      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
+      style={{
+        width: "120px",
+        height: "120px",
+        top: "95px",
+        left: "190px",
+      }}
+      onClick={() => handleDiamondClick(bannerDiamonds[2].path)}
+    >
+      <div
+        className="relative w-full h-full overflow-hidden shadow-2xl"
+        style={{
+          transform: "rotate(45deg)",
+          borderRadius: "22px",
+          border: "4px solid rgba(255,255,255,0.85)",
+          boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
+        }}
+      >
+        <img
+          src={bannerDiamonds[2].image}
+          alt="Land & Plots"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            transform: "rotate(-45deg) scale(1.5)",
+            transformOrigin: "center",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <span className="text-white font-bold text-[12px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] text-center leading-tight z-10">
+          Land & Plots
+        </span>
+      </div>
+    </div>
 
-                    {/* BOTTOM DIAMOND - Hostels */}
-                    <div
-                      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
-                      style={{
-                        width: "110px",
-                        height: "110px",
-                        top: "200px",
-                        left: "105px",
-                      }}
-                      onClick={() => handleDiamondClick(bannerDiamonds[3].path)}
-                    >
-                      <div
-                        className="relative w-full h-full overflow-hidden"
-                        style={{
-                          transform: "rotate(45deg)",
-                          borderRadius: "18px",
-                          border: "4px solid #A8D5BA",
-                          boxShadow: "0 8px 32px rgba(0,105,92,0.3), 0 2px 8px rgba(0,105,92,0.15), inset 0 1px 0 rgba(255,255,255,0.2)",
-                        }}
-                      >
-                        <img
-                          src={bannerDiamonds[3].image}
-                          alt="Hostels"
-                          className="absolute w-[145%] h-[145%] object-cover"
-                          style={{
-                            transform: "translate(-15%,-15%) rotate(-45deg)",
-                          }}
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/70 via-black/30 to-transparent" style={{ transform: "rotate(-45deg)" }}>
-                          <span className="text-white font-bold text-[11px] tracking-wide drop-shadow-lg">
-                            Hostels
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+    {/* BOTTOM DIAMOND - Hostels */}
+    <div
+      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
+      style={{
+        width: "120px",
+        height: "120px",
+        top: "190px",
+        left: "95px",
+      }}
+      onClick={() => handleDiamondClick(bannerDiamonds[3].path)}
+    >
+      <div
+        className="relative w-full h-full overflow-hidden shadow-2xl"
+        style={{
+          transform: "rotate(45deg)",
+          borderRadius: "22px",
+          border: "4px solid rgba(255,255,255,0.85)",
+          boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
+        }}
+      >
+        <img
+          src={bannerDiamonds[3].image}
+          alt="Hostels"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            transform: "rotate(-45deg) scale(1.5)",
+            transformOrigin: "center",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <span className="text-white font-bold text-[13px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] z-10">
+          Hostels
+        </span>
+      </div>
+    </div>
 
-                  </div>
-                </div>
+  </div>
+</div>
               </div>
             </div>
           </div>
