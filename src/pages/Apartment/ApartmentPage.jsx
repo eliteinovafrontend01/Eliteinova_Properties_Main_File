@@ -5,14 +5,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 // Import images from assets
 import individualImg from "../../assets/individualcat.jpg";
 import commercialImg from "../../assets/commercialcat.jpg";
-import landPlotsImg from "../../assets/banner1.jpg";
-import hostelImg from "../../assets/banner1.jpg";
+import landPlotsImg from "../../assets/landcat.jpg";
+import hostelImg from "../../assets/hostelcat.jpg";
 import bannerImg from "../../assets/Apartmentban.jpg";
 
 // Import category images for apartment types
-import rentalApartmentImg from "../../assets/banner1.jpg";
-import servicedApartmentImg from "../../assets/banner1.jpg";
-import leaseApartmentImg from "../../assets/banner1.jpg";
+import rentalApartmentImg from "../../assets/rentalapart.jpg";
+import servicedApartmentImg from "../../assets/servicedapart.jpg";
+import leaseApartmentImg from "../../assets/leaseapart.jpg";
 import residentialApartmentImg from "../../assets/banner1.jpg";
 import gatedCommunityImg from "../../assets/banner1.jpg";
 import studioApartmentImg from "../../assets/banner1.jpg";
