@@ -200,7 +200,7 @@ const Header = ({ onPostPropertyClick }) => {
                     fontFamily: "Pacifico, cursive",
                     color: "#E8F5E9",
                     textShadow: '0 2px 16px rgba(0, 229, 255, 0.2)',
-                    fontWeight: 300,
+                    fontWeight: 150,
                   }}
                 >
                   <span className="relative inline-block group-hover:scale-105 transition-transform duration-500">

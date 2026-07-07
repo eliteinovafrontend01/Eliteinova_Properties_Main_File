@@ -1,61 +1,62 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+// Import images from assets
+import apartment1 from "../assets/Apartmenthomeban1.jpg";
+import apartment2 from "../assets/Apartmenthomeban2.jpg";
+import apartment3 from "../assets/Apartmenthomeban3.jpg";
+import apartment4 from "../assets/Apartmenthomeban4.jpg";
+import apartment5 from "../assets/Apartmenthomeban5.jpg";
+
+import commercial1 from "../assets/Commercialhomeban1.jpg";
+import commercial2 from "../assets/Commercialhomeban2.jpg";
+import commercial3 from "../assets/Commercialhomeban3.jpg";
+import commercial4 from "../assets/Commercialhomeban4.jpg";
+import commercial5 from "../assets/Commercialhomeban5.jpg";
+
+import hostel1 from "../assets/hostelhomeban1.jpg";
+import hostel2 from "../assets/hostelhomeban2.jpg";
+import hostel3 from "../assets/hostelhomeban3.jpg";
+import hostel4 from "../assets/hostelhomeban4.jpg";
+import hostel5 from "../assets/hostelhomeban5.jpg";
+
+import villa1 from "../assets/Individualhomeban1.jpg";
+import villa2 from "../assets/Individualhomeban2.jpg";
+import villa3 from "../assets/Individualhomeban3.jpg";
+import villa4 from "../assets/Individualhomeban4.jpg";
+import villa5 from "../assets/Individualhomeban5.jpg";
+
+import land1 from "../assets/landhomeban1.jpg";
+import land2 from "../assets/landhomeban2.jpg";
+import land3 from "../assets/landhomeban3.jpg";
+import land4 from "../assets/landhomeban4.jpg";
+import land5 from "../assets/landhomeban5.jpg";
+
 const slidesData = [
   {
     title: "Apartments",
     subtitle: "Where Comfort Meets Convenience",
-    images: [
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop&q=80"
-    ]
+    images: [apartment1, apartment2, apartment3, apartment4, apartment5]
   },
   {
     title: "Commercial Buildings",
     subtitle: "Elevate Your Business Address",
-    images: [
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&auto=format&fit=crop&q=80"
-    ]
+    images: [commercial1, commercial2, commercial3, commercial4, commercial5]
   },
   {
     title: "Hostels",
     subtitle: "Your Home Away From Home",
-    images: [
-      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1596276122653-651a3898309f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1567521464027-f127ff1443cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&auto=format&fit=crop&q=80"
-    ]
+    images: [hostel1, hostel2, hostel3, hostel4, hostel5]
   },
   {
     title: "Individual Villas",
     subtitle: "Your Space. Your Sanctuary.",
-    images: [
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop&q=80"
-    ]
+    images: [villa1, villa2, villa3, villa4, villa5]
   },
   {
     title: "Land and Plots",
     subtitle: "Build Your Dream Home",
-    images: [
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1444653389962-8149286c578a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1500530815614-230a33d7b75f?w=800&auto=format&fit=crop&q=80"
-    ]
+    images: [land1, land2, land3, land4, land5]
   }
 ];
 
@@ -80,7 +81,7 @@ const HomePage = () => {
   return (
     <div className="w-full bg-[#F4F7F6] font-sans antialiased mt-0 pt-0">
       
-      {/* Main Banner Housing Container - Height reduced to h-[420px]/h-[480px] to cover header gap cleanly */}
+      {/* Main Banner Housing Container */}
       <div className="relative w-full overflow-hidden h-[600px] md:h-[420px] lg:h-[480px] bg-[#D1E2DB] top-0 mt-0">
         
         {/* Render Slides Loop */}

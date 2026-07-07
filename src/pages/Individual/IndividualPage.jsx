@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, ChevronRight } from "lucide-react";
+import { ChevronDown, Search, Home, MapPin, Star, Filter, X, Building, Landmark, Warehouse, Building2, ChevronRight, Instagram, Globe } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // Import images for the banner
@@ -82,35 +82,44 @@ const IndividualPage = () => {
     { name: "Row House", path: "/individual/row-house", component: "RowHousePage" }
   ];
 
-  // Diamond data - Adjusted for full visibility with labels
+  // Diamond data - each diamond carries its own label, which side the
+  // label should appear on, and the path it navigates to when clicked.
   const bannerDiamonds = [
     {
       image: apartmentImg,
       top: "15px",
       left: "15px",
       size: "100px",
-      label: "Apartments"
+      label: "Apartments",
+      labelSide: "right",
+      path: "/apartment"
     },
     {
       image: villaImg,
       top: "140px",
-      left: "65px",
-      size: "85px",
-      label: "Villas"
+      left: "75px",
+      size: "100px",
+      label: "Hostel",
+      labelSide: "left",
+      path: "/hostel"
     },
     {
       image: commercialImg,
-      top: "260px",
-      left: "100px",
+      top: "250px",
+      left: "15px",
       size: "100px",
-      label: "Commercial"
+      label: "Commercial",
+      labelSide: "right",
+      path: "/commercial"
     },
     {
       image: landImg,
-      top: "375px",
-      left: "35px",
-      size: "80px",
-      label: "Land & Plots"
+      top: "360px",
+      left: "95px",
+      size: "100px",
+      label: "Land & Plots",
+      labelSide: "left",
+      path: "/land-plots"
     }
   ];
 
@@ -140,62 +149,46 @@ const IndividualPage = () => {
       <div className="relative z-10">
         {/* ====== PREMIUM BROCHURE-STYLE BANNER ====== */}
         <section className="w-full h-auto lg:h-[480px] bg-white overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] h-auto lg:h-full">
+          {/* CHANGED: Reduced left section from 40% to 30%, right from 60% to 70% */}
+          <div className="grid grid-cols-1 lg:grid-cols-[30%_70%] h-auto lg:h-full">
             
-            {/* LEFT CONTENT SECTION - 40% Light Green Background */}
-            <div className="relative bg-[#D1E2DB] flex flex-col justify-center px-6 md:px-10 lg:px-14 py-10 lg:py-0 overflow-hidden min-h-[300px] lg:min-h-0">
-              {/* Top curved decorative shape */}
-              <div className="absolute top-0 left-0 w-56 h-24 bg-[#B8CFC6] rounded-br-[100px] opacity-40" />
-              
-              {/* Bottom curved decorative shape */}
-              <div className="absolute bottom-0 right-0 w-40 h-20 bg-[#B8CFC6] rounded-tl-[70px] opacity-30" />
-              
-              {/* Decorative dots pattern */}
-              <div className="absolute inset-0 opacity-5">
-                {[...Array(15)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-2 h-2 bg-[#00695C] rounded-full"
-                    style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                    }}
-                  />
-                ))}
-              </div>
+            {/* LEFT CONTENT SECTION - 30% Light Green Background (reduced from 40%) */}
+            <div className="relative bg-[#D1E2DB] flex flex-col justify-center px-4 md:px-6 lg:px-8 py-10 lg:py-0 overflow-hidden min-h-[300px] lg:min-h-0">
+              {/* Single top-left wedge, like the reference */}
+               <div className="absolute top-0 left-0 w-72 h-40 bg-[#B8CFC6] rounded-br-[140px] opacity-60" />
 
               <div className="relative z-10">
                 {/* Brand Badge */}
-                <p className="text-[#00695C]/70 text-[10px] tracking-[0.3em] mb-3 font-medium uppercase">
+                <p className="text-[#00695C]/70 text-[9px] tracking-[0.3em] mb-2 font-medium uppercase">
                   EliteInova Properties
                 </p>
 
-                {/* Main Heading */}
+                {/* Main Heading - Reduced text sizes for compact layout */}
                 <h1 className="text-[#143B35] font-black leading-none">
-                  <span className="block text-lg md:text-xl mb-0.5 font-light tracking-wider">
+                  <span className="block text-base md:text-lg mb-0.5 font-light tracking-wider">
                     MODERN
                   </span>
-                  <span className="block text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+                  <span className="block text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight">
                     HOME
                   </span>
-                  <span className="block text-xl md:text-2xl mt-1 font-bold text-[#00695C]">
+                  <span className="block text-lg md:text-xl mt-1 font-bold text-[#00695C]">
                     FOR SALE
                   </span>
                 </h1>
 
-                {/* Description */}
-                <p className="text-[#4B5C58] mt-4 max-w-sm text-sm md:text-base leading-relaxed">
-                  Discover premium villas, apartments, plots and commercial spaces in prime locations.
+                {/* Description - Reduced max width */}
+                <p className="text-[#4B5C58] mt-3 max-w-xs text-xs md:text-sm leading-relaxed">
+                  Discover premium villas, apartments, plots and commercial spaces.
                 </p>
 
                 {/* CTA Button */}
-                <button className="mt-6 bg-[#00695C] text-white font-bold px-8 md:px-10 py-2.5 md:py-3 rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-sm md:text-base">
+                <button className="mt-4 bg-[#00695C] text-white font-bold px-6 md:px-8 py-2 md:py-2.5 rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-xs md:text-sm">
                   Explore Properties
                 </button>
               </div>
             </div>
 
-            {/* RIGHT IMAGE SECTION - 60% with Light Green Background */}
+            {/* RIGHT IMAGE SECTION - 70% with Light Green Background (increased from 60%) */}
             <div className="relative h-[300px] lg:h-full overflow-hidden bg-[#D1E2DB]">
               <img
                 src={mainPropertyImage}
@@ -234,7 +227,13 @@ const IndividualPage = () => {
                 />
               </div>
 
-              {/* FOUR DIAMONDS - Fully visible with labels */}
+              {/*
+                FOUR DIAMONDS - fully visible with labels.
+                Labels alternate sides (right/left) per diamond, and since this
+                parent container has overflow-hidden, a label can never visually
+                cross into the left "words" section - it gets clipped at this
+                container's own left edge first.
+              */}
               {bannerDiamonds.map((diamond, index) => (
                 <div
                   key={index}
@@ -253,14 +252,10 @@ const IndividualPage = () => {
                     width: diamond.size,
                     height: diamond.size,
                   }}
-                  onClick={() => handlePropertyCategoryNavigation(
-                    index === 0 ? "/apartment" : 
-                    index === 1 ? "/individual/independent-villa" :
-                    index === 2 ? "/commercial" : "/land-plots"
-                  )}
+                  onClick={() => handlePropertyCategoryNavigation(diamond.path)}
                 >
                   {/* Diamond Shape */}
-                  <div className="w-full h-full rotate-45 overflow-hidden rounded-[22px] border-[5px] border-white shadow-xl hover:shadow-[0_0_35px_rgba(0,105,92,0.4)] transition-all duration-300">
+                  <div className="w-full h-full rotate-45 overflow-hidden rounded-[22px] border-[5px] border-[#D1E2DB] shadow-xl hover:shadow-[0_0_35px_rgba(0,105,92,0.4)] transition-all duration-300">
                     <img
                       src={diamond.image}
                       alt={diamond.label}
@@ -268,9 +263,15 @@ const IndividualPage = () => {
                     />
                   </div>
                   
-                  {/* Label below diamond - Always visible with proper spacing */}
-                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                    <span className="text-[10px] font-semibold text-[#143B35] px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-md border border-white/60">
+                  {/* CHANGED: Label with light green background instead of white */}
+                  <div
+                    className={`absolute top-1/2 -translate-y-1/2 whitespace-nowrap ${
+                      diamond.labelSide === "right"
+                        ? "left-[calc(100%+12px)]"
+                        : "right-[calc(100%+12px)]"
+                    }`}
+                  >
+                    <span className="text-[10px] font-semibold text-[#143B35] px-3 py-1.5 rounded-full bg-[#D1E2DB] shadow-md border border-[#B8CFC6]">
                       {diamond.label}
                     </span>
                   </div>
