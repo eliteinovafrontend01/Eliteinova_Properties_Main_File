@@ -41,7 +41,7 @@ const CustomerPortalPage = () => {
           </button>
 
           <button
-            onClick={() => navigate("/buy")}
+            onClick={() => navigate("/apartment")}
             className="h-16 md:h-20 rounded-xl text-white text-lg md:text-xl font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
             style={{
               background: "linear-gradient(135deg, #00695C, #26A69A)",
@@ -51,7 +51,7 @@ const CustomerPortalPage = () => {
           </button>
 
           <button
-            onClick={() => navigate("/lease")}
+            onClick={() => navigate("/commercial")}
             className="h-16 md:h-20 rounded-xl text-white text-lg md:text-xl font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
             style={{
               background: "linear-gradient(135deg, #00695C, #26A69A)",
@@ -60,7 +60,7 @@ const CustomerPortalPage = () => {
             Commercial
           </button>
           <button
-            onClick={() => navigate("/lease")}
+            onClick={() => navigate("/hostel")}
             className="h-16 md:h-20 rounded-xl text-white text-lg md:text-xl font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
             style={{
               background: "linear-gradient(135deg, #00695C, #26A69A)",
@@ -69,7 +69,7 @@ const CustomerPortalPage = () => {
             Hostel
           </button>
           <button
-            onClick={() => navigate("/lease")}
+            onClick={() => navigate("/land-plots")}
             className="h-16 md:h-20 rounded-xl text-white text-lg md:text-xl font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
             style={{
               background: "linear-gradient(135deg, #00695C, #26A69A)",

@@ -80,68 +80,65 @@ const HomePage = () => {
 
   return (
     <div className="w-full bg-[#F4F7F6] font-sans antialiased mt-0 pt-0">
-      
+
       {/* Main Banner Housing Container */}
-      <div className="relative w-full overflow-hidden h-[600px] md:h-[420px] lg:h-[480px] bg-[#D1E2DB] top-0 mt-0">
-        
+      <div className="relative w-full overflow-hidden h-[260px] xs:h-[300px] sm:h-[360px] md:h-[420px] lg:h-[480px] bg-[#D1E2DB] top-0 mt-0">
+
         {/* Render Slides Loop */}
         {slidesData.map((slide, index) => {
           const isActive = index === currentSlide;
           return (
             <div
               key={slide.title}
-              className={`absolute inset-0 w-full h-full flex flex-col md:flex-row transition-all duration-700 ease-in-out ${
+              className={`absolute inset-0 w-full h-full flex flex-row transition-all duration-700 ease-in-out ${
                 isActive ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
               }`}
             >
-              
+
               {/* Left Text Block - Rich Geometric Accent Settings */}
-              <div 
-                className="w-full md:w-[40%] lg:w-[36%] h-[240px] md:h-full bg-[#D1E2DB] text-[#2C3E35] relative flex flex-col justify-center px-6 sm:px-12 md:pl-12 lg:pl-16 pr-10 shrink-0 z-30 overflow-hidden"
-                style={{
-                  clipPath: window.innerWidth >= 768 ? 'polygon(0 0, 100% 0, 90% 100%, 0 100%)' : 'none'
-                }}
+              <div
+                className="w-[40%] sm:w-[40%] md:w-[40%] lg:w-[36%] h-full bg-[#D1E2DB] text-[#2C3E35] relative flex flex-col justify-center px-3 xs:px-4 sm:px-8 md:pl-12 lg:pl-16 pr-3 sm:pr-8 shrink-0 z-30 overflow-hidden [clip-path:polygon(0_0,100%_0,78%_100%,0_100%)] sm:[clip-path:polygon(0_0,100%_0,85%_100%,0_100%)] md:[clip-path:polygon(0_0,100%_0,90%_100%,0_100%)]"
               >
                 {/* BACKGROUND DIAMOND GEOMETRY GRAPHICS */}
                 <div className="absolute inset-0 pointer-events-none opacity-[0.25] z-0">
                   <div className="absolute top-4 left-6 w-12 h-12 border border-[#1E7A6E] transform rotate-45" />
-                  <div className="absolute top-12 left-20 w-6 h-6 border border-[#1E7A6E] bg-[#1E7A6E]/10 transform rotate-45" />
+                  <div className="hidden sm:block absolute top-12 left-20 w-6 h-6 border border-[#1E7A6E] bg-[#1E7A6E]/10 transform rotate-45" />
                   <div className="absolute top-24 -left-8 w-24 h-24 border-2 border-dashed border-[#1E7A6E] transform rotate-45" />
-                  <div className="absolute top-1/3 right-8 w-12 h-12 border border-[#1E7A6E] transform rotate-45" />
+                  <div className="hidden sm:block absolute top-1/3 right-8 w-12 h-12 border border-[#1E7A6E] transform rotate-45" />
                   <div className="absolute top-[45%] left-1/4 w-10 h-10 border border-[#1E7A6E] bg-[#1E7A6E]/20 transform rotate-45" />
                   <div className="absolute bottom-8 left-16 w-20 h-20 border border-[#1E7A6E]/60 transform rotate-45" />
-                  <div className="absolute bottom-2 right-16 w-14 h-14 border-2 border-[#1E7A6E] transform rotate-45" />
-                  <div className="absolute bottom-24 -right-10 w-28 h-28 border border-dashed border-[#1E7A6E]/40 transform rotate-45" />
+                  <div className="hidden sm:block absolute bottom-2 right-16 w-14 h-14 border-2 border-[#1E7A6E] transform rotate-45" />
+                  <div className="hidden sm:block absolute bottom-24 -right-10 w-28 h-28 border border-dashed border-[#1E7A6E]/40 transform rotate-45" />
                 </div>
 
                 {/* Content Container */}
                 <div className={`relative z-10 transition-all duration-500 transform ${isActive ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"}`}>
-                  <span className="text-[13px] lg:text-[14px] font-black tracking-[5px] text-[#1E7A6E] block mb-1">
+                  <span className="text-[8px] xs:text-[9px] sm:text-[11px] lg:text-[14px] font-black tracking-[2px] sm:tracking-[4px] lg:tracking-[5px] text-[#1E7A6E] block mb-1">
                     LUXURY
                   </span>
-                  
-                  <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-black tracking-tight leading-[0.95] uppercase text-[#1C2D24]">
+
+                  <h2 className="text-base xs:text-lg sm:text-2xl lg:text-[46px] font-black tracking-tight leading-[0.95] uppercase text-[#1C2D24]">
                     {slide.title.split(" ")[0]}
-                    <span className="block text-[#556B60] font-light text-2xl sm:text-3xl lg:text-[34px] tracking-tight mt-1 lowercase first-letter:uppercase">
+                    <span className="block text-[#556B60] font-light text-xs xs:text-sm sm:text-base lg:text-[34px] tracking-tight mt-1 lowercase first-letter:uppercase">
                       {slide.title.split(" ").slice(1).join(" ")}
                     </span>
                   </h2>
 
-                  <div className="w-14 h-[3px] bg-[#1E7A6E] my-4" />
-                  
-                  <p className="text-[#4A5D54] text-xs sm:text-sm lg:text-[16px] font-bold leading-snug mb-6 max-w-[300px] md:max-w-none">
+                  <div className="w-6 sm:w-10 lg:w-14 h-[2px] sm:h-[3px] bg-[#1E7A6E] my-2 sm:my-4" />
+
+                  <p className="text-[#4A5D54] text-[8px] xs:text-[9px] sm:text-xs lg:text-[16px] font-bold leading-snug mb-2 sm:mb-6 max-w-[130px] sm:max-w-none">
                     {slide.subtitle}
                   </p>
 
-                  <button className="w-[140px] lg:w-[155px] h-[42px] lg:h-[48px] bg-[#1E7A6E] text-white font-extrabold text-xs rounded-sm tracking-widest hover:bg-[#14534B] transition-colors shadow-md">
+                  <button className="w-[70px] xs:w-[85px] sm:w-[120px] lg:w-[155px] h-[24px] xs:h-[28px] sm:h-[38px] lg:h-[48px] bg-[#1E7A6E] text-white font-extrabold text-[7px] xs:text-[8px] sm:text-[10px] lg:text-xs rounded-sm tracking-widest hover:bg-[#14534B] transition-colors shadow-md">
                     EXPLORE NOW
                   </button>
                 </div>
               </div>
 
               {/* Right Side Photo Grid Matrix */}
-              <div className="w-full md:w-[60%] lg:w-[64%] h-[360px] md:h-full relative z-10 grid grid-cols-2 grid-rows-2 gap-1 p-1 bg-[#D1E2DB]">
-                
+              <div className="w-[60%] sm:w-[60%] md:w-[60%] lg:w-[64%] h-full relative z-10 grid grid-cols-2 grid-rows-2 gap-0.5 sm:gap-1 p-0.5 sm:p-1 bg-[#D1E2DB]">
+
                 <div className="relative w-full h-full overflow-hidden">
                   <img src={slide.images[0]} alt="Property Highlight 1" className="w-full h-full object-cover" />
                 </div>
@@ -160,11 +157,11 @@ const HomePage = () => {
 
                 {/* Central Intersecting Diamond Windows Frame */}
                 <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-20">
-                  <div className="w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[220px] lg:h-[220px] transform rotate-45 shadow-2xl border-[5px] md:border-[6px] border-[#D1E2DB] overflow-hidden bg-[#D1E2DB]">
+                  <div className="w-[70px] h-[70px] xs:w-[85px] xs:h-[85px] sm:w-[130px] sm:h-[130px] md:w-[180px] md:h-[180px] lg:w-[220px] lg:h-[220px] transform rotate-45 shadow-2xl border-[3px] xs:border-[4px] md:border-[6px] border-[#D1E2DB] overflow-hidden bg-[#D1E2DB]">
                     <div className="w-full h-full transform -rotate-45 scale-[1.42]">
-                      <img 
-                        src={slide.images[4]} 
-                        alt="Featured Central Highlight" 
+                      <img
+                        src={slide.images[4]}
+                        alt="Featured Central Highlight"
                         className="w-full h-full object-cover pointer-events-auto"
                       />
                     </div>
@@ -180,28 +177,28 @@ const HomePage = () => {
         {/* Slide Carousel Arrow Overlays */}
         <button
           onClick={handlePrevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-[#1E7A6E] text-[#1C2D24] hover:text-white p-2 rounded-full shadow-md backdrop-blur-sm transition-all duration-300 z-40"
+          className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-[#1E7A6E] text-[#1C2D24] hover:text-white p-1 sm:p-2 rounded-full shadow-md backdrop-blur-sm transition-all duration-300 z-40"
           aria-label="Previous Banner Slide"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
         </button>
 
         <button
           onClick={handleNextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-[#1E7A6E] text-[#1C2D24] hover:text-white p-2 rounded-full shadow-md backdrop-blur-sm transition-all duration-300 z-40"
+          className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-[#1E7A6E] text-[#1C2D24] hover:text-white p-1 sm:p-2 rounded-full shadow-md backdrop-blur-sm transition-all duration-300 z-40"
           aria-label="Next Banner Slide"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
         </button>
 
         {/* Indicator Pagination Strip */}
-        <div className="absolute bottom-4 left-6 md:left-auto md:right-8 flex gap-2 z-40">
+        <div className="absolute bottom-2 sm:bottom-4 right-3 sm:left-auto sm:right-8 flex gap-1 sm:gap-2 z-40">
           {slidesData.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide ? "w-6 bg-[#1E7A6E]" : "w-2 bg-[#1C2D24]/30 hover:bg-[#1C2D24]/60"
+              className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
+                index === currentSlide ? "w-4 sm:w-6 bg-[#1E7A6E]" : "w-1.5 sm:w-2 bg-[#1C2D24]/30 hover:bg-[#1C2D24]/60"
               }`}
             />
           ))}

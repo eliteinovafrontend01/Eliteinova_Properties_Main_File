@@ -171,7 +171,7 @@ function AppLayout() {
       )}
 
       {/* MAIN CONTENT — compensate fixed header height */}
-      <main className="pt-24">
+      <main className="pt-[90px] md:pt-[132px]">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/customer-portal" element={<CustomerPortalPage />} />

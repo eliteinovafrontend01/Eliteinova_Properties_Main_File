@@ -746,7 +746,7 @@ const Header = ({ onPostPropertyClick }) => {
       )}
 
       {/* Spacer */}
-      <div className="h-[60px] md:h-[64px]"></div>
+      {/* <div className="h-[60px] md:h-[64px]"></div> */}
 
       <style jsx>{`
         @keyframes float-particle {

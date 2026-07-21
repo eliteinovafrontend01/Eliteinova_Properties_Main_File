@@ -13,13 +13,13 @@ import bannerImg from "../../assets/Apartmentban.jpg";
 import rentalApartmentImg from "../../assets/rentalapart.jpg";
 import servicedApartmentImg from "../../assets/servicedapart.jpg";
 import leaseApartmentImg from "../../assets/leaseapart.jpg";
-import residentialApartmentImg from "../../assets/banner1.jpg";
-import gatedCommunityImg from "../../assets/banner1.jpg";
-import studioApartmentImg from "../../assets/banner1.jpg";
-import duplexApartmentImg from "../../assets/banner1.jpg";
-import luxuryApartmentImg from "../../assets/banner1.jpg";
-import condominiumImg from "../../assets/banner1.jpg";
-import penthouseApartmentImg from "../../assets/banner1.jpg";
+import residentialApartmentImg from "../../assets/residentialapart.jpg";
+import gatedCommunityImg from "../../assets/gatedapart.jpg";
+import studioApartmentImg from "../../assets/studioapar.jpg";
+import duplexApartmentImg from "../../assets/duplexapar.jpg";
+import luxuryApartmentImg from "../../assets/luxuryapar.jpg";
+import condominiumImg from "../../assets/condoapar.jpg";
+import penthouseApartmentImg from "../../assets/penthouseapar.jpg";
 
 const ApartmentPage = () => {
   const navigate = useNavigate();
@@ -29,6 +29,8 @@ const ApartmentPage = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [hoveredFilter, setHoveredFilter] = useState(null);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [appliedFilters, setAppliedFilters] = useState(null);
 
   const propertyCategories = [
     { name: "Individual", path: "/individual", icon: <Building className="w-4 h-4" /> },
@@ -45,13 +47,15 @@ const ApartmentPage = () => {
       image: null,
       icon: <Home className="w-6 h-6" />,
       isAll: true,
-      subText: "Apartments"
+      displayName: "All",
+      subText: ""
     },
     { 
       name: "Rental", 
       path: "/apartment/rental-apartment", 
       image: rentalApartmentImg,
       icon: <Building className="w-5 h-5" />,
+      displayName: "Rental",
       subText: "Apartment"
     },
     { 
@@ -59,6 +63,7 @@ const ApartmentPage = () => {
       path: "/apartment/serviced-apartment", 
       image: servicedApartmentImg,
       icon: <Hotel className="w-5 h-5" />,
+      displayName: "Serviced",
       subText: "Apartment"
     },
     { 
@@ -66,6 +71,7 @@ const ApartmentPage = () => {
       path: "/apartment/lease-apartment", 
       image: leaseApartmentImg,
       icon: <Building2 className="w-5 h-5" />,
+      displayName: "Lease",
       subText: "Apartment"
     },
     { 
@@ -73,6 +79,7 @@ const ApartmentPage = () => {
       path: "/apartment/residential-apartments", 
       image: residentialApartmentImg,
       icon: <Building className="w-5 h-5" />,
+      displayName: "Residential",
       subText: "Apartment"
     },
     { 
@@ -80,13 +87,15 @@ const ApartmentPage = () => {
       path: "/apartment/gated-community-apartment", 
       image: gatedCommunityImg,
       icon: <Hotel className="w-5 h-5" />,
-      subText: "Apartment"
+      displayName: "Gated",
+      subText: "Community"
     },
     { 
       name: "Studio", 
       path: "/apartment/studio-apartment", 
       image: studioApartmentImg,
       icon: <LayoutGrid className="w-5 h-5" />,
+      displayName: "Studio",
       subText: "Apartment"
     },
     { 
@@ -94,6 +103,7 @@ const ApartmentPage = () => {
       path: "/apartment/duplex-apartment", 
       image: duplexApartmentImg,
       icon: <Grid3X3 className="w-5 h-5" />,
+      displayName: "Duplex",
       subText: "Apartment"
     },
     { 
@@ -101,6 +111,7 @@ const ApartmentPage = () => {
       path: "/apartment/luxury-apartment", 
       image: luxuryApartmentImg,
       icon: <Crown className="w-5 h-5" />,
+      displayName: "Luxury",
       subText: "Apartment"
     },
     { 
@@ -108,6 +119,7 @@ const ApartmentPage = () => {
       path: "/apartment/condominium", 
       image: condominiumImg,
       icon: <BuildingIcon className="w-5 h-5" />,
+      displayName: "Condo",
       subText: "Apartment"
     },
     { 
@@ -115,6 +127,7 @@ const ApartmentPage = () => {
       path: "/apartment/penthouse-apartment", 
       image: penthouseApartmentImg,
       icon: <Castle className="w-5 h-5" />,
+      displayName: "Penthouse",
       subText: "Apartment"
     }
   ];
@@ -183,58 +196,53 @@ const ApartmentPage = () => {
     navigate(path);
   };
 
-  // Helper function to get appropriate icon for apartment type
-  const getApartmentIcon = (typeName) => {
-    if (typeName === "All") return <Home className="w-3.5 h-3.5" />;
-    if (typeName.includes("Luxury")) return <Crown className="w-3.5 h-3.5" />;
-    if (typeName.includes("Studio")) return <LayoutGrid className="w-3.5 h-3.5" />;
-    if (typeName.includes("Duplex")) return <Grid3X3 className="w-3.5 h-3.5" />;
-    if (typeName.includes("Penthouse")) return <Castle className="w-3.5 h-3.5" />;
-    if (typeName.includes("Gated")) return <Hotel className="w-3.5 h-3.5" />;
-    return <BuildingIcon className="w-3.5 h-3.5" />;
-  };
-
   // Diamond click handler
   const handleDiamondClick = (path) => {
     navigate(path);
   };
 
+  const handleFilterChange = (filters) => {
+    setAppliedFilters(filters);
+    console.log("Applied Filters:", filters);
+  };
+
   return (
     <div className="w-full min-h-screen relative bg-gradient-to-b from-teal-50 via-white to-teal-50">
       <div className="relative z-10">
-        {/* ===================== BANNER ===================== */}
+        {/* ===================== BANNER - RESPONSIVE (same layout desktop & mobile, scaled down) ===================== */}
         <section className="relative overflow-hidden bg-[#E7EFEA]">
-          {/* Decorative top shape */}
-          <div className="absolute top-0 left-0 w-[300px] h-[110px] bg-[#D6E4DE] rounded-br-[80px]" />
+          {/* Decorative top shape - scales down on smaller screens, unchanged at lg (system view) */}
+          <div className="absolute top-0 left-0 w-[130px] h-[45px] rounded-br-[35px] sm:w-[170px] sm:h-[58px] sm:rounded-br-[50px] md:w-[210px] md:h-[72px] md:rounded-br-[60px] lg:w-[250px] lg:h-[85px] lg:rounded-br-[70px] bg-[#D6E4DE]" />
 
           <div className="max-w-[1600px] mx-auto">
-            <div className="grid lg:grid-cols-[35%_65%] min-h-[420px]">
+            {/* Always side-by-side (flex-row) at every breakpoint, same as desktop, just smaller */}
+            <div className="flex flex-row min-h-[170px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[330px]">
 
-              {/* LEFT CONTENT */}
-              <div className="flex flex-col justify-center px-8 lg:px-12 py-8 z-20">
+              {/* LEFT CONTENT - scaled down on mobile, identical at lg */}
+              <div className="flex flex-col justify-center w-[38%] sm:w-[37%] md:w-[36%] lg:w-[35%] shrink-0 px-2.5 sm:px-5 md:px-6 lg:px-10 py-2.5 sm:py-4 md:py-6 lg:py-7 z-20">
 
                 <h1 className="leading-none">
-                  <span className="block text-[36px] font-light text-[#042F2A]">
+                  <span className="block text-[11px] sm:text-[15px] md:text-[20px] lg:text-[28px] font-light text-[#042F2A]">
                     MODERN
                   </span>
 
-                  <span className="block text-[62px] font-black text-[#012D29]">
+                  <span className="block text-[16px] sm:text-[24px] md:text-[36px] lg:text-[50px] font-black text-[#012D29] leading-tight">
                     APARTMENTS
                   </span>
 
-                  <span className="block text-[38px] font-bold text-[#012D29]">
+                  <span className="block text-[12px] sm:text-[17px] md:text-[23px] lg:text-[30px] font-bold text-[#012D29] leading-tight">
                     FOR SALE
                   </span>
                 </h1>
 
-                <p className="mt-4 max-w-[380px] text-[#31544E] text-base leading-relaxed">
+                <p className="mt-1 sm:mt-2 md:mt-2.5 lg:mt-3 max-w-[120px] sm:max-w-[200px] md:max-w-[280px] lg:max-w-[340px] text-[#31544E] text-[8px] sm:text-[10px] md:text-xs lg:text-sm leading-snug lg:leading-relaxed">
                   Discover premium villas, apartments,
                   plots and commercial spaces in prime
                   locations.
                 </p>
 
                 <button
-                  className="mt-6 w-fit px-6 py-2.5 rounded-lg text-white font-bold shadow-xl text-sm"
+                  className="mt-1.5 sm:mt-2.5 md:mt-3 lg:mt-4 w-fit px-2.5 py-1 sm:px-4 sm:py-1.5 md:px-5 md:py-1.5 lg:px-6 lg:py-2 rounded-md lg:rounded-lg text-white font-bold shadow-md lg:shadow-xl text-[7px] sm:text-[9px] md:text-[11px] lg:text-sm"
                   style={{
                     background: "linear-gradient(135deg,#00695C,#26A69A)"
                   }}
@@ -243,212 +251,211 @@ const ApartmentPage = () => {
                 </button>
               </div>
 
-              {/* RIGHT COLLAGE */}
-              <div className="relative overflow-hidden">
+              {/* RIGHT COLLAGE - same composition at every size, scaled down below lg */}
+              <div className="relative overflow-hidden flex-1" style={{ aspectRatio: '16/8' }}>
                 {/* Main Building Background */}
                 <img
                   src={bannerImg}
                   alt="Building"
-                  className="absolute inset-0 w-full h-full object-cover brightness-75"
+                  className="absolute inset-0 w-full h-full object-cover object-top brightness-75"
                 />
 
                 {/* Soft overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-[#E7EFEA] via-transparent to-transparent" />
 
-                {/* DIAMOND COLLAGE - Proper implementation */}
-<div className="absolute inset-0 flex items-center justify-start pl-8 z-20">
-  <div className="relative w-[320px] h-[320px]">
+                {/* DIAMOND COLLAGE - scaled via transform, identical layout at every breakpoint */}
+                <div className="absolute inset-0 flex items-center justify-start pl-2 sm:pl-4 md:pl-6 lg:pl-7 z-20">
+                  <div className="relative w-[260px] h-[260px] scale-[0.42] sm:scale-[0.6] md:scale-[0.8] lg:scale-100 origin-left transition-transform duration-300">
 
-    {/* TOP DIAMOND - Individual */}
-    <div
-      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
-      style={{
-        width: "120px",
-        height: "120px",
-        top: "0px",
-        left: "95px",
-      }}
-      onClick={() => handleDiamondClick(bannerDiamonds[0].path)}
-    >
-      <div
-        className="relative w-full h-full overflow-hidden shadow-2xl"
-        style={{
-          transform: "rotate(45deg)",
-          borderRadius: "22px",
-          border: "4px solid rgba(255,255,255,0.85)",
-          boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
-        }}
-      >
-        <img
-          src={bannerDiamonds[0].image}
-          alt="Individual"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            transform: "rotate(-45deg) scale(1.3)",
-            transformOrigin: "center",
-          }}
-        />
-        {/* Overlay for text readability */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
-          }}
-        />
-      </div>
-      {/* Text Label - Outside the rotated container */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <span className="text-white font-bold text-[13px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] z-10">
-          Individual
-        </span>
-      </div>
-    </div>
+                    {/* TOP DIAMOND - Individual */}
+                    <div
+                      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        top: "0px",
+                        left: "80px",
+                      }}
+                      onClick={() => handleDiamondClick(bannerDiamonds[0].path)}
+                    >
+                      <div
+                        className="relative w-full h-full overflow-hidden shadow-xl"
+                        style={{
+                          transform: "rotate(45deg)",
+                          borderRadius: "18px",
+                          border: "3px solid rgba(255,255,255,0.85)",
+                          boxShadow: "0 6px 30px rgba(0,0,0,0.3)",
+                        }}
+                      >
+                        <img
+                          src={bannerDiamonds[0].image}
+                          alt="Individual"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          style={{
+                            transform: "rotate(-45deg) scale(1.3)",
+                            transformOrigin: "center",
+                          }}
+                        />
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
+                          }}
+                        />
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-white font-bold text-[11px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] z-10">
+                          Individual
+                        </span>
+                      </div>
+                    </div>
 
-    {/* LEFT DIAMOND - Commercial */}
-    <div
-      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
-      style={{
-        width: "120px",
-        height: "120px",
-        top: "95px",
-        left: "0px",
-      }}
-      onClick={() => handleDiamondClick(bannerDiamonds[1].path)}
-    >
-      <div
-        className="relative w-full h-full overflow-hidden shadow-2xl"
-        style={{
-          transform: "rotate(45deg)",
-          borderRadius: "22px",
-          border: "4px solid rgba(255,255,255,0.85)",
-          boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
-        }}
-      >
-        <img
-          src={bannerDiamonds[1].image}
-          alt="Commercial"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            transform: "rotate(-45deg) scale(1.5)",
-            transformOrigin: "center",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
-          }}
-        />
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <span className="text-white font-bold text-[13px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] z-10">
-          Commercial
-        </span>
-      </div>
-    </div>
+                    {/* LEFT DIAMOND - Commercial */}
+                    <div
+                      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        top: "80px",
+                        left: "0px",
+                      }}
+                      onClick={() => handleDiamondClick(bannerDiamonds[1].path)}
+                    >
+                      <div
+                        className="relative w-full h-full overflow-hidden shadow-xl"
+                        style={{
+                          transform: "rotate(45deg)",
+                          borderRadius: "18px",
+                          border: "3px solid rgba(255,255,255,0.85)",
+                          boxShadow: "0 6px 30px rgba(0,0,0,0.3)",
+                        }}
+                      >
+                        <img
+                          src={bannerDiamonds[1].image}
+                          alt="Commercial"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          style={{
+                            transform: "rotate(-45deg) scale(1.5)",
+                            transformOrigin: "center",
+                          }}
+                        />
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
+                          }}
+                        />
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-white font-bold text-[11px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] z-10">
+                          Commercial
+                        </span>
+                      </div>
+                    </div>
 
-    {/* RIGHT DIAMOND - Land & Plots */}
-    <div
-      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
-      style={{
-        width: "120px",
-        height: "120px",
-        top: "95px",
-        left: "190px",
-      }}
-      onClick={() => handleDiamondClick(bannerDiamonds[2].path)}
-    >
-      <div
-        className="relative w-full h-full overflow-hidden shadow-2xl"
-        style={{
-          transform: "rotate(45deg)",
-          borderRadius: "22px",
-          border: "4px solid rgba(255,255,255,0.85)",
-          boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
-        }}
-      >
-        <img
-          src={bannerDiamonds[2].image}
-          alt="Land & Plots"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            transform: "rotate(-45deg) scale(1.5)",
-            transformOrigin: "center",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
-          }}
-        />
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <span className="text-white font-bold text-[12px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] text-center leading-tight z-10">
-          Land & Plots
-        </span>
-      </div>
-    </div>
+                    {/* RIGHT DIAMOND - Land & Plots */}
+                    <div
+                      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        top: "80px",
+                        left: "160px",
+                      }}
+                      onClick={() => handleDiamondClick(bannerDiamonds[2].path)}
+                    >
+                      <div
+                        className="relative w-full h-full overflow-hidden shadow-xl"
+                        style={{
+                          transform: "rotate(45deg)",
+                          borderRadius: "18px",
+                          border: "3px solid rgba(255,255,255,0.85)",
+                          boxShadow: "0 6px 30px rgba(0,0,0,0.3)",
+                        }}
+                      >
+                        <img
+                          src={bannerDiamonds[2].image}
+                          alt="Land & Plots"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          style={{
+                            transform: "rotate(-45deg) scale(1.5)",
+                            transformOrigin: "center",
+                          }}
+                        />
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
+                          }}
+                        />
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-white font-bold text-[10px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] text-center leading-tight z-10">
+                          Land & Plots
+                        </span>
+                      </div>
+                    </div>
 
-    {/* BOTTOM DIAMOND - Hostels */}
-    <div
-      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
-      style={{
-        width: "120px",
-        height: "120px",
-        top: "190px",
-        left: "95px",
-      }}
-      onClick={() => handleDiamondClick(bannerDiamonds[3].path)}
-    >
-      <div
-        className="relative w-full h-full overflow-hidden shadow-2xl"
-        style={{
-          transform: "rotate(45deg)",
-          borderRadius: "22px",
-          border: "4px solid rgba(255,255,255,0.85)",
-          boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
-        }}
-      >
-        <img
-          src={bannerDiamonds[3].image}
-          alt="Hostels"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            transform: "rotate(-45deg) scale(1.5)",
-            transformOrigin: "center",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
-          }}
-        />
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <span className="text-white font-bold text-[13px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] z-10">
-          Hostels
-        </span>
-      </div>
-    </div>
+                    {/* BOTTOM DIAMOND - Hostels */}
+                    <div
+                      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-30"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        top: "160px",
+                        left: "80px",
+                      }}
+                      onClick={() => handleDiamondClick(bannerDiamonds[3].path)}
+                    >
+                      <div
+                        className="relative w-full h-full overflow-hidden shadow-xl"
+                        style={{
+                          transform: "rotate(45deg)",
+                          borderRadius: "18px",
+                          border: "3px solid rgba(255,255,255,0.85)",
+                          boxShadow: "0 6px 30px rgba(0,0,0,0.3)",
+                        }}
+                      >
+                        <img
+                          src={bannerDiamonds[3].image}
+                          alt="Hostels"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          style={{
+                            transform: "rotate(-45deg) scale(1.5)",
+                            transformOrigin: "center",
+                          }}
+                        />
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.05))",
+                          }}
+                        />
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-white font-bold text-[11px] tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] z-10">
+                          Hostels
+                        </span>
+                      </div>
+                    </div>
 
-  </div>
-</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
         {/* =================== END BANNER =================== */}
 
+        {/* =================== MENU - MODERATE SIZE =================== */}
         <div className="bg-gradient-to-r from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl shadow-2xl sticky top-0 z-40 border-b border-teal-200/30 transition-all duration-500">
-          <div className="max-w-none mx-auto px-6 py-4">
-            <div className="hidden md:block space-y-4">
-              <div className="flex gap-4 items-center">
+          <div className="max-w-none mx-auto px-6 py-3.5">
+            <div className="hidden md:block space-y-3.5">
+              <div className="flex gap-3.5 items-center">
                 <div className="relative">
                   <button
                     onClick={() => setOpenDropdown(openDropdown === "toggle" ? null : "toggle")}
-                    className="group relative px-4 py-2 rounded-lg text-white font-semibold text-sm flex items-center gap-2 shadow-xl hover:shadow-[0_0_30px_rgba(0,105,92,0.4)] transition-all duration-500 transform hover:scale-105 overflow-hidden"
+                    className="group relative px-3.5 py-2 rounded-lg text-white font-semibold text-sm flex items-center gap-2 shadow-xl hover:shadow-[0_0_30px_rgba(0,105,92,0.4)] transition-all duration-500 transform hover:scale-105 overflow-hidden"
                     style={{
                       background: "linear-gradient(135deg, #00695C, #26A69A)",
                       backgroundSize: "200% 200%"
@@ -456,23 +463,23 @@ const ApartmentPage = () => {
                   >
                     <div className="absolute inset-0 animate-gradient-shift-slow"></div>
                     <Home className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
-                    <span className="relative z-10">{activeButton}</span>
+                    <span className="relative z-10 text-sm">{activeButton}</span>
                     <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${openDropdown === "toggle" ? 'rotate-180' : ''} relative z-10`} />
                     <div className="absolute -inset-1 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
                   </button>
 
                   {openDropdown === "toggle" && (
-                    <div className="absolute top-full left-0 mt-2 bg-teal-50/95 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden z-50 min-w-[180px] border border-teal-200/30 animate-slide-down-fast">
+                    <div className="absolute top-full left-0 mt-2 bg-teal-50/95 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden z-50 min-w-[170px] border border-teal-200/30 animate-slide-down-fast">
                       <button
                         onClick={() => {
                           handleNavigation("/buy");
                           setActiveButton("Buy");
                           setOpenDropdown(null);
                         }}
-                        className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
+                        className="w-full px-5 py-3 text-left text-sm hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
                       >
                         <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
-                          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
+                          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
                           Buy
                         </div>
                       </button>
@@ -483,11 +490,11 @@ const ApartmentPage = () => {
                           setActiveButton("Rent");
                           setOpenDropdown(null);
                         }}
-                        className="w-full px-5 py-3.5 text-left text-base font-semibold transition-all duration-300 group"
+                        className="w-full px-5 py-3 text-left text-sm font-semibold transition-all duration-300 group"
                         style={{ color: "#00695C", backgroundColor: "#e0f2f1" }}
                       >
                         <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
-                          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
+                          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
                           Rent
                         </div>
                       </button>
@@ -498,10 +505,10 @@ const ApartmentPage = () => {
                           setActiveButton("Lease");
                           setOpenDropdown(null);
                         }}
-                        className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
+                        className="w-full px-5 py-3 text-left text-sm hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
                       >
                         <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
-                          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
+                          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
                           Lease
                         </div>
                       </button>
@@ -512,10 +519,10 @@ const ApartmentPage = () => {
                           setActiveButton("Sell");
                           setOpenDropdown(null);
                         }}
-                        className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
+                        className="w-full px-5 py-3 text-left text-sm hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
                       >
                         <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
-                          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
+                          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
                           Sell
                         </div>
                       </button>
@@ -525,18 +532,31 @@ const ApartmentPage = () => {
 
                 <div className="relative flex-1 group">
                   <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-emerald-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-                  <Search className="absolute left-3.5 top-1/2  transform -translate-y-1/2 w-4 h-4 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
+                  <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
                   <input
                     type="text"
                     placeholder="Search by city, locality, or landmark"
-                    className="w-full pl-10 pr-5 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/90 text-base focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-xl text-teal-900 placeholder-teal-400 transition-all duration-500 relative z-10 hover:shadow-2xl"
+                    className="w-full pl-9 pr-5 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/90 text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-xl text-teal-900 placeholder-teal-400 transition-all duration-500 relative z-10 hover:shadow-2xl"
                   />
-                  <MapPin className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
+                  <MapPin className="absolute right-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-teal-300 group-hover:text-emerald-500 group-hover:rotate-12 transition-all duration-300 z-10" />
                 </div>
+
+                <button
+                  onClick={() => setShowFilterModal(true)}
+                  className="group relative px-3.5 py-2 rounded-lg text-white font-semibold text-sm flex items-center gap-2 shadow-xl hover:shadow-[0_0_30px_rgba(0,105,92,0.4)] transition-all duration-500 hover:scale-105 overflow-hidden"
+                  style={{ background: "linear-gradient(135deg, #00897B, #26A69A)", backgroundSize: "200% 200%" }}
+                >
+                  <div className="absolute inset-0 animate-gradient-shift-slow rounded-lg"></div>
+                  <Filter className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+                  <span className="relative z-10 text-sm">Advanced Filters</span>
+                  {appliedFilters && (
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                  )}
+                </button>
               </div>
 
-              {/* ====== PROPERTY TYPE CATEGORIES - With "Apartment" Subtext Same Size ====== */}
-              <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 pt-2">
+              {/* ====== PROPERTY TYPE CATEGORIES - MODERATE SIZE (DESKTOP - UNCHANGED) ====== */}
+              <div className="flex flex-wrap items-center justify-center gap-3.5 md:gap-5 pt-1.5">
                 {propertyTypeCategories.map((category) => {
                   const isActive = activeApartmentType === category.name || 
                     (category.name === "All" && activeApartmentType === "All");
@@ -547,11 +567,11 @@ const ApartmentPage = () => {
                       className="group cursor-pointer flex flex-col items-center transition-all duration-300 hover:scale-105"
                       onClick={() => handlePropertyCategoryNavigation(category.path)}
                     >
-                      {/* Round Image - Slightly Reduced Size */}
+                      {/* Round Image - Moderate Size */}
                       <div 
-                        className={`relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-[3px] transition-all duration-300 shadow-md hover:shadow-lg ${
+                        className={`relative w-12 h-12 sm:w-14 sm:h-14 md:w-17 md:h-17 rounded-full overflow-hidden border-[3px] transition-all duration-300 shadow-md hover:shadow-lg ${
                           isActive 
-                            ? 'border-[#00695C] shadow-[0_0_20px_rgba(0,105,92,0.3)]' 
+                            ? 'border-[#00695C] shadow-[0_0_18px_rgba(0,105,92,0.3)]' 
                             : 'border-gray-300 hover:border-[#00695C]'
                         }`}
                       >
@@ -559,7 +579,7 @@ const ApartmentPage = () => {
                           <div className={`w-full h-full flex items-center justify-center transition-colors duration-300 ${
                             isActive ? 'bg-[#00695C]' : 'bg-gray-100 group-hover:bg-[#D1E2DB]'
                           }`}>
-                            <Home className={`w-6 h-6 md:w-7 md:h-7 transition-colors duration-300 ${
+                            <Home className={`w-5 h-5 md:w-5.5 md:h-5.5 transition-colors duration-300 ${
                               isActive ? 'text-white' : 'text-[#00695C]'
                             }`} />
                           </div>
@@ -575,18 +595,20 @@ const ApartmentPage = () => {
                         )}
                       </div>
                       
-                      {/* Label with Subtext - Both Lines Same Size */}
-                      <div className="flex flex-col items-center mt-1">
-                        <span className={`text-[9px] sm:text-[10px] md:text-xs font-semibold text-center leading-tight transition-colors duration-300 ${
+                      {/* Label - Two lines: first line displayName, second line subText */}
+                      <div className="flex flex-col items-center mt-0.5">
+                        <span className={`text-[8px] sm:text-[9px] md:text-[11px] font-semibold text-center leading-tight transition-colors duration-300 ${
                           isActive ? 'text-[#00695C]' : 'text-[#143B35] group-hover:text-[#00695C]'
                         }`}>
-                          {category.name}
+                          {category.displayName || category.name}
                         </span>
-                        <span className={`text-[9px] sm:text-[10px] md:text-xs text-center leading-tight transition-colors duration-300 ${
-                          isActive ? 'text-[#00695C]/80' : 'text-[#143B35]/60 group-hover:text-[#00695C]/80'
-                        }`}>
-                          {category.subText}
-                        </span>
+                        {category.subText && (
+                          <span className={`text-[8px] sm:text-[9px] md:text-[11px] font-semibold text-center leading-tight transition-colors duration-300 ${
+                            isActive ? 'text-[#00695C]' : 'text-[#143B35] group-hover:text-[#00695C]'
+                          }`}>
+                            {category.subText}
+                          </span>
+                        )}
                       </div>
                     </div>
                   );
@@ -594,22 +616,118 @@ const ApartmentPage = () => {
               </div>
             </div>
 
-            <div className="md:hidden space-y-4">
-              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-                {apartmentTypes.map((type) => {
-                  const isActive = activeApartmentType === type.name;
+            {/* =================== MOBILE MENU - EXACTLY LIKE RENTAL APARTMENT PAGE =================== */}
+            <div className="md:hidden space-y-3">
+              <div className="flex gap-2.5 items-center">
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === "toggle" ? null : "toggle")}
+                    className="group relative px-3.5 py-2 rounded-lg text-white font-semibold text-sm flex items-center gap-2 shadow-xl"
+                    style={{ background: "linear-gradient(135deg, #00695C, #26A69A)", backgroundSize: "200% 200%" }}
+                  >
+                    <div className="absolute inset-0 animate-gradient-shift-slow rounded-lg"></div>
+                    <Home className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+                    <span className="relative z-10 text-sm">{activeButton}</span>
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${openDropdown === "toggle" ? 'rotate-180' : ''} relative z-10`} />
+                  </button>
+
+                  {openDropdown === "toggle" && (
+                    <div className="absolute top-full left-0 mt-2 bg-teal-50/95 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden z-50 min-w-[170px] border border-teal-200/30 animate-slide-down-fast">
+                      {["Buy", "Rent", "Lease", "Sell"].map((item, idx, arr) => (
+                        <React.Fragment key={item}>
+                          <button
+                            onClick={() => { handleNavigation(`/${item.toLowerCase()}`); setActiveButton(item); setOpenDropdown(null); }}
+                            className="w-full px-5 py-3 text-left text-sm hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
+                            style={activeButton === item ? { color: "#00695C", backgroundColor: "#e0f2f1", fontWeight: 600 } : {}}
+                          >
+                            <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
+                              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"></div>
+                              {item}
+                            </div>
+                          </button>
+                          {idx < arr.length - 1 && <div className="h-px bg-gradient-to-r from-transparent via-teal-200/50 to-transparent"></div>}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="relative flex-1 group">
+                  <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-teal-400 group-hover:text-teal-600 group-hover:scale-110 transition-all duration-300 z-10" />
+                  <input
+                    type="text"
+                    placeholder="Search apartments..."
+                    className="w-full pl-9 pr-5 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/90 text-sm focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 shadow-xl text-teal-900 placeholder-teal-400 transition-all duration-500 relative z-10 hover:shadow-2xl"
+                  />
+                </div>
+
+                <button
+                  onClick={() => setShowFilterModal(true)}
+                  className="group relative px-3.5 py-2 rounded-lg text-white font-semibold text-sm flex items-center gap-2 shadow-xl flex-shrink-0"
+                  style={{ background: "linear-gradient(135deg, #00897B, #26A69A)", backgroundSize: "200% 200%" }}
+                >
+                  <div className="absolute inset-0 animate-gradient-shift-slow rounded-lg"></div>
+                  <Filter className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+                  <span className="relative z-10 hidden sm:inline text-sm">Filters</span>
+                </button>
+              </div>
+
+              {/* ====== PROPERTY TYPE CATEGORIES - SAME AS RENTAL APARTMENT PAGE ====== */}
+              <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-1 -mx-1 px-1">
+                {propertyTypeCategories.map((category) => {
+                  const isActive = activeApartmentType === category.name ||
+                    (category.name === "All" && activeApartmentType === "All");
+
                   return (
-                    <button
-                      key={type.name}
-                      onClick={() => handleNavigation(type.path, type.name)}
-                      className={`flex-shrink-0 px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-300 whitespace-nowrap ${
-                        isActive
-                          ? "bg-gradient-to-r from-teal-700 to-emerald-700 text-white shadow-lg"
-                          : "bg-gradient-to-r from-teal-600 to-teal-500 text-white/90 hover:text-white"
-                      }`}
+                    <div
+                      key={category.name}
+                      className="flex flex-col items-center flex-shrink-0 transition-transform duration-200 active:scale-95"
+                      onClick={() => handlePropertyCategoryNavigation(category.path)}
                     >
-                      {type.name}
-                    </button>
+                      {/* Round Image - Same size as RentalApartmentPage */}
+                      <div
+                        className={`relative w-9 h-9 xs:w-10 xs:h-10 rounded-full overflow-hidden border-2 transition-all duration-300 shadow-sm ${
+                          isActive
+                            ? 'border-[#00695C] shadow-[0_0_10px_rgba(0,105,92,0.3)]'
+                            : 'border-gray-300'
+                        }`}
+                      >
+                        {category.isAll ? (
+                          <div className={`w-full h-full flex items-center justify-center transition-colors duration-300 ${
+                            isActive ? 'bg-[#00695C]' : 'bg-gray-100'
+                          }`}>
+                            <Home className={`w-3.5 h-3.5 transition-colors duration-300 ${
+                              isActive ? 'text-white' : 'text-[#00695C]'
+                            }`} />
+                          </div>
+                        ) : (
+                          <>
+                            <img
+                              src={category.image}
+                              alt={category.name}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                          </>
+                        )}
+                      </div>
+
+                      {/* Label - Same as RentalApartmentPage */}
+                      <div className="flex flex-col items-center mt-0.5">
+                        <span className={`text-[7px] font-semibold text-center leading-tight whitespace-nowrap transition-colors duration-300 ${
+                          isActive ? 'text-[#00695C]' : 'text-[#143B35]'
+                        }`}>
+                          {category.displayName || category.name}
+                        </span>
+                        {category.subText && (
+                          <span className={`text-[7px] font-semibold text-center leading-tight whitespace-nowrap transition-colors duration-300 ${
+                            isActive ? 'text-[#00695C]' : 'text-[#143B35]'
+                          }`}>
+                            {category.subText}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   );
                 })}
               </div>
@@ -617,7 +735,62 @@ const ApartmentPage = () => {
           </div>
         </div>
 
-        <div className="max-w-none mx-auto px-6 py-8 lg:py-12">
+        {/* =================== FILTER MODAL =================== */}
+        {showFilterModal && (
+          <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-[120px] px-4 pb-4 bg-black/50 backdrop-blur-sm animate-fade-in">
+            <div className="relative w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+              <div className="bg-gradient-to-b from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl rounded-3xl shadow-2xl p-4 sm:p-6 border border-teal-200/30">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-bold text-teal-900 flex items-center gap-2">
+                    <Filter className="w-5 h-5 text-teal-600" />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">
+                      Advanced Filters
+                    </span>
+                  </h3>
+                  <button
+                    onClick={() => setShowFilterModal(false)}
+                    className="p-2 hover:bg-teal-100 rounded-full transition-all duration-300"
+                  >
+                    <X className="w-5 h-5 text-teal-600" />
+                  </button>
+                </div>
+
+                <div className="mb-4">
+                  <label className="text-sm font-semibold text-teal-800 mb-2 block">Price Range</label>
+                  <div className="flex gap-3">
+                    <input type="number" placeholder="Min" className="w-1/2 px-3 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-teal-500" />
+                    <input type="number" placeholder="Max" className="w-1/2 px-3 py-2 rounded-xl border-2 border-teal-200/50 bg-teal-50/80 text-sm focus:outline-none focus:border-teal-500" />
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="text-sm font-semibold text-teal-800 mb-2 block">BHK Type</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {["1 BHK", "2 BHK", "3 BHK", "4 BHK", "5+ BHK"].map((bhk) => (
+                      <label key={bhk} className="flex items-center gap-2 p-2 rounded-xl border-2 border-teal-200/50 cursor-pointer">
+                        <input type="checkbox" className="w-3.5 h-3.5 rounded border-teal-300 text-teal-600" />
+                        <span className="text-xs text-teal-800">{bhk}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-3 pt-4 border-t border-teal-200/30">
+                  <button className="flex-1 px-4 py-2 rounded-xl border-2 border-teal-200/50 text-sm font-medium text-teal-700 hover:bg-teal-50 transition-all duration-300">
+                    Clear All
+                  </button>
+                  <button className="flex-1 px-4 py-2 rounded-xl text-sm font-semibold text-white shadow-xl hover:shadow-[0_0_25px_rgba(0,105,92,0.4)] transition-all duration-300"
+                    style={{ background: "linear-gradient(135deg, #00695C, #26A69A)" }}>
+                    Apply Filters
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =================== MAIN CONTENT =================== */}
+        <div className="max-w-none mx-auto px-6 py-7 lg:py-11">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             <div className="lg:w-2/3">
               <section>
@@ -715,7 +888,7 @@ const ApartmentPage = () => {
             </div>
 
             <div className="lg:w-1/3 lg:relative">
-              <div className="lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:scrollbar-hide animate-slide-in-right">
+              <div className="lg:sticky lg:top-[110px] lg:max-h-[calc(100vh-130px)] lg:overflow-y-auto lg:scrollbar-hide animate-slide-in-right">
                 <div className="bg-gradient-to-b from-teal-50/95 via-emerald-50/95 to-teal-50/95 backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-teal-200/30 hover:shadow-[0_0_40px_rgba(0,105,92,0.2)] transition-all duration-500">
                   <h3 className="text-xl font-bold text-teal-900 mb-6 flex items-center gap-3">
                     <div className="p-2 rounded-xl bg-gradient-to-r from-teal-500/10 to-emerald-500/10 animate-pulse-slow">
@@ -889,6 +1062,13 @@ const ApartmentPage = () => {
         .animate-slide-in-right {
           animation: slide-in-right 0.5s ease-out forwards;
         }
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.3s ease-out forwards;
+        }
         .animate-rotate-slow {
           animation: spin 10s linear infinite;
         }
@@ -954,12 +1134,6 @@ const ApartmentPage = () => {
         .lg\\:custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: linear-gradient(to bottom, #004D40, #00796B);
           box-shadow: 0 0 10px rgba(0, 105, 92, 0.5);
-        }
-
-        @media (max-width: 1024px) {
-          section .relative[style*="320px"] {
-            transform: scale(0.85);
-          }
         }
       `}</style>
     </div>
