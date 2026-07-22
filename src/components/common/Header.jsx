@@ -12,6 +12,13 @@ const Header = ({ onPostPropertyClick }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("home");
+  const [mobileDropdowns, setMobileDropdowns] = useState({
+    customer: false,
+    post: false,
+    loan: false,
+    services: false,
+    customerSub: {}
+  });
   const navigate = useNavigate();
   const searchRef = useRef(null);
 
@@ -119,6 +126,40 @@ const Header = ({ onPostPropertyClick }) => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+    // Reset mobile dropdowns when closing menu
+    if (!mobileMenuOpen) {
+      setMobileDropdowns({
+        customer: false,
+        post: false,
+        loan: false,
+        services: false,
+        customerSub: {}
+      });
+    }
+  };
+
+  // Toggle mobile dropdown
+  const toggleMobileDropdown = (key) => {
+    setMobileDropdowns(prev => ({
+      ...prev,
+      [key]: !prev[key],
+      // Close other dropdowns when opening one
+      ...(key !== 'customerSub' && Object.keys(prev).reduce((acc, k) => {
+        if (k !== key && k !== 'customerSub') acc[k] = false;
+        return acc;
+      }, {}))
+    }));
+  };
+
+  // Toggle customer sub dropdown
+  const toggleCustomerSub = (key) => {
+    setMobileDropdowns(prev => ({
+      ...prev,
+      customerSub: {
+        ...prev.customerSub,
+        [key]: !prev.customerSub[key]
+      }
+    }));
   };
 
   return (
@@ -561,7 +602,7 @@ const Header = ({ onPostPropertyClick }) => {
               </form>
             </div>
             
-            <div className="px-4 pb-16">
+            <div className="px-4 pb-32">
               <button 
                 onClick={() => {
                   navigate('/');
@@ -573,127 +614,141 @@ const Header = ({ onPostPropertyClick }) => {
                 🏠 Home
               </button>
               
-              <details className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '50ms' }}>
-                <summary className="text-white font-medium py-3 cursor-pointer list-none text-sm">
-                  <div className="flex items-center justify-between">
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigate("/customer-portal");
-                        toggleMobileMenu();
-                      }}
-                      className="text-left flex-1"
-                    >
-                      🏢 Customer Portal
-                    </button>
-                    <ChevronDown className="w-3.5 h-3.5 pointer-events-none" />
+              {/* Customer Portal Mobile */}
+              <div className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '50ms' }}>
+                <div 
+                  className="flex items-center justify-between py-3 cursor-pointer"
+                  onClick={() => toggleMobileDropdown('customer')}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-medium text-sm">🏢 Customer Portal</span>
                   </div>
-                </summary>
-                <div className="pl-4 pb-2">
-                  {Object.entries(customerPortalMenu).map(([key, submenu]) => (
-                    <details key={key} className="mb-1.5">
-                      <summary className="text-white/90 text-xs py-2 capitalize cursor-pointer list-none">
-                        <div className="flex items-center justify-between">
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleCustomerPortalClick(key);
-                            }}
-                            className="text-left flex-1"
-                          >
-                            {key}
-                          </button>
-                          <ChevronDown className="w-3 h-3 pointer-events-none" />
+                  <ChevronDown className={`w-3.5 h-3.5 text-white transition-transform duration-300 ${mobileDropdowns.customer ? 'rotate-180' : ''}`} />
+                </div>
+                
+                {mobileDropdowns.customer && (
+                  <div className="pl-4 pb-2 space-y-1">
+                    {Object.entries(customerPortalMenu).map(([key, submenu]) => (
+                      <div key={key} className="border-l border-white/10 pl-3">
+                        <div 
+                          className="flex items-center justify-between py-2 cursor-pointer"
+                          onClick={() => toggleCustomerSub(key)}
+                        >
+                          <span className="text-white/90 text-sm capitalize">{key}</span>
+                          <ChevronDown className={`w-3 h-3 text-white/70 transition-transform duration-300 ${mobileDropdowns.customerSub[key] ? 'rotate-180' : ''}`} />
                         </div>
-                      </summary>
-                      <div className="pl-3">
-                        {submenu.map((item) => (
-                          <button 
-                            key={item} 
-                            onClick={() => {
-                              handleCustomerPortalClick(item.toLowerCase());
-                              toggleMobileMenu();
-                            }}
-                            className="block text-white/70 text-xs py-1.5 w-full text-left hover:text-white transition-colors"
-                          >
-                            {item}
-                          </button>
-                        ))}
+                        
+                        {mobileDropdowns.customerSub[key] && (
+                          <div className="pl-3 pb-1 space-y-1">
+                            {submenu.map((item) => (
+                              <button 
+                                key={item} 
+                                onClick={() => {
+                                  handleCustomerPortalClick(item.toLowerCase());
+                                  toggleMobileMenu();
+                                }}
+                                className="block text-white/70 text-xs py-1.5 w-full text-left hover:text-white transition-colors"
+                              >
+                                {item}
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                    </details>
-                  ))}
-                </div>
-              </details>
-              
-              <details className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '100ms' }}>
-                <summary className="text-white font-medium py-3 cursor-pointer list-none text-sm">
-                  <div className="flex items-center justify-between">
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigate("/post-property");
-                        toggleMobileMenu();
-                      }}
-                      className="text-left flex-1"
-                    >
-                      📊 Post Property
-                    </button>
-                    <ChevronDown className="w-3.5 h-3.5 pointer-events-none" />
+                    ))}
                   </div>
-                </summary>
-                <div className="pl-4 pb-2">
-                  {postPropertyMenu.map((item) => (
-                    <button
-                      key={item}
-                      onClick={() => {
-                        handlePostSubmenuClick(item);
-                        toggleMobileMenu();
-                      }}
-                      className="block text-white/90 text-xs py-2 w-full text-left hover:text-white transition-colors"
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </details>
-
-              <details className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '150ms' }}>
-                <summary className="text-white font-medium py-3 cursor-pointer list-none text-sm">
-                  <span className="flex items-center justify-between">
-                    💰 Find Loan
-                    <ChevronDown className="w-3.5 h-3.5" />
-                  </span>
-                </summary>
-                <div className="pl-4 pb-2">
-                  {loanMenu.map((item) => (
-                    <button 
-                      key={item} 
-                      className="block text-white/90 text-xs py-2 w-full text-left hover:text-white transition-colors"
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </details>
+                )}
+              </div>
               
-              <details className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '200ms' }}>
-                <summary className="text-white font-medium py-3 cursor-pointer list-none text-sm">
-                  <span className="flex items-center justify-between">
-                    🛠️ Services
-                    <ChevronDown className="w-3.5 h-3.5" />
-                  </span>
-                </summary>
-                <div className="pl-4 pb-2">
-                  {servicesMenu.map((item) => (
-                    <button 
-                      key={item} 
-                      className="block text-white/90 text-xs py-2 w-full text-left hover:text-white transition-colors"
-                    >
-                      {item}
-                    </button>
-                  ))}
+              {/* Post Property Mobile */}
+              <div className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '100ms' }}>
+                <div 
+                  className="flex items-center justify-between py-3 cursor-pointer"
+                  onClick={() => toggleMobileDropdown('post')}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-medium text-sm">📊 Post Property</span>
+                  </div>
+                  <ChevronDown className={`w-3.5 h-3.5 text-white transition-transform duration-300 ${mobileDropdowns.post ? 'rotate-180' : ''}`} />
                 </div>
-              </details>
+                
+                {mobileDropdowns.post && (
+                  <div className="pl-4 pb-2 space-y-1">
+                    {postPropertyMenu.map((item) => (
+                      <button
+                        key={item}
+                        onClick={() => {
+                          handlePostSubmenuClick(item);
+                          toggleMobileMenu();
+                        }}
+                        className="block text-white/90 text-xs py-2 w-full text-left hover:text-white transition-colors"
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Find Loan Mobile */}
+              <div className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '150ms' }}>
+                <div 
+                  className="flex items-center justify-between py-3 cursor-pointer"
+                  onClick={() => toggleMobileDropdown('loan')}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-medium text-sm">💰 Find Loan</span>
+                  </div>
+                  <ChevronDown className={`w-3.5 h-3.5 text-white transition-transform duration-300 ${mobileDropdowns.loan ? 'rotate-180' : ''}`} />
+                </div>
+                
+                {mobileDropdowns.loan && (
+                  <div className="pl-4 pb-2 space-y-1">
+                    {loanMenu.map((item) => (
+                      <button 
+                        key={item} 
+                        onClick={() => {
+                          // Navigate to loan page
+                          toggleMobileMenu();
+                        }}
+                        className="block text-white/90 text-xs py-2 w-full text-left hover:text-white transition-colors"
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              {/* Services Mobile */}
+              <div className="border-b border-white/5 animate-slide-item" style={{ animationDelay: '200ms' }}>
+                <div 
+                  className="flex items-center justify-between py-3 cursor-pointer"
+                  onClick={() => toggleMobileDropdown('services')}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-medium text-sm">🛠️ Services</span>
+                  </div>
+                  <ChevronDown className={`w-3.5 h-3.5 text-white transition-transform duration-300 ${mobileDropdowns.services ? 'rotate-180' : ''}`} />
+                </div>
+                
+                {mobileDropdowns.services && (
+                  <div className="pl-4 pb-2 space-y-1">
+                    {servicesMenu.map((item) => (
+                      <button 
+                        key={item} 
+                        onClick={() => {
+                          // Navigate to service page
+                          toggleMobileMenu();
+                        }}
+                        className="block text-white/90 text-xs py-2 w-full text-left hover:text-white transition-colors"
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               <button
                 onClick={() => {
@@ -728,25 +783,9 @@ const Header = ({ onPostPropertyClick }) => {
                 ❓ Help
               </button>
             </div>
-
-            <div className="p-4 border-t border-white/10 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#004D40]/50 to-transparent">
-              <div className="grid grid-cols-2 gap-2">
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 text-center">
-                  <div className="text-base font-bold text-white">🏠 1,234+</div>
-                  <div className="text-white/50 text-[8px] mt-0.5">Properties</div>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 text-center">
-                  <div className="text-base font-bold text-white">😊 567+</div>
-                  <div className="text-white/50 text-[8px] mt-0.5">Happy Clients</div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       )}
-
-      {/* Spacer */}
-      {/* <div className="h-[60px] md:h-[64px]"></div> */}
 
       <style jsx>{`
         @keyframes float-particle {
